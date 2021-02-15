@@ -11,8 +11,19 @@ export class SignUpComponent implements OnInit {
 
   emailHelp: string = '';
 
+
   constructor(public authService: AuthService) { }
 
+
   ngOnInit(): void { }
+
+
+  signUp(userEmail: string, userPassword: string) {
+    this.authService.signUp(userEmail, userPassword).catch(
+      error => {
+        window.alert(error.message);
+      }
+    );
+  }
 
 }

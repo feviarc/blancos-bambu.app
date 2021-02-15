@@ -20,13 +20,18 @@
             <input type="password" class="form-control" id="password" #userPassword required>
         </div>
 
-        <button 
-        class="btn btn-primary"
-        type="button"
-        (click)="authService.signUp(userEmail.value, userPassword.value)"
-        >
-            Sign Up
-        </button>
+        <div class="form-group">
+            <button 
+             class="btn btn-primary btn-block btn-lg"
+             type="button"
+             (click)="signUp(userEmail.value, userPassword.value)"
+            >
+                Sign Up
+            </button>
+        </div>
 
     </form>
+
+    <p>Already have an account? <a [routerLink]="['/sign-in']">Sign in</a></p>
+
 </div>

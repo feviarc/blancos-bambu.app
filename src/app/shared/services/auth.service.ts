@@ -30,7 +30,6 @@ export class AuthService {
           
         } else {
           console.log('Not connected');
-          
         }
       }
     );
@@ -38,17 +37,17 @@ export class AuthService {
 
 
   async forgotPassword(passwordResetEmail: string) {
-    return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
-    .then(
-      () => {
-        window.alert('Password reset email sent, please check your inbox.');
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error);
-      }
-    );
+    return this.afAuth.sendPasswordResetEmail(passwordResetEmail);
+    // .then(
+    //   () => {
+    //     window.alert('Password reset email sent, please check your inbox.');
+    //   }
+    // )
+    // .catch(
+    //   error => {
+    //     window.alert(error);
+    //   }
+    // );
   }
 
 
@@ -98,8 +97,7 @@ export class AuthService {
 
 
   async signIn(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password)
-    .then(
+    return this.afAuth.signInWithEmailAndPassword(email, password).then(
       result => {
         this.ngZone.run(
           () => {
@@ -107,19 +105,13 @@ export class AuthService {
           }
         );
         this.afsSaveUserData(result.user);
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error.message);
       }
     );
   }
 
 
   private async signInWithProvider(provider: any) {
-    return this.afAuth.signInWithPopup(provider)
-    .then(
+    return this.afAuth.signInWithPopup(provider).then(
       result => {
         this.ngZone.run(
           () => {
@@ -127,11 +119,6 @@ export class AuthService {
           }
         );
         this.afsSaveUserData(result.user);
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error);
       }
     );
   }
@@ -148,16 +135,10 @@ export class AuthService {
 
 
   async signUp(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password)
-    .then(
+    return this.afAuth.createUserWithEmailAndPassword(email, password).then(
       result => {
         this.sendVerificationMail();
         this.afsSaveUserData(result.user);
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error.message);
       }
     );
   }
