@@ -26,54 +26,41 @@ export class AuthService {
         if (user) {
           this.userData = user;
           localStorage.setItem('user', JSON.stringify(this.userData));
-          // JSON.parse(localStorage.getItem('user'));
+          console.log('Connected');
+          
+        } else {
+          console.log('Not connected');
         }
-        else {
-          localStorage.setItem('user', JSON.stringify(null));
-          // JSON.parse(localStorage.getItem('user'));
-        }
-      }
-    );
-  }
-
-
-  async authLogin(provider: any) {
-    return this.afAuth.signInWithPopup(provider)
-    .then(
-      result => {
-        this.ngZone.run(
-          () => {
-            this.router.navigate(['dashboard']);
-          }
-        );
-        this.setUserData(result.user);
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error);
       }
     );
   }
 
 
   async forgotPassword(passwordResetEmail: string) {
-    return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
-    .then(
-      () => {
-        window.alert('Password reset email sent, please check your inbox.');
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error);
-      }
-    );
+    return this.afAuth.sendPasswordResetEmail(passwordResetEmail);
+    // .then(
+    //   () => {
+    //     window.alert('Password reset email sent, please check your inbox.');
+    //   }
+    // )
+    // .catch(
+    //   error => {
+    //     window.alert(error);
+    //   }
+    // );
   }
 
 
   googleAuth() {
-    return this.authLogin(new firebase.default.auth.GoogleAuthProvider());
+    const provider = new firebase.default.auth.GoogleAuthProvider();
+    return this.signInWithProvider(provider);
+  }
+
+
+  microsoftAuth() {
+    const provider = new firebase.default.auth.OAuthProvider('microsoft.com');
+    provider.setCustomParameters({tenant: 'f90cbd89-615b-42dc-8cda-7441793ae0e4'});
+    return this.signInWithProvider(provider);
   }
 
 
@@ -96,7 +83,7 @@ export class AuthService {
   }
 
 
-  setUserData(user: any) {
+  private afsSaveUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
@@ -110,20 +97,28 @@ export class AuthService {
 
 
   async signIn(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password)
-    .then(
+    return this.afAuth.signInWithEmailAndPassword(email, password).then(
       result => {
         this.ngZone.run(
           () => {
             this.router.navigate(['dashboard']);
           }
         );
-        this.setUserData(result.user);
+        this.afsSaveUserData(result.user);
       }
-    )
-    .catch(
-      error => {
-        window.alert(error.message);
+    );
+  }
+
+
+  private async signInWithProvider(provider: any) {
+    return this.afAuth.signInWithPopup(provider).then(
+      result => {
+        this.ngZone.run(
+          () => {
+            this.router.navigate(['dashboard']);
+          }
+        );
+        this.afsSaveUserData(result.user);
       }
     );
   }
@@ -140,16 +135,10 @@ export class AuthService {
 
 
   async signUp(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password)
-    .then(
+    return this.afAuth.createUserWithEmailAndPassword(email, password).then(
       result => {
         this.sendVerificationMail();
-        this.setUserData(result.user);
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error.message);
+        this.afsSaveUserData(result.user);
       }
     );
   }
