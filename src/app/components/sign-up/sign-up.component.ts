@@ -9,7 +9,7 @@ import { AuthService } from '../../shared/services/auth.service'
 
 export class SignUpComponent implements OnInit {
 
-  emailHelp: string = '';
+  alertMessage: string = '';
 
 
   constructor(public authService: AuthService) { }
@@ -21,7 +21,8 @@ export class SignUpComponent implements OnInit {
   signUp(userEmail: string, userPassword: string) {
     this.authService.signUp(userEmail, userPassword).catch(
       error => {
-        window.alert(error.message);
+        this.alertMessage = error.message;
+        setTimeout(()=>{this.alertMessage='';}, 5000);
       }
     );
   }
