@@ -10,36 +10,34 @@ import { AuthService } from '../../shared/services/auth.service';
 
 export class SignInComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  alertMessage: string;
+  setAlertMessage: any;
+
+
+  constructor(public authService: AuthService) { 
+    this.alertMessage = '';
+    this.setAlertMessage = (error: any) => {
+      this.alertMessage = error.message;
+      setTimeout(()=>{this.alertMessage='';}, 5000);
+    };
+  }
 
 
   ngOnInit(): void { }
 
 
   signIn(userEmail: string, userPassword: string) {
-    this.authService.signIn(userEmail, userPassword).catch(
-      error => {
-        window.alert('Algo salió mal!');
-      }
-    );
+    this.authService.signIn(userEmail, userPassword).catch(this.setAlertMessage);
   }
 
 
   googleAuth() {
-    this.authService.googleAuth().catch(
-      error => {
-        window.alert('Algo salió mal con la autenticación de Google');
-      }
-    );
+    this.authService.googleAuth().catch(this.setAlertMessage);
   }
 
 
   microsoftAuth() {
-    this.authService.microsoftAuth().catch(
-      error => {
-        window.alert('Algom salió mal con la autenticación de Microsoft');
-      }
-    );
+    this.authService.microsoftAuth().catch(this.setAlertMessage);
   }
 
 }
