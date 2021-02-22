@@ -1,1 +1,32 @@
-<p>verify-email works!</p>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center">
+        <div class="col-md-8 align-self-center">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>Thank you for registering</h5>
+                <div *ngIf="authService.userData as user">
+                    <p>
+                        We have sent a confirmation email to <strong>{{ user.email }}</strong>.
+                        Please check your email and click on the link to verify your email address.
+                    </p>
+                    <div class="form-group">
+                        <button 
+                         class="btn btn-success btn-block"
+                         type="button"
+                         (click)="sendVerificationEmail()"
+                         [disabled] = "this.resendButtonDisabled"
+                        >
+                            Resend verification Email
+                        </button>
+                    </div>
+                    <button 
+                     type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="goToLogin()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="alertMessage" class="alert alert-danger fixed-bottom" role="alert">
+                {{ alertMessage }}
+            </div>
+        </div>
+    </div>
+</div>
