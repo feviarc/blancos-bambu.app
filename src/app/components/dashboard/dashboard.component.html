@@ -1,6 +1,7 @@
-<div class="container">
-    <h5>{{ authService.userData.displayName || 'Anonymous user'}}</h5>
-    <h6>{{ authService.userData.email }}</h6>
+<div class="container" *ngIf="authService.userData as user">
+    <h5 >{{ user.displayName }}</h5>
+    <h6>{{ user.email }}</h6>
+    <h6>Verified account: {{ user.emailVerified ? 'Yes' : 'No' }}</h6>
 
     <button class="btn btn-primary" (click)="authService.signOut()" >Logout</button>
 
