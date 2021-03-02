@@ -23,11 +23,6 @@ export class VerifyEmailComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  goToLogin() {
-    this.router.navigate(['sign-in']);
-  }
-
-
   sendVerificationEmail() {
     this.authService.sendVerificationMail()
     .then(

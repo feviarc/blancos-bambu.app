@@ -20,14 +20,14 @@ export class AuthService {
     public ngZone: NgZone,
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
-  ) { 
+  ) {
     this.afAuth.authState.subscribe(
       user => {
         if (user) {
           this.userData = user;
           localStorage.setItem('user', JSON.stringify(this.userData));
+          router.navigate(['dashboard']);
           console.log('Connected');
-          
         } else {
           console.log('Not connected');
         }
@@ -75,7 +75,7 @@ export class AuthService {
       user => {
         return user?.sendEmailVerification().then(
           () => {
-            this.router.navigate(['verify-email-address']);
+            console.log('Verification email sent');
           }
         );
       }
@@ -99,11 +99,7 @@ export class AuthService {
   async signIn(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password).then(
       result => {
-        this.ngZone.run(
-          () => {
-            this.router.navigate(['dashboard']);
-          }
-        );
+  
         this.afsSaveUserData(result.user);
       }
     );

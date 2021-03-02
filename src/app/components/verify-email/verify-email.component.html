@@ -19,7 +19,12 @@
                         </button>
                     </div>
                     <button 
-                     type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="goToLogin()">
+                     type="button"
+                     class="close"
+                     data-dismiss="alert"
+                     aria-label="Close" 
+                     (click)="authService.signOut()"
+                    >
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
