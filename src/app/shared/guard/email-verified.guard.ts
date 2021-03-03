@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate {
+export class EmailVerifiedGuard implements CanActivate {
 
   isGuardValidated: boolean;
 
@@ -16,20 +16,19 @@ export class AuthGuard implements CanActivate {
   constructor(
     public router: Router,
     public authService: AuthService
-  ) { 
+  ) {
     this.isGuardValidated = false;
   }
-
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.authService.isLoggedIn) {
+    if(this.authService.userData.emailVerified) {
       this.isGuardValidated = true;
     }
     else {
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['verify-email-address']);
     }
     return this.isGuardValidated;
   }
