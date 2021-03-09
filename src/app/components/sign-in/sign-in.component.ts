@@ -12,9 +12,15 @@ export class SignInComponent implements OnInit {
 
   alertMessage: string;
   setAlertMessage: any;
+  isPasswordHidden: boolean;
+  pwdInputType: string;
+  pwdInputIcon: string;
 
 
   constructor(public authService: AuthService) { 
+    this.isPasswordHidden = true;
+    this.pwdInputType = 'password';
+    this.pwdInputIcon = 'fas fa-eye';
     this.alertMessage = '';
     this.setAlertMessage = (error: any) => {
       this.alertMessage = error.message;
@@ -38,6 +44,19 @@ export class SignInComponent implements OnInit {
 
   microsoftAuth() {
     this.authService.microsoftAuth().catch(this.setAlertMessage);
+  }
+
+
+  togglePasswordVisibility() {
+    this.isPasswordHidden = !(this.isPasswordHidden);
+    if(this.isPasswordHidden) {
+      this.pwdInputType = 'password';
+      this.pwdInputIcon = 'fas fa-eye'
+    }
+    else {
+      this.pwdInputType = 'text';
+      this.pwdInputIcon = 'fas fa-eye-slash'
+    }
   }
 
 }

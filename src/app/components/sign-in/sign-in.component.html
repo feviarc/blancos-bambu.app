@@ -8,43 +8,45 @@
                 </div>
 
                 <div class="form-group input-group">
-                    <input type="password" class="form-control" placeholder="Password" #userPassword required>
+                    <input [type]="pwdInputType" class="form-control" placeholder="Password" #userPassword required>
                     <div class="input-group-append">
-                        <span class="input-group-text"><a [routerLink]="['/forgot-password']"><small>FORGOT</small></a></span>
+                        <span class="input-group-text" (click)="togglePasswordVisibility()">
+                            <i [class]="pwdInputIcon"></i>
+                        </span>
                     </div>
                 </div>
-
+                <p><a class="text-success" [routerLink]="['/forgot-password']">Forgot password?</a></p>
                 <div class="form-group">
                     <button 
                      type="button"
-                     class="btn btn-primary btn-block btn-lg"
+                     class="btn btn-success btn-block btn-lg"
                      (click)="signIn(userEmail.value, userPassword.value)"
                     >
                         Log In
                     </button>
                 </div>
-
-                <p>Don't have an account? <a [routerLink]="['/register-user']">Sign up</a></p>
+                
+                <p>Don't have an account? <a [routerLink]="['/register-user']" class="text-success">Sign up</a></p>
 
                 <div class="dropdown-divider"></div>
 
                 <div class="form-group mt-5">
                     <button 
                      type="button"
-                     class="btn btn-secondary btn-block btn-lg"
+                     class="btn btn-secondary btn-block btn-lg btn-social btn-google"
                      (click)="googleAuth()"
                     >
-                        Log in with <strong>Google</strong>
+                    <span class="fab fa-google"></span> Log in with Google
                     </button>
                 </div>
 
                 <div class="form-group">
                     <button
                      type="button"
-                     class="btn btn-secondary btn-block btn-lg"
+                     class="btn btn-secondary btn-block btn-lg btn-social btn-microsoft"
                      (click)="microsoftAuth()"
                     >
-                        Log in with <strong>Microsoft</strong>
+                    <span class="fab fa-microsoft"></span> Log in with Microsoft
                     </button>
                 </div>
 

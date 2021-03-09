@@ -2,8 +2,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { User } from './user';
 import * as firebase from 'firebase';
+import { User } from './user';
 
 
 @Injectable({
@@ -27,10 +27,7 @@ export class AuthService {
           this.userData = user;
           localStorage.setItem('user', JSON.stringify(this.userData));
           router.navigate(['dashboard']);
-          console.log('Connected');
-        } else {
-          console.log('Not connected');
-        }
+        } 
       }
     );
   }
@@ -38,16 +35,6 @@ export class AuthService {
 
   async forgotPassword(passwordResetEmail: string) {
     return this.afAuth.sendPasswordResetEmail(passwordResetEmail);
-    // .then(
-    //   () => {
-    //     window.alert('Password reset email sent, please check your inbox.');
-    //   }
-    // )
-    // .catch(
-    //   error => {
-    //     window.alert(error);
-    //   }
-    // );
   }
 
 
@@ -66,18 +53,14 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(JSON.stringify(localStorage.getItem('user')));
-    return ( user !== null && user.emailVerified !== false) ? true : false;
+    return ( user ) ? true : false;
   }
 
 
   async sendVerificationMail() {
     return this.afAuth.currentUser.then(
       user => {
-        return user?.sendEmailVerification().then(
-          () => {
-            console.log('Verification email sent');
-          }
-        );
+        return user?.sendEmailVerification();
       }
     );
   }
@@ -99,7 +82,6 @@ export class AuthService {
   async signIn(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password).then(
       result => {
-  
         this.afsSaveUserData(result.user);
       }
     );
