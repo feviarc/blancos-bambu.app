@@ -6,7 +6,10 @@
                 <div *ngIf="authService.userData as user">
                     <p>
                         We have sent a confirmation email to <strong>{{ user.email }}</strong>.
-                        Please check your email and click on the link to verify your email address.
+                        Please check your email inbox (or spam folder) and click on the link to verify your email address.
+                    </p>
+                    <p>
+                        If you didn't find the link, you can send a new verification email again.
                     </p>
                     <div class="form-group">
                         <button 
