@@ -9,10 +9,12 @@ import { AuthService } from '../../shared/services/auth.service'
 
 export class SignUpComponent implements OnInit {
 
-  alertMessage: string = '';
+  alertMessage: string;
 
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService) {
+    this.alertMessage = '';
+  }
 
 
   ngOnInit(): void { }

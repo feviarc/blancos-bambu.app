@@ -14,7 +14,10 @@ export class VerifyEmailComponent implements OnInit {
   resendButtonDisabled: boolean;
 
 
-  constructor(public authService: AuthService, public router: Router) { 
+  constructor(
+    public authService: AuthService,
+    public router: Router
+  ) { 
     this.alertMessage = '';
     this.resendButtonDisabled = false;
   }
