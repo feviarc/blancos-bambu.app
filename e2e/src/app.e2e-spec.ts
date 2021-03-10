@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('cis-auth app is running!');
+    expect(await page.getTitleText()).toEqual('bambu app is running!');
   });
 
   afterEach(async () => {

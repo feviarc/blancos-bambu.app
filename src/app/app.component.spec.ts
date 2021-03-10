@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'cis-auth'`, () => {
+  it(`should have as title 'bambu'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('cis-auth');
+    expect(app.title).toEqual('bambu');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('cis-auth app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('bambu app is running!');
   });
 });

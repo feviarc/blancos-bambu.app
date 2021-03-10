@@ -1,11 +1,5 @@
-<div class="container" *ngIf="authService.userData as user">
-    <h5 >{{ user.displayName }}</h5>
-    <h6>{{ user.email }}</h6>
-    <h6>Verified account: {{ user.emailVerified ? 'Yes' : 'No' }}</h6>
-
-    <button class="btn btn-danger" (click)="authService.signOut()" >Logout</button>
-
-    <p *ngIf="authService.userData.providerData[0].providerId==='microsoft.com'">
-        <a href="https://www.office.com/estslogout" target="_blank"><small>Sign out from your Microsoft account.</small></a>
-    </p>
+<div *ngIf="authService.userData as user">
+    <h5>{{ user.displayName }}</h5>
+    <h5>{{ user.email }}</h5>
+    <button (click)="authService.signOut()">Salir</button>
 </div>
