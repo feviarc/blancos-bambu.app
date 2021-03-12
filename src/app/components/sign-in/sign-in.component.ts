@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
+import { FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -15,6 +16,8 @@ export class SignInComponent implements OnInit {
   isPasswordHidden: boolean;
   pwdInputType: string;
   pwdInputIcon: string;
+  emailFormControl: FormControl;
+  passwordFormControl: FormControl;
 
 
   constructor(public authService: AuthService) { 
@@ -22,6 +25,16 @@ export class SignInComponent implements OnInit {
     this.pwdInputType = 'password';
     this.pwdInputIcon = 'fas fa-eye';
     this.alertMessage = '';
+
+    this.emailFormControl = new FormControl('',[
+      Validators.required,
+      Validators.email
+    ]);
+
+    this.passwordFormControl = new FormControl('',[
+      Validators.required
+    ]);
+
     this.setAlertMessage = (error: any) => {
       this.alertMessage = error.message;
       setTimeout(()=>{this.alertMessage='';}, 5000);
