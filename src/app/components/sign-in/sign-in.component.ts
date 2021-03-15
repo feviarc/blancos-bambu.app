@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -11,20 +12,17 @@ import { FormControl, Validators } from '@angular/forms';
 
 export class SignInComponent implements OnInit {
 
-  alertMessage: string;
-  setAlertMessage: any;
   isPasswordHidden: boolean;
-  pwdInputType: string;
-  pwdInputIcon: string;
   emailFormControl: FormControl;
   passwordFormControl: FormControl;
+  openSnackBar: any;
 
 
-  constructor(public authService: AuthService) { 
+  constructor(
+    public authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) { 
     this.isPasswordHidden = true;
-    this.pwdInputType = 'password';
-    this.pwdInputIcon = 'fas fa-eye';
-    this.alertMessage = '';
 
     this.emailFormControl = new FormControl('',[
       Validators.required,
@@ -35,9 +33,8 @@ export class SignInComponent implements OnInit {
       Validators.required
     ]);
 
-    this.setAlertMessage = (error: any) => {
-      this.alertMessage = error.message;
-      setTimeout(()=>{this.alertMessage='';}, 5000);
+    this.openSnackBar = (error: any) => {
+      this._snackBar.open(error.message,'CLOSE', {duration: 10000});
     };
   }
 
@@ -46,30 +43,17 @@ export class SignInComponent implements OnInit {
 
 
   signIn(userEmail: string, userPassword: string) {
-    this.authService.signIn(userEmail, userPassword).catch(this.setAlertMessage);
+    this.authService.signIn(userEmail, userPassword).catch(this.openSnackBar);
   }
 
 
   googleAuth() {
-    this.authService.googleAuth().catch(this.setAlertMessage);
+    this.authService.googleAuth().catch(this.openSnackBar);
   }
 
 
   microsoftAuth() {
-    this.authService.microsoftAuth().catch(this.setAlertMessage);
-  }
-
-
-  togglePasswordVisibility() {
-    this.isPasswordHidden = !(this.isPasswordHidden);
-    if(this.isPasswordHidden) {
-      this.pwdInputType = 'password';
-      this.pwdInputIcon = 'fas fa-eye'
-    }
-    else {
-      this.pwdInputType = 'text';
-      this.pwdInputIcon = 'fas fa-eye-slash'
-    }
+    this.authService.microsoftAuth().catch(this.openSnackBar);
   }
 
 }

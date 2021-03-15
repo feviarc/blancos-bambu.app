@@ -1,3 +1,8 @@
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .mat-card.login {
     border: 1px solid #e1e1e1;
     margin: 0 auto;
@@ -8,9 +13,4 @@
     display: block;
     margin: 2rem auto;
     width: 250px;
-}
-
-.input-container {
-    display: flex;
-    flex-direction: column;
 }

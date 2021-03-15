@@ -1,11 +1,18 @@
-<ng-container>
+<ng-container id="sign-in">
     <mat-card class="login">
         <mat-card-content>
             <img id="logo" src="../../../assets/img/logo-blancos-bambu.png">
             <div class="input-container">
                 <mat-form-field appearance="outline">
                     <mat-label>Correo electrónico</mat-label>
-                    <input type="email" matInput [formControl]="emailFormControl" placeholder="Ej. usuario@dominio.com" #userEmail>
+                    <input
+                     type="email"
+                     matInput
+                     [formControl]="emailFormControl"
+                     placeholder="Ej. usuario@dominio.com"
+                     #userEmail
+                     required
+                    >
                     <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                         El formato de correo electrónico no es <strong>valido</strong>
                     </mat-error>
@@ -17,7 +24,17 @@
             <div class="input-container">
                 <mat-form-field appearance="outline">
                     <mat-label>Contraseña</mat-label>
-                    <input [type]="pwdInputType" matInput [formControl]="passwordFormControl" placeholder="Contraseña" #userPassword>
+                    <input
+                     [type]="isPasswordHidden ? 'password' : 'text'"
+                     matInput
+                     [formControl]="passwordFormControl"
+                     placeholder="Contraseña"
+                     #userPassword
+                     required
+                    >
+                    <mat-icon matSuffix class="pointer-cursor" (click)="isPasswordHidden=!isPasswordHidden">
+                        {{isPasswordHidden ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
                     <mat-error *ngIf="passwordFormControl.hasError('required')">
                         Se <strong>requiere</strong> una contraseña
                     </mat-error>
