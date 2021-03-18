@@ -24,11 +24,13 @@ export class EmailVerifiedGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.authService.userData.emailVerified) {
-      this.isGuardValidated = true;
-    }
-    else {
-      this.router.navigate(['verify-email-address']);
+    if(this.authService.userData.emailVerified !== undefined) {
+      if(this.authService.userData.emailVerified) {
+        this.isGuardValidated = true;
+      }
+      else {
+        this.router.navigate(['verify-email-address']);
+      }
     }
     return this.isGuardValidated;
   }

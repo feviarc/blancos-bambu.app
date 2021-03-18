@@ -21,6 +21,7 @@ export class AuthService {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
   ) {
+    this.userData = {};
     this.afAuth.authState.subscribe(
       user => {
         if (user) {
