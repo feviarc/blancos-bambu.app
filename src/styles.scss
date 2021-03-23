@@ -1,8 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-    height: 100vh;
+html, body { 
+    height: 100%; 
 }
 
-div.alert {
-    margin-bottom: 0;
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+}
+
+/* Angula Material */
+/*
+- Icons
+- Lists
+- Sidenav
+- Toolbar
+*/
+
+/* Icons */
+mat-icon.pointer-cursor {
+    cursor: pointer;
+}
+
+/* Lists */
+.mat-list-item .mat-list-item-content {
+    padding: 0 !important;
+}
+
+/* Sidenav */
+mat-drawer {
+    background-color: #fafafa !important;
+    position: fixed !important;
+    width: 300px;
+}
+
+mat-drawer-content {
+    background-color: #ffffff;
+    margin-top: 64px !important;
+}
+
+/* Toolbar */
+mat-toolbar {
+    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+/* Other */
+ng-container.router-outlet-container {
+    margin-top: 300px;
 }

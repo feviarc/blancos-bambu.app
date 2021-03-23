@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './shared/services/auth.service';
 
 
 @Component({
@@ -7,8 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent { 
 
-  title = 'CIS Auth';
+  cardProfilePicture: string;
+  profilePictureURL: string;
+
+
+  constructor(public authService: AuthService) {
+    this.profilePictureURL = 'https://thispersondoesnotexist.com/image';
+    this.cardProfilePicture = `url('${this.profilePictureURL}')`;
+  }
 
 }

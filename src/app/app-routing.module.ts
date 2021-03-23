@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // Auth Components
 import { DashboardComponent } from './components/dashboard/dashboard.component';

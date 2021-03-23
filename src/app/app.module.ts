@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// Forms
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Firebase services
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -16,6 +18,10 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 // Services
 import { AuthService } from './shared/services/auth.service';
+// Angular Material
+
+import { AngularMaterialModule } from './angular-material.module';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +37,10 @@ import { AuthService } from './shared/services/auth.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularMaterialModule
   ],
   providers: [
     AuthService
