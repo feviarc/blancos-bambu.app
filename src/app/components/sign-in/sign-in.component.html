@@ -1,55 +1,57 @@
 <mat-progress-bar mode="indeterminate" color="primary" *ngIf="isLoadingData"></mat-progress-bar>
-<ng-container id="sign-in">
-    <mat-card class="login">
-        <mat-card-content>
-            <img id="logo" src="../../../assets/img/logo-blancos-bambu.png">
-            <div class="input-container">
-                <mat-form-field appearance="outline">
-                    <mat-label>Correo electrónico</mat-label>
-                    <input
-                     type="email"
-                     matInput
-                     [formControl]="emailFormControl"
-                     placeholder="Ej. usuario@dominio.com"
-                     #userEmail
-                     required
-                    >
-                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                        El formato de correo electrónico no es <strong>valido</strong>
-                    </mat-error>
-                    <mat-error *ngIf="emailFormControl.hasError('required')">
-                        Se <strong>requiere</strong> una dirección de correo electrónico
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="input-container">
-                <mat-form-field appearance="outline">
-                    <mat-label>Contraseña</mat-label>
-                    <input
-                     [type]="isPasswordHidden ? 'password' : 'text'"
-                     matInput
-                     [formControl]="passwordFormControl"
-                     placeholder="Contraseña"
-                     #userPassword
-                     required
-                    >
-                    <mat-icon matSuffix class="pointer-cursor" (click)="isPasswordHidden=!isPasswordHidden">
-                        {{isPasswordHidden ? 'visibility' : 'visibility_off'}}
-                    </mat-icon>
-                    <mat-error *ngIf="passwordFormControl.hasError('required')">
-                        Se <strong>requiere</strong> una contraseña
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <p><a [routerLink]="['/forgot-password']">¿Olvidó su contraseña?</a></p>
-            <button 
-                mat-raised-button
-                color="primary"
-                [disabled] = "emailFormControl.valid && passwordFormControl.valid ? false : true"
-                (click)="signIn(userEmail.value, userPassword.value)"
-            >
-                Entrar
-            </button>
-        </mat-card-content>
-    </mat-card>
-</ng-container>
+<div fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <ng-container id="sign-in">
+        <mat-card class="login">
+            <mat-card-content>
+                <img id="logo" src="../../../assets/img/logo-blancos-bambu.png">
+                <div class="input-container">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Correo electrónico</mat-label>
+                        <input
+                         type="email"
+                         matInput
+                         [formControl]="emailFormControl"
+                         placeholder="Ej. usuario@dominio.com"
+                         #userEmail
+                         required
+                        >
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            El formato de correo electrónico no es <strong>valido</strong>
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            Se <strong>requiere</strong> una dirección de correo electrónico
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="input-container">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input
+                         [type]="isPasswordHidden ? 'password' : 'text'"
+                         matInput
+                         [formControl]="passwordFormControl"
+                         placeholder="Contraseña"
+                         #userPassword
+                         required
+                        >
+                        <mat-icon matSuffix class="pointer-cursor" (click)="isPasswordHidden=!isPasswordHidden">
+                            {{isPasswordHidden ? 'visibility' : 'visibility_off'}}
+                        </mat-icon>
+                        <mat-error *ngIf="passwordFormControl.hasError('required')">
+                            Se <strong>requiere</strong> una contraseña
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <p><a [routerLink]="['/forgot-password']">¿Olvidó su contraseña?</a></p>
+                <button 
+                    mat-raised-button
+                    color="primary"
+                    [disabled] = "emailFormControl.valid && passwordFormControl.valid ? false : true"
+                    (click)="signIn(userEmail.value, userPassword.value)"
+                >
+                    Entrar
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>

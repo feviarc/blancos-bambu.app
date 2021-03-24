@@ -19,8 +19,8 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 // Services
 import { AuthService } from './shared/services/auth.service';
 // Angular Material
-
 import { AngularMaterialModule } from './angular-material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -40,7 +40,8 @@ import { AngularMaterialModule } from './angular-material.module';
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    FlexLayoutModule
   ],
   providers: [
     AuthService
