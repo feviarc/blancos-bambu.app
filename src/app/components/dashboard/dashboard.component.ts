@@ -9,7 +9,13 @@ import { AuthService } from '../../shared/services/auth.service';
 
 export class DashboardComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  isLoadingData: boolean;
+
+
+  constructor(public authService: AuthService) {
+    this.isLoadingData = false;
+  }
+
 
   ngOnInit(): void { }
 

@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class SignInComponent implements OnInit {
 
+  isLoadingData: boolean;
   isPasswordHidden: boolean;
   emailFormControl: FormControl;
   passwordFormControl: FormControl;
@@ -22,6 +23,7 @@ export class SignInComponent implements OnInit {
     public authService: AuthService,
     private _snackBar: MatSnackBar
   ) { 
+    this.isLoadingData = false;
     this.isPasswordHidden = true;
 
     this.emailFormControl = new FormControl('',[
@@ -43,7 +45,14 @@ export class SignInComponent implements OnInit {
 
 
   signIn(userEmail: string, userPassword: string) {
-    this.authService.signIn(userEmail, userPassword).catch(this.openSnackBar);
+    this.isLoadingData = true;
+    this.authService.signIn(userEmail, userPassword)
+     .catch(this.openSnackBar)
+     .finally(
+       () => {
+         this.isLoadingData=false;
+       }
+    );
   }
 
 
