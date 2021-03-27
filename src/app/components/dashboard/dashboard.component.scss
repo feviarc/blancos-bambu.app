@@ -1,0 +1,32 @@
+.product-card {
+    border: #e0e0e0 1px solid;
+    margin: 0.5rem;
+    max-width: 320px;
+    padding-bottom: 0;
+}
+ 
+.product-card small {
+    float: right;
+}
+
+.product-header-image {
+    background-image: url('https://www.vianney.com.mx/Content/assets/img/descargables/logoinvierno.jpg');
+    background-size: cover;
+}
+
+div#dashboard {
+    background-color: #fcf2f7;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product-card mat-chip.chip-green {
+    background-color: #28a745;
+}
+
+.product-card mat-chip.chip-amber {
+    background-color: #ffbf00;
+    color: #000000;
+}

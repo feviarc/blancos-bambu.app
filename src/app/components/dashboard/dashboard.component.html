@@ -1,104 +1,33 @@
-<ng-container class="router-outlet-container">
-    <ol>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-        <li>Pedido</li>
-    </ol>
-</ng-container>
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
+<div id="dashboard">
+    
+    <mat-card class="product-card" *ngFor="let order of activeOrders; let i = index">
+
+        <mat-card-header>
+            <div mat-card-avatar class="product-header-image"></div>
+            <mat-card-title>{{ order.product.name }}</mat-card-title>
+            <mat-card-subtitle>{{ order.reseller.name }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <mat-chip-list>
+                <mat-chip>
+                    Pedido: {{ order.amount }}
+                </mat-chip>
+                <mat-chip 
+                 selected 
+                 *ngIf="order.isInStore"
+                 [ngClass]="{
+                     'chip-green': order.amount - order.isInStore === 0,
+                     'chip-amber': order.amount - order.isInStore > 0
+                 }"
+                >
+                    En tienda: {{order.isInStore}}
+                </mat-chip>
+            </mat-chip-list>
+            <small>{{ order.date | date }}</small>
+        </mat-card-content>
+
+    </mat-card>
+    
+</div>
