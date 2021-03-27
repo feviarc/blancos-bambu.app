@@ -1,20 +1,13 @@
 <mat-drawer-container autosize *ngIf="authService.isLoggedIn">
 
     <!-- Toolbar -->
-    <mat-toolbar color="primary">
+    <mat-toolbar id="main">
         <button mat-icon-button (click)="drawer.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
         <span>Blancos BAMBÚ</span>
 
         <span class="spacer"></span>
-
-        <button mat-icon-button>
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button>
-            <mat-icon>share</mat-icon>
-        </button>
 
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
@@ -37,7 +30,7 @@
     </mat-toolbar>
 
     <!-- Sidebar -->
-    <mat-drawer #drawer mode="over">
+    <mat-drawer #drawer mode="side">
         <div id="nav-header" *ngIf="authService.userData as user">
             <mat-card>
                 <mat-card-header>
@@ -50,6 +43,12 @@
         <mat-list>
             <mat-list-item>
                 <button mat-menu-item>
+                    <mat-icon>shopping_cart</mat-icon>
+                    <span>Pedidos</span>
+                </button>
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-menu-item>
                     <mat-icon>bed</mat-icon>
                     <span>Productos</span>
                 </button>
@@ -60,6 +59,7 @@
                     <span>Vendedores</span>
                 </button>
             </mat-list-item>
+            <mat-divider></mat-divider>
             <mat-list-item>
                 <button mat-menu-item (click)="this.authService.signOut()">
                     <mat-icon>exit_to_app</mat-icon>

@@ -18,6 +18,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 // Services
 import { AuthService } from './shared/services/auth.service';
+import { FirebaseCRUDService } from './shared/services/firebase-crud.service';
 // Angular Material
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -44,7 +45,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    FirebaseCRUDService
   ],
   bootstrap: [AppComponent]
 })

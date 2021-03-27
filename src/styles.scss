@@ -14,6 +14,7 @@ body {
 - Lists
 - Sidenav
 - Toolbar
+- Other
 */
 
 /* Icons */
@@ -34,14 +35,14 @@ mat-drawer {
 }
 
 mat-drawer-content {
-    background-color: #ffffff;
     margin-top: 64px !important;
 }
 
 /* Toolbar */
-mat-toolbar {
+mat-toolbar#main {
     background-color: #3b122d !important;
     box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+    color: #ffffff;
     position: fixed;
     top: 0;
     z-index: 1;
@@ -54,10 +55,6 @@ mat-progress-bar {
 }
 
 /* Other */
-ng-container.router-outlet-container {
-    margin-top: 300px;
-}
-
 button.mat-fab.mat-primary {
     background-color: #ba007c;
     bottom: 1em;
