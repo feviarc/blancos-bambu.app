@@ -25,7 +25,7 @@
                     En tienda: {{order.isInStore}}
                 </mat-chip>
             </mat-chip-list>
-            <small>{{ order.date | date }}</small>
+            <small>{{ order.date.toLocaleDateString() }}</small>
         </mat-card-content>
 
     </mat-card>
