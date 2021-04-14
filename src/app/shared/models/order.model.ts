@@ -1,4 +1,4 @@
-export interface OrderModel {
+export interface Order {
     id: string;
     product: { id: string, brandCode?: string, name: string };
     reseller: { id: string, name: string };

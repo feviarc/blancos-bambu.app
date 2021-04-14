@@ -16,6 +16,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { AddResellerSheetComponent } from './dashboard/add-reseller-sheet/add-reseller-sheet.component';
 // Services
 import { AuthService } from './shared/services/auth.service';
 import { FirebaseCRUDService } from './shared/services/firebase-crud.service';
@@ -31,7 +32,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    AddResellerSheetComponent
   ],
   imports: [
     BrowserModule,

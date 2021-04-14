@@ -1,4 +1,4 @@
-export interface ResellerModel {
+export interface Reseller {
     id: string;
     firstName: string;
     lastNameF: string;

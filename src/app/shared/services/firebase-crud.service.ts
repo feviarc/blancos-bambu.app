@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { OrderModel } from '../models/order.model';
-import { ProductModel } from './../models/product.model';
-import { ResellerModel } from '../models/reseller.model';
+import { Order } from '../models/order.model';
+import { Product } from './../models/product.model';
+import { Reseller } from '../models/reseller.model';
 
 
 @Injectable({
@@ -10,9 +10,9 @@ import { ResellerModel } from '../models/reseller.model';
 
 export class FirebaseCRUDService {
 
-  resellers: ResellerModel[];
-  products: ProductModel[];
-  activeOrders: OrderModel[];
+  resellers: Reseller[];
+  products: Product[];
+  activeOrders: Order[];
 
   tmpDate: Date = new Date();
 
