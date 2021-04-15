@@ -11,12 +11,18 @@ body {
 
 /* Angula Material */
 /*
+- Buttons
 - Icons
 - Lists
 - Sidenav
 - Toolbar
-- Other
 */
+
+
+/* Buttons */
+button:focus {
+    outline: none;
+}
 
 /* Icons */
 mat-icon.pointer-cursor {
@@ -53,12 +59,4 @@ mat-progress-bar {
     position: fixed !important;
     top: 0px;
     z-index: 1;
-}
-
-/* Other */
-button.mat-fab.mat-primary {
-    background-color: #ba007c;
-    bottom: 1em;
-    position: fixed;
-    right: 1em;
 }
