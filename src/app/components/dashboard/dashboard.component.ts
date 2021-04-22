@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(
-    public authService: AuthService,
+    private bottomSheet: MatBottomSheet,
     public crudService: FirebaseCRUDService
   ) {
     this.isLoadingData = false;
@@ -24,5 +25,10 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void { }
+
+
+  openAddResellerSheet() {
+    this.bottomSheet.open(AddResellerSheetComponent);
+  }
 
 }

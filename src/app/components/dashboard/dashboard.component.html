@@ -25,9 +25,13 @@
                     En tienda: {{order.isInStore}}
                 </mat-chip>
             </mat-chip-list>
-            <small>{{ order.date | date }}</small>
+            <small>{{ order.date.toLocaleDateString() }}</small>
         </mat-card-content>
 
     </mat-card>
+
+    <button mat-fab color="primary" (click)="openAddResellerSheet()">
+        <mat-icon class="pointer-cursor" style="margin:0">add_shopping_cart</mat-icon>
+    </button>
     
 </div>

@@ -1,21 +1,35 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 /* You can add global styles to this file, and also import other style files */
 html, body { 
     height: 100%; 
 }
 
 body {
+    background-color: #fcf2f7;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     margin: 0;
 }
 
-/* Angula Material */
+/* Angular Material */
 /*
+- Buttons
 - Icons
 - Lists
 - Sidenav
 - Toolbar
 - Other
 */
+
+
+/* Buttons */
+button:focus {
+    outline: none;
+}
+
+button.mat-raised-button.mat-primary, button.mat-fab.mat-primary {
+    background-color: #ba007c;
+}
 
 /* Icons */
 mat-icon.pointer-cursor {
@@ -48,16 +62,14 @@ mat-toolbar#main {
     z-index: 1;
 }
 
+/* Other */
 mat-progress-bar {
     position: fixed !important;
     top: 0px;
     z-index: 1;
 }
 
-/* Other */
-button.mat-fab.mat-primary {
-    background-color: #ba007c;
-    bottom: 1em;
-    position: fixed;
-    right: 1em;
+.input-container {
+    display: flex;
+    flex-direction: column;
 }
