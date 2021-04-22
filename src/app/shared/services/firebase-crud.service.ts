@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Order } from '../models/order.model';
 import { Product } from './../models/product.model';
 import { Reseller } from '../models/reseller.model';
@@ -16,7 +17,7 @@ export class FirebaseCRUDService {
 
   tmpDate: Date = new Date();
 
-  constructor() { 
+  constructor(public afs: AngularFirestore) { 
     this.resellers = [
       
     ];
@@ -39,8 +40,15 @@ export class FirebaseCRUDService {
   }
 
 
+  addOrder() {
+    console.log('ID: ', this.afs.createId());
+    
+  }
+
+
   getActiveOrders() {
     return this.activeOrders;
   }
+
 
 }

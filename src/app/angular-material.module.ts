@@ -10,10 +10,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { A11yModule } from '@angular/cdk/a11y';
 
 
 @NgModule({
@@ -28,9 +30,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatListModule,
         MatMenuModule,
         MatProgressBarModule,
+        MatSelectModule,
         MatSidenavModule,
         MatSnackBarModule,
-        MatToolbarModule
+        MatToolbarModule,
+        A11yModule
     ],
     exports: [
         BrowserAnimationsModule,
@@ -43,9 +47,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatListModule,
         MatMenuModule,
         MatProgressBarModule,
+        MatSelectModule,
         MatSidenavModule,
         MatSnackBarModule,
-        MatToolbarModule
+        MatToolbarModule,
+        A11yModule
     ],
     providers: [ ]
 })

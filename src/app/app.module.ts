@@ -12,6 +12,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 // Auth Components
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AddResellerSheetComponent } from './components/dashboard/add-reseller-sheet/add-reseller-sheet.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -28,6 +29,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [
     AppComponent,
     DashboardComponent,
+    AddResellerSheetComponent,
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,

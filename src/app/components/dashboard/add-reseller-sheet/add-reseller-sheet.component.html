@@ -1,1 +1,57 @@
-<p>add-reseller-sheet works!</p>
+<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+  <h3>Nuevo pedido</h3>
+
+  <div class="input-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Artículo</mat-label>
+      <mat-select
+       [formControl]="productFormControl"
+       #orderProduct
+      >
+        <mat-option>Ninguno</mat-option>
+        <mat-option *ngFor="let product of products" [value]="product">{{product}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+  <p>
+    <mat-form-field id="amount" appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input 
+       matInput 
+       type="number" 
+       [formControl]="amountFormControl"
+       #orderAmount
+       min="1" 
+       max="100"
+      >
+      <span matSuffix>&nbsp;&nbsp;pzas.</span>
+    </mat-form-field>
+  </p>
+    
+  <div class="input-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Mayorista</mat-label>
+      <mat-select [formControl]="resellerFormControl" #orderReseller>
+        <mat-option>Ninguno</mat-option>
+        <mat-option *ngFor="let reseller of resellers" [value]="reseller">{{reseller}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+   
+  <div class="input-container">
+    <button
+     mat-raised-button
+     color="primary"
+     [disabled] = "
+      productFormControl.valid &&
+      amountFormControl.valid &&
+      resellerFormControl.valid
+      ? false : true"
+     (click)="add(orderProduct.value, orderAmount.value, orderReseller.value)"
+    >
+      Agregar
+    </button>
+  </div>
+  
+</div>

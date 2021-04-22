@@ -1,5 +1,5 @@
 export interface Order {
-    id: string;
+    id?: string;
     product: { id: string, brandCode?: string, name: string };
     reseller: { id: string, name: string };
     date: Date;
