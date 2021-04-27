@@ -12,15 +12,23 @@ import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service
 export class DashboardComponent implements OnInit {
 
   isLoadingData: boolean;
-  activeOrders: any;
+  orders: any;
 
 
   constructor(
     private bottomSheet: MatBottomSheet,
-    public crudService: FirebaseCRUDService
+    private crudService: FirebaseCRUDService
   ) {
-    this.isLoadingData = false;
-    this.activeOrders = crudService.getActiveOrders();
+    this.isLoadingData = true;
+    this.crudService.getActiveOrders().subscribe(
+      documents => {
+        this.orders = documents;
+        this.isLoadingData = false;
+      },
+      error => {
+        window.alert(error.message);
+      }
+    );
   }
 
 

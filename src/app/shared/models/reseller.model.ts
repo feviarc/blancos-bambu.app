@@ -15,5 +15,4 @@ export interface Reseller {
     email?: string;
     homePhone?: string;
     mobilePhone?: string;
-    orders?: string[];
 }

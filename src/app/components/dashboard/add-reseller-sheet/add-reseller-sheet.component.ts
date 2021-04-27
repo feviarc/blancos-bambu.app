@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { FirebaseCRUDService } from '../../../shared/services/firebase-crud.service';
+import { Order } from '../../../shared/models/order.model';
 
 
 @Component({
@@ -13,8 +14,8 @@ import { FirebaseCRUDService } from '../../../shared/services/firebase-crud.serv
 
 export class AddResellerSheetComponent implements OnInit {
 
-  products: string[];
-  resellers: string[];
+  products: any;
+  resellers: any;
   productFormControl: FormControl;
   amountFormControl: FormControl;
   resellerFormControl: FormControl;
@@ -22,44 +23,67 @@ export class AddResellerSheetComponent implements OnInit {
   
   constructor(
     private bottomSheetRef: MatBottomSheetRef,
-    public firebaseCRUD: FirebaseCRUDService
+    private firebaseCRUD: FirebaseCRUDService
   ) {
     this.productFormControl = new FormControl('', [
       Validators.required
     ]);
+
     this.amountFormControl = new FormControl('',[
       Validators.required,
       Validators.min(1)
     ]);
     this.amountFormControl.setValue(1);
+
     this.resellerFormControl = new FormControl('',[
       Validators.required
     ]);
 
-    this.resellers = [
-      'CINTHYA BELMAN GUZMAN',
-      'ANA VALERIA GUZMAN',
-      'MARIA DE LA LUZ LUJANO'
-    ];
-    this.products = [
-      'COBERTOR HOJARASCA KS',
-      'COBERTOR MAT APCH',
-      'COBERTOR NUUK NORDICO MAT',
-      'EDRE PINSONIC LIA MAT',
-      'EDREDON LIGERO MAGNOLIA MAT',
-      'PROTECTOR COLCHON IND',
-      'SABANA CON COBERTOR LIGERO MAT',
-      'SABANA POLAR MAT'
-    ];  
+    firebaseCRUD.getAllProducts().subscribe(
+      documents => {
+        this.products = documents;
+      }
+    );
+    
+    firebaseCRUD.getResellers().subscribe(
+      documents => {
+        this.resellers = documents;
+      }
+    );
   }
 
 
   ngOnInit(): void { }
 
 
-  add(product: string, amount: string, reseller: string) {
-    this.firebaseCRUD.addOrder();
-    this.bottomSheetRef.dismiss();
+  add(reseller: any, product: any, amount: any) {
+    const order = <Order> {
+      reseller: {
+        id: reseller.id,
+        displayName: `${reseller.firstName} ${reseller.lastNameF} ${reseller.lastNameM}`
+      },
+      product: {
+        id: product.id,
+        brandCode: product.brandCode,
+        name: product.name
+      },
+      status: {isDelivered: false, registerDate: Date.now()}, 
+      amount: amount,
+      isInStore: 0
+    };
+    
+    this.firebaseCRUD.addOrder(order)
+    .then(
+      () => {
+        window.alert(product.name);
+        this.bottomSheetRef.dismiss();
+      }
+    )
+    .catch(
+      error => {
+        window.alert(error);
+      }
+    );
   }
 
-}
+}     

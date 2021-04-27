@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { 
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreCollectionGroup
+} from '@angular/fire/firestore';
 import { Order } from '../models/order.model';
-import { Product } from './../models/product.model';
-import { Reseller } from '../models/reseller.model';
 
 
 @Injectable({
@@ -11,44 +13,58 @@ import { Reseller } from '../models/reseller.model';
 
 export class FirebaseCRUDService {
 
-  resellers: Reseller[];
-  products: Product[];
-  activeOrders: Order[];
+  private dbPath: any;
+  private productsRef: AngularFirestoreCollection;
+  private resellersRef: AngularFirestoreCollection;
+  private ordersRef: AngularFirestoreCollectionGroup;
+  
 
-  tmpDate: Date = new Date();
-
-  constructor(public afs: AngularFirestore) { 
-    this.resellers = [
-      
-    ];
-
-    this.products = [
-     
-    ];
-
-    this.activeOrders = [
-      {
-        id: 'o0001',
-        product: { id: 'p001', name: 'COBERTOR LIGERO NUUT MAT' },
-        reseller: { id: 'r001', name: 'Claudia Meza Pérez' },
-        date: this.tmpDate,
-        amount: 2,
-        isInStore: 2,
-        delivered: { status: false }
+  constructor(private db: AngularFirestore) {
+    this.dbPath = {
+      products: 'products',
+      resellers: 'resellers',
+      orders: 'orders'
+    };
+    this.productsRef = db.collection(this.dbPath.products);
+    this.resellersRef = db.collection(this.dbPath.resellers);
+    this.ordersRef = db.collectionGroup('orders', 
+      query => {
+        return query.where('status.isDelivered', '==', false).orderBy('status.registerDate','desc')
       }
-    ];
+    );
   }
 
 
-  addOrder() {
-    console.log('ID: ', this.afs.createId());
-    
+  addOrder(order: Order) {
+    order.id = this.db.createId();
+
+    const orderRef = this.db
+     .collection(this.dbPath.resellers)
+     .doc(order.reseller.id)
+     .collection(this.dbPath.orders);
+     
+    return orderRef.add(order);
   }
 
 
   getActiveOrders() {
-    return this.activeOrders;
+    return this.ordersRef.valueChanges();
+  }
+
+  
+  getAllOrders() { }
+
+
+  getAllProducts() {
+    return this.productsRef.valueChanges();
   }
 
 
+  getDeliveredOrders() { }
+
+
+  getResellers() {
+    return this.resellersRef.valueChanges();
+  }
+  
 }
