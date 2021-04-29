@@ -36,7 +36,7 @@ export class SignInComponent implements OnInit {
     ]);
 
     this.openSnackBar = (error: any) => {
-      this._snackBar.open(error.message,'CLOSE', {duration: 10000});
+      this._snackBar.open(error.message,'CERRAR');
     };
   }
 

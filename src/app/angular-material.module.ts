@@ -12,7 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav'; 
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { A11yModule } from '@angular/cdk/a11y';
@@ -53,7 +53,12 @@ import { A11yModule } from '@angular/cdk/a11y';
         MatToolbarModule,
         A11yModule
     ],
-    providers: [ ]
+    providers: [
+        {
+            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+            useValue: {duration: 10000, horizontalPosition: 'start'}
+        }
+    ]
 })
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 
@@ -17,7 +18,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private bottomSheet: MatBottomSheet,
-    private crudService: FirebaseCRUDService
+    private crudService: FirebaseCRUDService,
+    private _snackBar: MatSnackBar
   ) {
     this.isLoadingData = true;
     this.crudService.getActiveOrders().subscribe(
@@ -26,7 +28,12 @@ export class DashboardComponent implements OnInit {
         this.isLoadingData = false;
       },
       error => {
-        window.alert(error.message);
+        const _snackBarRef = this._snackBar.open('🔴 ' + error.message, 'REFRESH');
+        _snackBarRef.afterDismissed().subscribe(
+          () => {
+            window.location.href = '/';
+          }
+        );
       }
     );
   }

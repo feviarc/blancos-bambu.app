@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirebaseCRUDService } from '../../../shared/services/firebase-crud.service';
 import { Order } from '../../../shared/models/order.model';
 
@@ -23,7 +24,8 @@ export class AddResellerSheetComponent implements OnInit {
   
   constructor(
     private bottomSheetRef: MatBottomSheetRef,
-    private firebaseCRUD: FirebaseCRUDService
+    private firebaseCRUD: FirebaseCRUDService,
+    private _snackBar: MatSnackBar
   ) {
     this.productFormControl = new FormControl('', [
       Validators.required
@@ -75,13 +77,11 @@ export class AddResellerSheetComponent implements OnInit {
     this.firebaseCRUD.addOrder(order)
     .then(
       () => {
-        window.alert(product.name);
+        this._snackBar.open(
+          `🟢 Se agregó ${product.name} a la lista de pedidos.`,
+          'CERRAR'
+        );
         this.bottomSheetRef.dismiss();
-      }
-    )
-    .catch(
-      error => {
-        window.alert(error);
       }
     );
   }
