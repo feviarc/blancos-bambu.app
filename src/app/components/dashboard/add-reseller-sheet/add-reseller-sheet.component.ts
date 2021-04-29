@@ -52,6 +52,12 @@ export class AddResellerSheetComponent implements OnInit {
         this.brands = documents;
       }
     );
+
+    firebaseCRUD.getProductsByBrand('CONCORD').subscribe(
+      documents => {
+        this.products = documents;
+      }
+    );
     
     firebaseCRUD.getResellers().subscribe(
       documents => {

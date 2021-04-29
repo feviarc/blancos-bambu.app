@@ -27,14 +27,16 @@ export class FirebaseCRUDService {
       resellers: 'resellers',
       orders: 'orders'
     };
+
     this.brandsRef = db.collection(this.dbPath.brands,
       query => {
         return query.orderBy('name', 'asc');
       }
-    
     );
+
     this.productsRef = db.collection(this.dbPath.products);
     this.resellersRef = db.collection(this.dbPath.resellers);
+    
     this.ordersRef = db.collectionGroup(this.dbPath.orders, 
       query => {
         return query.where('status.isDelivered', '==', false).orderBy('status.registerDate','desc')
@@ -65,6 +67,16 @@ export class FirebaseCRUDService {
 
   getAllProducts() {
     return this.productsRef.valueChanges();
+  }
+
+
+  getProductsByBrand(brand: string) {
+    const productsRef = this.db.collection(this.dbPath.products,
+      query => {
+        return query.where('brand', '==', brand);
+      }
+    );
+    return productsRef.valueChanges();
   }
 
 
