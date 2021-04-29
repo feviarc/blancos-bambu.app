@@ -15,8 +15,10 @@ import { Order } from '../../../shared/models/order.model';
 
 export class AddResellerSheetComponent implements OnInit {
 
+  brands: any;
   products: any;
   resellers: any;
+  brandFormControl: FormControl;
   productFormControl: FormControl;
   amountFormControl: FormControl;
   resellerFormControl: FormControl;
@@ -27,6 +29,10 @@ export class AddResellerSheetComponent implements OnInit {
     private firebaseCRUD: FirebaseCRUDService,
     private _snackBar: MatSnackBar
   ) {
+    this.brandFormControl = new FormControl('',[
+      Validators.required
+    ]);
+
     this.productFormControl = new FormControl('', [
       Validators.required
     ]);
@@ -41,9 +47,9 @@ export class AddResellerSheetComponent implements OnInit {
       Validators.required
     ]);
 
-    firebaseCRUD.getAllProducts().subscribe(
+    firebaseCRUD.getBrands().subscribe(
       documents => {
-        this.products = documents;
+        this.brands = documents;
       }
     );
     
