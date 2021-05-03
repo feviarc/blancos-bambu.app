@@ -52,12 +52,6 @@ export class AddResellerSheetComponent implements OnInit {
         this.brands = documents;
       }
     );
-
-    firebaseCRUD.getProductsByBrand('CONCORD').subscribe(
-      documents => {
-        this.products = documents;
-      }
-    );
     
     firebaseCRUD.getResellers().subscribe(
       documents => {
@@ -70,7 +64,7 @@ export class AddResellerSheetComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  add(reseller: any, product: any, amount: any) {
+  add(reseller: any, product: any, brand: string, amount: any) {
     const order = <Order> {
       reseller: {
         id: reseller.id,
@@ -79,7 +73,8 @@ export class AddResellerSheetComponent implements OnInit {
       product: {
         id: product.id,
         brandCode: product.brandCode,
-        name: product.name
+        name: product.name,
+        brand: brand
       },
       status: {isDelivered: false, registerDate: Date.now()}, 
       amount: amount,
@@ -96,6 +91,18 @@ export class AddResellerSheetComponent implements OnInit {
         this.bottomSheetRef.dismiss();
       }
     );
+  }
+
+
+  loadProducts(brand: string) {
+    if(brand) {
+      this.firebaseCRUD.getProductsByBrand(brand).subscribe(
+        documents => {
+          this.products = documents;
+          this.productFormControl.setValue(this.products[0]);
+        }
+      );
+    }
   }
 
 }     

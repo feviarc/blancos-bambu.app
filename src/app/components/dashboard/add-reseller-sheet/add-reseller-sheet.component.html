@@ -7,8 +7,8 @@
       <mat-select
        [formControl]="brandFormControl"
        #Brand
+       (selectionChange)="loadProducts(Brand.value)"
       >
-        <mat-option>Ninguno</mat-option>
         <mat-option *ngFor="let brand of brands" [value]="brand.name">{{brand.name}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -22,7 +22,6 @@
        [disabled]="brandFormControl.valid ? false : true"
        #Product
       >
-        <mat-option>Ninguno</mat-option>
         <mat-option *ngFor="let product of products" [value]="product">{{product.name}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -47,7 +46,6 @@
     <mat-form-field appearance="fill">
       <mat-label>Mayorista</mat-label>
       <mat-select [formControl]="resellerFormControl" #Reseller>
-        <mat-option>Ninguno</mat-option>
         <mat-option *ngFor="let reseller of resellers" [value]="reseller">
           {{ reseller.firstName }} {{ reseller.lastNameF }} {{ reseller.lastNameM }}
         </mat-option>
@@ -60,11 +58,12 @@
      mat-raised-button
      color="primary"
      [disabled] = "
+       brandFormControl.value &&
        productFormControl.valid &&
        amountFormControl.valid &&
        resellerFormControl.valid
        ? false : true"
-     (click)="add(Reseller.value, Product.value, Amount.value)"
+     (click)="add(Reseller.value, Product.value, Brand.value, Amount.value)"
     >
       Agregar
     </button>
