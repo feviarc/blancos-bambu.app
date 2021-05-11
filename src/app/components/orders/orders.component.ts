@@ -17,9 +17,9 @@ export class OrdersComponent implements OnInit {
 
   constructor(private crudService: FirebaseCRUDService) {
     this.displayedColumns = [
+      'productAmount',
       'productName',
       'productBrand',
-      'brandCode',
       'reseller',
       'registerDate',
       'crud-icons'
@@ -29,8 +29,6 @@ export class OrdersComponent implements OnInit {
       documents => {
         this.orders = documents;
         this.isLoadingData = false;
-        console.log('OrdersComponent');
-        
       }
     );
   }

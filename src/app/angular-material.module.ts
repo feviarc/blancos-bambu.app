@@ -20,24 +20,6 @@ import { A11yModule } from '@angular/cdk/a11y';
 
 
 @NgModule({
-    imports: [
-        BrowserAnimationsModule,
-        MatBottomSheetModule,
-        MatButtonModule,
-        MatCardModule,
-        MatChipsModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatProgressBarModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSnackBarModule,
-        MatTableModule,
-        MatToolbarModule,
-        A11yModule
-    ],
     exports: [
         BrowserAnimationsModule,
         MatBottomSheetModule,

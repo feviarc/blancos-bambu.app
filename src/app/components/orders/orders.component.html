@@ -1,9 +1,13 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
 <div id="orders">
-    orders.component.html
     
-    <!-- <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+    <table mat-table [dataSource]="orders" class="mat-elevation-z8">
 
+        <ng-container matColumnDef="productAmount">
+            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+            <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+        </ng-container>
+        
         <ng-container matColumnDef="productName">
           <th mat-header-cell *matHeaderCellDef>Artículo</th>
           <td mat-cell *matCellDef="let element"> {{element.product.name}} </td>
@@ -12,11 +16,6 @@
         <ng-container matColumnDef="productBrand">
             <th mat-header-cell *matHeaderCellDef>Marca</th>
             <td mat-cell *matCellDef="let element"> {{element.product.brand}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="brandCode">
-            <th mat-header-cell *matHeaderCellDef>Código</th>
-            <td mat-cell *matCellDef="let element"> {{element.product.brandCode}} </td>
         </ng-container>
 
         <ng-container matColumnDef="reseller">
@@ -46,6 +45,6 @@
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table> -->
+    </table>
 
 </div>

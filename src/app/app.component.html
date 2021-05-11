@@ -42,9 +42,16 @@
         </div>
         <mat-list>
             <mat-list-item>
-                <button mat-menu-item>
+                <button mat-menu-item routerLink="/dashboard">
+                    <mat-icon>dashboard</mat-icon>
+                    <span>Tablero</span>
+                </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <button mat-menu-item routerLink="/orders">
                     <mat-icon>shopping_cart</mat-icon>
-                    <span>Pedidos</span>
+                    <span>Administrar Pedidos</span>
                 </button>
             </mat-list-item>
             <mat-list-item>
@@ -74,4 +81,3 @@
     
 </mat-drawer-container>
 
-<router-outlet *ngIf="!authService.isLoggedIn"></router-outlet>
