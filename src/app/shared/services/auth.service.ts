@@ -27,7 +27,7 @@ export class AuthService {
         if (user) {
           this.userData = user;
           localStorage.setItem('user', JSON.stringify(this.userData));
-          router.navigate(['dashboard']);
+          router.navigate(['/']);
         } 
       }
     );

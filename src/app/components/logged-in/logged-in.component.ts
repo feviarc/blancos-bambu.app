@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 
 @Component({
@@ -9,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 
 export class LoggedInComponent implements OnInit {
 
-  constructor() { }
+  profilePicture: string;
+  profilePictureURL: string;
+
+
+  constructor(public authService: AuthService) {
+    this.profilePictureURL = 'https://thispersondoesnotexist.com/image';
+    this.profilePicture = `url('${this.profilePictureURL}')`;
+  }
 
 
   ngOnInit(): void { }

@@ -11,16 +11,20 @@ import { OrdersComponent } from './components/orders/orders.component';
 // Guards
 import { AuthGuard } from './shared/guards/auth.guard';
 import { EmailVerifiedGuard } from './shared/guards/email-verified.guard';
+import { LoggedInComponent } from './components/logged-in/logged-in.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, EmailVerifiedGuard] },
-  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard, EmailVerifiedGuard] },
+  { path: '', redirectTo: 'logged-in/dashboard', pathMatch: 'full'},
+  { path: 'logged-in', component: LoggedInComponent, canActivate: [AuthGuard, EmailVerifiedGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'orders', component: OrdersComponent }
+    ] 
+  },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [AuthGuard] },
-  { path: 'register-user', component: SignUpComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent }
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-email-address', component: VerifyEmailComponent }
 ];
 
 @NgModule({

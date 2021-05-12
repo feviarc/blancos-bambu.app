@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from './shared/services/auth.service';
 
 
 @Component({
@@ -10,13 +9,6 @@ import { AuthService } from './shared/services/auth.service';
 
 export class AppComponent { 
 
-  cardProfilePicture: string;
-  profilePictureURL: string;
-
-
-  constructor(public authService: AuthService) {
-    this.profilePictureURL = 'https://thispersondoesnotexist.com/image';
-    this.cardProfilePicture = `url('${this.profilePictureURL}')`;
-  }
+  constructor() { }
 
 }
