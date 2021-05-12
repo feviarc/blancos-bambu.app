@@ -1,0 +1,26 @@
+div#nav-header {
+    background-image: linear-gradient(
+        to top, 
+        rgba(245, 246, 252, 0.52), 
+        rgba(117, 19, 93, 0.73)), 
+        url('../../../assets/img/sidenav-header.jpg'
+    );
+    height: 150px;
+}
+
+div#nav-header mat-card {
+    background-color: #00000000;
+    box-shadow: none;
+}
+
+div#nav-header mat-card-title, div#nav-header mat-card-subtitle {
+    color: #ffffff;
+}
+
+.header-image {
+    background-size: cover;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

@@ -25,7 +25,9 @@
                     En tienda: {{order.isInStore}}
                 </mat-chip>
             </mat-chip-list>
-            <small> {{ order.status.registerDate | date: 'd/M/yyyy, h:mm a' }} </small>
+            <mat-card-actions>
+                <small> {{ order.status.registerDate | date: 'd/M/yyyy, h:mm a' }} </small>
+            </mat-card-actions>
         </mat-card-content>
 
     </mat-card>

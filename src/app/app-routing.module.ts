@@ -1,22 +1,30 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 // Auth Components
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+// App Components
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { OrdersComponent } from './components/orders/orders.component';
+// Guards
 import { AuthGuard } from './shared/guards/auth.guard';
 import { EmailVerifiedGuard } from './shared/guards/email-verified.guard';
+import { LoggedInComponent } from './components/logged-in/logged-in.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, EmailVerifiedGuard] },
+  { path: '', redirectTo: 'logged-in/dashboard', pathMatch: 'full'},
+  { path: 'logged-in', component: LoggedInComponent, canActivate: [AuthGuard, EmailVerifiedGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'orders', component: OrdersComponent }
+    ] 
+  },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'register-user', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [AuthGuard] }
+  { path: 'verify-email-address', component: VerifyEmailComponent }
 ];
 
 @NgModule({

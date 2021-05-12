@@ -15,8 +15,10 @@ import { Order } from '../../../shared/models/order.model';
 
 export class AddResellerSheetComponent implements OnInit {
 
+  brands: any;
   products: any;
   resellers: any;
+  brandFormControl: FormControl;
   productFormControl: FormControl;
   amountFormControl: FormControl;
   resellerFormControl: FormControl;
@@ -27,6 +29,10 @@ export class AddResellerSheetComponent implements OnInit {
     private firebaseCRUD: FirebaseCRUDService,
     private _snackBar: MatSnackBar
   ) {
+    this.brandFormControl = new FormControl('',[
+      Validators.required
+    ]);
+
     this.productFormControl = new FormControl('', [
       Validators.required
     ]);
@@ -41,9 +47,9 @@ export class AddResellerSheetComponent implements OnInit {
       Validators.required
     ]);
 
-    firebaseCRUD.getAllProducts().subscribe(
+    firebaseCRUD.getBrands().subscribe(
       documents => {
-        this.products = documents;
+        this.brands = documents;
       }
     );
     
@@ -58,7 +64,7 @@ export class AddResellerSheetComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  add(reseller: any, product: any, amount: any) {
+  add(reseller: any, product: any, brand: string, amount: any) {
     const order = <Order> {
       reseller: {
         id: reseller.id,
@@ -67,7 +73,8 @@ export class AddResellerSheetComponent implements OnInit {
       product: {
         id: product.id,
         brandCode: product.brandCode,
-        name: product.name
+        name: product.name,
+        brand: brand
       },
       status: {isDelivered: false, registerDate: Date.now()}, 
       amount: amount,
@@ -84,6 +91,18 @@ export class AddResellerSheetComponent implements OnInit {
         this.bottomSheetRef.dismiss();
       }
     );
+  }
+
+
+  loadProducts(brand: string) {
+    if(brand) {
+      this.firebaseCRUD.getProductsByBrand(brand).subscribe(
+        documents => {
+          this.products = documents;
+          this.productFormControl.setValue(this.products[0]);
+        }
+      );
+    }
   }
 
 }     

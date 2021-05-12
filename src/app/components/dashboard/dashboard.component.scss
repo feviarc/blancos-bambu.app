@@ -6,14 +6,20 @@ button.mat-fab.mat-primary {
 
 .product-card {
     border: #e0e0e0 1px solid;
+    height: 160px;
     margin: 0.5rem;
-    max-width: 320px;
+    width: 320px;
     padding-bottom: 0;
 }
- 
-.product-card small {
-    float: right;
+
+.product-card mat-card-actions {
+    bottom: -5px;
+    position: absolute;
+    right: 20px;
 }
+// .product-card small {
+//     float: right;
+// }
 
 .product-header-image {
     background-image: url('https://www.vianney.com.mx/Content/assets/img/descargables/logoinvierno.jpg');

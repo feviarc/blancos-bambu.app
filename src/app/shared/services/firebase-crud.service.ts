@@ -14,6 +14,7 @@ import { Order } from '../models/order.model';
 export class FirebaseCRUDService {
 
   private dbPath: any;
+  private brandsRef: AngularFirestoreCollection;
   private productsRef: AngularFirestoreCollection;
   private resellersRef: AngularFirestoreCollection;
   private ordersRef: AngularFirestoreCollectionGroup;
@@ -21,13 +22,22 @@ export class FirebaseCRUDService {
 
   constructor(private db: AngularFirestore) {
     this.dbPath = {
+      brands: 'brands',
       products: 'products',
       resellers: 'resellers',
       orders: 'orders'
     };
+
+    this.brandsRef = db.collection(this.dbPath.brands,
+      query => {
+        return query.orderBy('name', 'asc');
+      }
+    );
+
     this.productsRef = db.collection(this.dbPath.products);
     this.resellersRef = db.collection(this.dbPath.resellers);
-    this.ordersRef = db.collectionGroup('orders', 
+    
+    this.ordersRef = db.collectionGroup(this.dbPath.orders, 
       query => {
         return query.where('status.isDelivered', '==', false).orderBy('status.registerDate','desc')
       }
@@ -57,6 +67,21 @@ export class FirebaseCRUDService {
 
   getAllProducts() {
     return this.productsRef.valueChanges();
+  }
+
+
+  getProductsByBrand(brand: string) {
+    const productsRef = this.db.collection(this.dbPath.products,
+      query => {
+        return query.where('brand', '==', brand);
+      }
+    );
+    return productsRef.valueChanges();
+  }
+
+
+  getBrands() {
+    return this.brandsRef.valueChanges();
   }
 
 

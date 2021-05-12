@@ -23,6 +23,8 @@ import { FirebaseCRUDService } from './shared/services/firebase-crud.service';
 // Angular Material
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { OrdersComponent } from './components/orders/orders.component';
+import { LoggedInComponent } from './components/logged-in/logged-in.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SignUpComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
+    OrdersComponent,
+    LoggedInComponent,
   ],
   imports: [
     BrowserModule,
