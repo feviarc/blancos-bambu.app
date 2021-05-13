@@ -1,44 +1,43 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
 <div id="orders">
     
-    <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="productAmount">
-            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+        <ng-container matColumnDef="registerDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+            <td mat-cell *matCellDef="let element"> {{element.registerDate | date: 'd/M/yyyy, h:mm a'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="resellerDisplayName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mayorista</th>
+            <td mat-cell *matCellDef="let element"> {{element.resellerDisplayName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Artículo</th>
+            <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+          </ng-container>
+  
+        <ng-container matColumnDef="productBrand">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+            <td mat-cell *matCellDef="let element"> {{element.productBrand}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
             <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
         </ng-container>
-        
-        <ng-container matColumnDef="productName">
-          <th mat-header-cell *matHeaderCellDef>Artículo</th>
-          <td mat-cell *matCellDef="let element"> {{element.product.name}} </td>
+
+        <ng-container matColumnDef="isInStore">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>En tienda</th>
+            <td mat-cell *matCellDef="let element"> {{element.isInStore}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="productBrand">
-            <th mat-header-cell *matHeaderCellDef>Marca</th>
-            <td mat-cell *matCellDef="let element"> {{element.product.brand}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="reseller">
-            <th mat-header-cell *matHeaderCellDef>Mayorista</th>
-            <td mat-cell *matCellDef="let element"> {{element.reseller.displayName}} </td>
-        </ng-container>
-       
-        <ng-container matColumnDef="registerDate">
-            <th mat-header-cell *matHeaderCellDef>Fecha</th>
-            <td mat-cell *matCellDef="let element"> {{element.status.registerDate | date: 'd/M/yyyy, h:mm a'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="crud-icons">
+        <ng-container matColumnDef="icons">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <button mat-mini-fab color="primary">
                     <mat-icon>local_shipping</mat-icon>
-                </button>
-                <button mat-mini-fab color="primary">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn">
-                    <mat-icon>delete</mat-icon>
                 </button>
             </td>
         </ng-container>
