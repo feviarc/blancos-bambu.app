@@ -1,42 +1,61 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
+
 <div id="orders">
     
     <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="registerDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-            <td mat-cell *matCellDef="let element"> {{element.registerDate | date: 'd/M/yyyy, h:mm a'}} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.registerDate | date: 'd/M/yyyy, h:mm a' }} </td>
         </ng-container>
 
         <ng-container matColumnDef="resellerDisplayName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Mayorista</th>
-            <td mat-cell *matCellDef="let element"> {{element.resellerDisplayName}} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.resellerDisplayName }} </td>
         </ng-container>
 
         <ng-container matColumnDef="productName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Artículo</th>
-            <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.productName }} </td>
           </ng-container>
   
         <ng-container matColumnDef="productBrand">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
-            <td mat-cell *matCellDef="let element"> {{element.productBrand}} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.productBrand }} </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
-            <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+            <td mat-cell *matCellDef="let element"> {{ element.amount }} </td>
         </ng-container>
 
         <ng-container matColumnDef="isInStore">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>En tienda</th>
-            <td mat-cell *matCellDef="let element"> {{element.isInStore}} </td>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field id="is-in-store" appearance="outline">
+                    <input
+                     value="{{element.isInStore}}"
+                     matInput 
+                     type="number"
+                     min="0" 
+                     max="{{element.amount}}"
+                     #isInStore
+                    >
+                </mat-form-field>
+                &nbsp;
+                <mat-icon
+                 *ngIf="isInStore.value!=element.isInStore"
+                 color="primary"
+                >
+                    save
+                </mat-icon>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="icons">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab color="primary">
+                <button mat-mini-fab color="primary" [disabled]='element.isInStore==0 ? true : false'>
                     <mat-icon>local_shipping</mat-icon>
                 </button>
             </td>

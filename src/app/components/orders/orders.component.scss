@@ -10,7 +10,14 @@ button.mat-mini-fab {
     margin-right: 1rem;
 }
 
+mat-form-field#is-in-store {
+    width: 60px;
+}
+
+mat-form-field#is-in-store input {
+    font-size: 1.3rem;
+}
+
 div#orders {
     background-color: #fcf2f7;
 }
-

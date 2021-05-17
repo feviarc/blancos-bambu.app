@@ -19,6 +19,26 @@ export class OrdersComponent implements OnInit {
 
 
   constructor(private crudService: FirebaseCRUDService) {
+    this.isLoadingData = true;
+
+    const ordersMapping = (order:any) => {
+      return {
+        orderID: order.id,
+        resellerID: order.reseller.id,
+        resellerDisplayName: order.reseller.displayName,
+        productID: order.product.id,
+        productBrandCode: order.product.brandCode,
+        productName: order.product.name,
+        productBrand: order.product.brand,
+        isDelivered: order.status.isDelivered,
+        registerDate: order.status.registerDate,
+        deliveryDate: order.status.deliveryDate,
+        amount: order.amount,
+        isInStore: order.isInStore,
+        comments: order.comments
+      };
+    }
+
     this.displayedColumns = [
       'registerDate',
       'resellerDisplayName',
@@ -28,28 +48,10 @@ export class OrdersComponent implements OnInit {
       'isInStore',
       'icons'
     ];
-    this.isLoadingData = true;
+
     this.crudService.getActiveOrders().subscribe(
       documents => {
-        const orders = documents.map(
-          (order) => {
-            return {
-              orderID: order.id,
-              resellerID: order.reseller.id,
-              resellerDisplayName: order.reseller.displayName,
-              productID: order.product.id,
-              productBrandCode: order.product.brandCode,
-              productName: order.product.name,
-              productBrand: order.product.brand,
-              isDelivered: order.status.isDelivered,
-              registerDate: order.status.registerDate,
-              deliveryDate: order.status.deliveryDate,
-              amount: order.amount,
-              isInStore: order.isInStore,
-              comments: order.coments
-            };
-          }
-        );
+        const orders = documents.map(ordersMapping);
         this.dataSource = new MatTableDataSource(orders);
         this.dataSource.sort = this.sort;
         this.isLoadingData = false;

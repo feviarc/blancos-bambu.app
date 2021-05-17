@@ -27,7 +27,9 @@ button:focus {
     outline: none;
 }
 
-button.mat-raised-button.mat-primary, button.mat-fab.mat-primary {
+button.mat-raised-button.mat-primary,
+button.mat-fab.mat-primary,
+button.mat-mini-fab.mat-primary {
     background-color: #ba007c;
 }
 
@@ -60,6 +62,15 @@ mat-toolbar#main {
     position: fixed;
     top: 0;
     z-index: 1;
+}
+
+/* Table */
+table .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 0 5px 0 !important;
+}
+
+table .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 0 -20px 0 !important;
 }
 
 /* Other */
