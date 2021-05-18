@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
@@ -22,6 +23,11 @@ export class OrdersComponent implements OnInit {
     this.isLoadingData = true;
 
     const ordersMapping = (order:any) => {
+      const isInStoreFormControl = new FormControl('',[
+        Validators.min(0),
+        Validators.max(order.amount)
+      ]);
+      isInStoreFormControl.setValue(order.isInStore);
       return {
         orderID: order.id,
         resellerID: order.reseller.id,
@@ -35,7 +41,8 @@ export class OrdersComponent implements OnInit {
         deliveryDate: order.status.deliveryDate,
         amount: order.amount,
         isInStore: order.isInStore,
-        comments: order.comments
+        comments: order.comments,
+        isInStoreFormControl: isInStoreFormControl
       };
     }
 
@@ -61,5 +68,10 @@ export class OrdersComponent implements OnInit {
 
 
   ngOnInit(): void { }
+
+
+  updateOrder(order: any, isInStore: string) {
+    console.log(isInStore);
+  }
 
 }
