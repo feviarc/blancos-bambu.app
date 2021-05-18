@@ -7,7 +7,8 @@ export interface Order {
     product: {
         id: string,
         brandCode?: string,
-        name: string
+        name: string,
+        brand: string
     };
     status: {
         isDelivered: boolean, 
