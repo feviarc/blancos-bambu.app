@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private bottomSheet: MatBottomSheet,
     private crudService: FirebaseCRUDService,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
     this.isLoadingData = true;
     this.crudService.getActiveOrders().subscribe(
@@ -28,8 +28,8 @@ export class DashboardComponent implements OnInit {
         this.isLoadingData = false;
       },
       error => {
-        const _snackBarRef = this._snackBar.open('🔴 ' + error.message, 'REFRESH');
-        _snackBarRef.afterDismissed().subscribe(
+        const snackBarRef = this.snackBar.open(`🔴 Estamos tratando de conectarnos a la base de datos. [ ${error.code} ]`);
+        snackBarRef.afterDismissed().subscribe(
           () => {
             window.location.href = '/';
           }

@@ -27,7 +27,7 @@ export class AddResellerSheetComponent implements OnInit {
   constructor(
     private bottomSheetRef: MatBottomSheetRef,
     private firebaseCRUD: FirebaseCRUDService,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
     this.brandFormControl = new FormControl('',[
       Validators.required
@@ -84,7 +84,7 @@ export class AddResellerSheetComponent implements OnInit {
     this.firebaseCRUD.addOrder(order)
     .then(
       () => {
-        this._snackBar.open(
+        this.snackBar.open(
           `🟢 Se agregó ${product.name} a la lista de pedidos.`,
           'CERRAR'
         );

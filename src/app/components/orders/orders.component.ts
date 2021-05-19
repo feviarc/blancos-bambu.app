@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
@@ -19,7 +20,10 @@ export class OrdersComponent implements OnInit {
   @ViewChild(MatSort) sort: any;
 
 
-  constructor(private crudService: FirebaseCRUDService) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private crudService: FirebaseCRUDService
+  ) {
     this.isLoadingData = true;
 
     const ordersMapping = (order:any) => {
@@ -71,7 +75,23 @@ export class OrdersComponent implements OnInit {
 
 
   updateIsInStoreProperty(order: any, isInStore: string) {
-    this.crudService.orderUpdate(order.id, order.resellerID, {isInStore: +isInStore});
+    this.crudService.orderUpdate(order.id, order.resellerID, {isInStore: +isInStore})
+    .then(
+      () => {
+        this.snackBar.open(
+          `🟢 Se actualizó ${order.productName}`,
+          'CERRAR'
+        );
+      }
+    )
+    .catch(
+      error => {
+        this.snackBar.open(
+          `🔴 No fue posible actualizar ${order.productName}`,
+          'CERRAR'
+        );
+      }
+    );
   }
 
 }
