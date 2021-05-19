@@ -29,7 +29,7 @@ export class OrdersComponent implements OnInit {
       ]);
       isInStoreFormControl.setValue(order.isInStore);
       return {
-        orderID: order.id,
+        id: order.id,
         resellerID: order.reseller.id,
         resellerDisplayName: order.reseller.displayName,
         productID: order.product.id,
@@ -70,8 +70,8 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  updateOrder(order: any, isInStore: string) {
-    console.log(isInStore);
+  updateIsInStoreProperty(order: any, isInStore: string) {
+    this.crudService.orderUpdate(order.id, order.resellerID, {isInStore: +isInStore});
   }
 
 }

@@ -46,7 +46,7 @@
                 <mat-icon
                  *ngIf="isInStore.value!=element.isInStore && element.isInStoreFormControl.valid"
                  color="primary"
-                 (click)="updateOrder(element, isInStore.value)"
+                 (click)="updateIsInStoreProperty(element, isInStore.value)"
                 >
                     save
                 </mat-icon>

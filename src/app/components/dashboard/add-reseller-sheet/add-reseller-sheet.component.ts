@@ -77,7 +77,7 @@ export class AddResellerSheetComponent implements OnInit {
         brand: brand
       },
       status: {isDelivered: false, registerDate: Date.now()}, 
-      amount: amount,
+      amount: +amount,
       isInStore: 0
     };
     
