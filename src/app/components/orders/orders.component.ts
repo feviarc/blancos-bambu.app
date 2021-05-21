@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { animate, state, style, transition, trigger} from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -9,13 +10,21 @@ import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 
 export class OrdersComponent implements OnInit {
 
   dataSource: any;
-  displayedColumns: string[];
+  tableColumns: string[];
+  expandedElement: any;
   isLoadingData: boolean;
   @ViewChild(MatSort) sort: any;
 
@@ -25,6 +34,17 @@ export class OrdersComponent implements OnInit {
     private crudService: FirebaseCRUDService
   ) {
     this.isLoadingData = true;
+
+    this.tableColumns = [
+      'unfoldIcon',
+      'registerDate',
+      'resellerDisplayName',
+      'productName',
+      'productBrand',
+      'amount',
+      'isInStore',
+      'deliveryButton'
+    ];
 
     const ordersMapping = (order:any) => {
       const isInStoreFormControl = new FormControl('',[
@@ -49,17 +69,7 @@ export class OrdersComponent implements OnInit {
         isInStoreFormControl: isInStoreFormControl
       };
     }
-
-    this.displayedColumns = [
-      'registerDate',
-      'resellerDisplayName',
-      'productName',
-      'productBrand',
-      'amount',
-      'isInStore',
-      'icons'
-    ];
-
+    
     this.crudService.getActiveOrders().subscribe(
       documents => {
         const orders = documents.map(ordersMapping);
@@ -74,8 +84,8 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  updateIsInStoreProperty(order: any, isInStore: string) {
-    this.crudService.orderUpdate(order.id, order.resellerID, {isInStore: +isInStore})
+  updateIsInStoreProperty(order: any, isInStore: number) {
+    this.crudService.orderUpdate(order, {isInStore: isInStore})
     .then(
       () => {
         this.snackBar.open(

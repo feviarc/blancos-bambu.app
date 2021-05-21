@@ -94,12 +94,12 @@ export class FirebaseCRUDService {
   }
 
 
-  orderUpdate(orderID: string, resellerID: string, updatedProperty: any) {
+  orderUpdate(order: any, updatedProperty: any) {
     const orderRef = this.db
      .collection(this.dbPath.resellers)
-     .doc(resellerID)
+     .doc(order.resellerID)
      .collection(this.dbPath.orders)
-     .doc(orderID);
+     .doc(order.id);
      
     return orderRef.update(updatedProperty);
   }

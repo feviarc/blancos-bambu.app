@@ -2,35 +2,54 @@
 
 <div id="orders">
     
-    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+    <table 
+     mat-table
+     matSort
+     multiTemplateDataRows
+     [dataSource]="dataSource"
+     class="mat-elevation-z8"
+    >
+
+        <ng-container matColumnDef="unfoldIcon">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon
+                 (click)="expandedElement = expandedElement === element ? null : element"
+                >
+                    unfold_more
+                </mat-icon>
+            </td>
+        </ng-container>
 
         <ng-container matColumnDef="registerDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-            <td mat-cell *matCellDef="let element"> {{ element.registerDate | date: 'd/M/yyyy, h:mm a' }} </td>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.registerDate | date: 'd/M/yyyy, h:mm a' }}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="resellerDisplayName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mayorista</th>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Mayorista</th>
             <td mat-cell *matCellDef="let element"> {{ element.resellerDisplayName }} </td>
         </ng-container>
 
         <ng-container matColumnDef="productName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Artículo</th>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Artículo</th>
             <td mat-cell *matCellDef="let element"> {{ element.productName }} </td>
           </ng-container>
   
         <ng-container matColumnDef="productBrand">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Marca</th>
             <td mat-cell *matCellDef="let element"> {{ element.productBrand }} </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Cantidad</th>
             <td mat-cell *matCellDef="let element"> {{ element.amount }} </td>
         </ng-container>
 
         <ng-container matColumnDef="isInStore">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>En tienda</th>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>En tienda</th>
             <td mat-cell *matCellDef="let element">
                 <mat-form-field id="is-in-store" appearance="outline">
                     <input
@@ -46,18 +65,19 @@
                 <mat-icon
                  *ngIf="isInStore.value!=element.isInStore && element.isInStoreFormControl.valid"
                  color="primary"
-                 (click)="updateIsInStoreProperty(element, isInStore.value)"
+                 (click)="updateIsInStoreProperty(element, +isInStore.value)"
                 >
                     save
                 </mat-icon>
             </td>
         </ng-container>
 
-        <ng-container matColumnDef="icons">
+        <ng-container matColumnDef="deliveryButton">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <button 
-                 mat-mini-fab color="primary" 
+                 mat-mini-fab
+                 color="primary" 
                  [disabled]='
                     !element.isInStoreFormControl.valid
                     || element.isInStoreFormControl.value != element.isInStore
@@ -70,8 +90,30 @@
             </td>
         </ng-container>
       
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="tableColumns.length">
+                <div 
+                 class="element-detail"
+                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                >
+                    <div class="element-description">
+                        ...
+
+                        
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+
+        <tr mat-row *matRowDef="let element; columns: tableColumns;"
+         class="element-row"
+         [class.expanded-row]="expandedElement === element"
+        >
+        </tr>
+
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
 
 </div>

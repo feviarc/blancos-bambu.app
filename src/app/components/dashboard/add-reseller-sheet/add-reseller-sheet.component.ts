@@ -23,7 +23,7 @@ export class AddResellerSheetComponent implements OnInit {
   amountFormControl: FormControl;
   resellerFormControl: FormControl;
 
-  
+
   constructor(
     private bottomSheetRef: MatBottomSheetRef,
     private firebaseCRUD: FirebaseCRUDService,
@@ -65,7 +65,7 @@ export class AddResellerSheetComponent implements OnInit {
 
 
   add(reseller: any, product: any, brand: string, amount: any) {
-    const order = <Order> {
+    const order = {
       reseller: {
         id: reseller.id,
         displayName: `${reseller.firstName} ${reseller.lastNameF} ${reseller.lastNameM}`
