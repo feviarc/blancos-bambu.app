@@ -20,7 +20,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'orders', component: OrdersComponent }
-    ] 
+    ]
   },
   { path: 'sign-in', component: SignInComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },

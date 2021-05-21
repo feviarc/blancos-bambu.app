@@ -1,3 +1,12 @@
+button.mat-mini-fab {
+    margin-right: 1rem;
+}
+
+div#orders {
+    background-color: #fcf2f7;
+}
+
+/* MatTable */
 table.mat-table {
     width: 100%;
 }
@@ -6,12 +15,16 @@ td mat-icon {
     cursor: pointer;
 }
 
+th.mat-sort-header {
+    font-size: 1rem;
+}
+
 tr:hover {
     background-color: #f5f5f5;
 }
 
-button.mat-mini-fab {
-    margin-right: 1rem;
+tr.mat-row, tr.mat-header-row {
+    height: 65px;
 }
 
 mat-form-field#is-in-store {
@@ -22,6 +35,33 @@ mat-form-field#is-in-store input {
     font-size: 1.3rem;
 }
 
-div#orders {
-    background-color: #fcf2f7;
+/* Expandable Rows */
+td.cdk-column-expandedDetail:hover {
+  background-color: white;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.element-description {
+  padding: 16px;
+  height: 200px;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-row td {
+  border-bottom-width: 0;
 }

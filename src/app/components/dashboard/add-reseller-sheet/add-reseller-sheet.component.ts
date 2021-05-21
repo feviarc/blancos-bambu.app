@@ -23,11 +23,11 @@ export class AddResellerSheetComponent implements OnInit {
   amountFormControl: FormControl;
   resellerFormControl: FormControl;
 
-  
+
   constructor(
     private bottomSheetRef: MatBottomSheetRef,
     private firebaseCRUD: FirebaseCRUDService,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
     this.brandFormControl = new FormControl('',[
       Validators.required
@@ -65,7 +65,7 @@ export class AddResellerSheetComponent implements OnInit {
 
 
   add(reseller: any, product: any, brand: string, amount: any) {
-    const order = <Order> {
+    const order = {
       reseller: {
         id: reseller.id,
         displayName: `${reseller.firstName} ${reseller.lastNameF} ${reseller.lastNameM}`
@@ -77,14 +77,14 @@ export class AddResellerSheetComponent implements OnInit {
         brand: brand
       },
       status: {isDelivered: false, registerDate: Date.now()}, 
-      amount: amount,
+      amount: +amount,
       isInStore: 0
     };
     
     this.firebaseCRUD.addOrder(order)
     .then(
       () => {
-        this._snackBar.open(
+        this.snackBar.open(
           `🟢 Se agregó ${product.name} a la lista de pedidos.`,
           'CERRAR'
         );

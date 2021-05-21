@@ -28,15 +28,15 @@ export class FirebaseCRUDService {
       orders: 'orders'
     };
 
+    this.productsRef = db.collection(this.dbPath.products);
+    this.resellersRef = db.collection(this.dbPath.resellers);
+
     this.brandsRef = db.collection(this.dbPath.brands,
       query => {
         return query.orderBy('name', 'asc');
       }
     );
 
-    this.productsRef = db.collection(this.dbPath.products);
-    this.resellersRef = db.collection(this.dbPath.resellers);
-    
     this.ordersRef = db.collectionGroup(this.dbPath.orders, 
       query => {
         return query.where('status.isDelivered', '==', false).orderBy('status.registerDate','desc')
@@ -51,9 +51,10 @@ export class FirebaseCRUDService {
     const orderRef = this.db
      .collection(this.dbPath.resellers)
      .doc(order.reseller.id)
-     .collection(this.dbPath.orders);
+     .collection(this.dbPath.orders)
+     .doc(order.id);
      
-    return orderRef.add(order);
+    return orderRef.set(order);
   }
 
 
@@ -90,6 +91,17 @@ export class FirebaseCRUDService {
 
   getResellers() {
     return this.resellersRef.valueChanges();
+  }
+
+
+  orderUpdate(order: any, updatedProperty: any) {
+    const orderRef = this.db
+     .collection(this.dbPath.resellers)
+     .doc(order.resellerID)
+     .collection(this.dbPath.orders)
+     .doc(order.id);
+     
+    return orderRef.update(updatedProperty);
   }
   
 }
