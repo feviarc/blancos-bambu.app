@@ -11,9 +11,10 @@ export interface Order {
         brand: string
     };
     status: {
+        deliveryAmount?: number,
+        deliveryDate?: number
         isDelivered: boolean, 
         registerDate: number,
-        deliveryDate?: number
     };
     amount: number;
     isInStore: number;

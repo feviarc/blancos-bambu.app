@@ -104,4 +104,31 @@ export class OrdersComponent implements OnInit {
     );
   }
 
+
+  updateStatusProperty(order: any) {
+    const status = {
+      deliveryAmount: order.isInStore,
+      deliveryDate: Date.now(),
+      isDelivered: true,
+      registerDate: +order.registerDate
+    };
+    this.crudService.orderUpdate(order, {status: status})
+    .then(
+      () => {
+        this.snackBar.open(
+          `🟢 Se actualizó ${order.productName}`,
+          'CERRAR'
+        );
+      }
+    )
+    .catch(
+      error => {
+        this.snackBar.open(
+          `🔴 No fue posible actualizar ${order.productName}`,
+          'CERRAR'
+        );
+      }
+    );
+  }
+
 }
