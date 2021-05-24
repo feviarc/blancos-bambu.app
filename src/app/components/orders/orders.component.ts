@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger} from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
+import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class OrdersComponent implements OnInit {
 
 
   constructor(
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private crudService: FirebaseCRUDService
   ) {
@@ -83,6 +86,16 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void { }
 
+
+  openOrderDeliveryDialog() {
+    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        console.log(`Dialog Result: ${result}`);
+        
+      }
+    );
+  }
 
   updateIsInStoreProperty(order: any, isInStore: number) {
     this.crudService.orderUpdate(order, {isInStore: isInStore})
