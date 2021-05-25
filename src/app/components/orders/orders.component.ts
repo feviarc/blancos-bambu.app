@@ -87,12 +87,18 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  openOrderDeliveryDialog() {
-    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent);
+  openOrderDeliveryDialog(order: any) {
+    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: order});
     dialogRef.afterClosed().subscribe(
       result => {
-        console.log(`Dialog Result: ${result}`);
-        
+        if (!undefined) {
+          if (result === 'COMPLETE_ORDER') {
+            this.updateStatusProperty(order);
+          }
+          else {
+            
+          }
+        }
       }
     );
   }
