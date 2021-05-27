@@ -4,7 +4,13 @@
 
     <mat-form-field id="filter">
         <mat-label>Filtrar:</mat-label>
-        <input matInput id="search" placeholder="Artículo, marca o mayorista" #search>
+        <input
+         matInput
+         #search
+         id="search"
+         placeholder="Mayorista, artículo o marca"
+         (keyup)="applyFilter($event)"
+        >
     </mat-form-field>
     
     <table 

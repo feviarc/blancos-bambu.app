@@ -73,6 +73,12 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void { }
 
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
   openOrderDeliveryDialog(mappedOrder: any) {
     const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: mappedOrder});
     dialogRef.afterClosed().subscribe(
