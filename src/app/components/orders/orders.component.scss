@@ -27,6 +27,14 @@ tr.mat-row, tr.mat-header-row {
     height: 65px;
 }
 
+mat-form-field#filter {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 0.5rem 3.2rem 0;
+  background-color: whitesmoke;
+  font-weight: 500;
+}
+
 mat-form-field#is-in-store {
     width: 60px;
 }
