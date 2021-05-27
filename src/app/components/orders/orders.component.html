@@ -57,13 +57,13 @@
                      type="number"
                      min="0" 
                      max="{{element.amount}}"
-                     [formControl]="element.isInStoreFormControl"
+                     [formControl]="element.form.isInStoreFormControl"
                      #isInStore
                     >
                 </mat-form-field>
                 &nbsp;
                 <mat-icon
-                 *ngIf="isInStore.value!=element.isInStore && element.isInStoreFormControl.valid"
+                 *ngIf="isInStore.value!=element.isInStore && element.form.isInStoreFormControl.valid"
                  color="primary"
                  (click)="updateIsInStoreProperty(element, +isInStore.value)"
                 >
@@ -79,9 +79,9 @@
                  mat-mini-fab
                  color="primary" 
                  [disabled]='
-                    !element.isInStoreFormControl.valid
-                    || element.isInStoreFormControl.value != element.isInStore
-                    || element.isInStoreFormControl.value == 0
+                    !element.form.isInStoreFormControl.valid
+                    || element.form.isInStoreFormControl.value != element.isInStore
+                    || element.form.isInStoreFormControl.value == 0
                     ? true
                     : false'
                  (click)="openOrderDeliveryDialog(element)"

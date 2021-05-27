@@ -10,9 +10,9 @@
         ¿Desea continuar?
     </p>
     <p *ngIf="data.amount !== data.isInStore">
-        Esta es una entrega parcial del pedido, del cual siguen quedando {{ data.amount - data.isInStore }} pieza(s) pendiente(s).
+        Esta es una entrega parcial del pedido, del cual quedaría {{ data.amount - data.isInStore }} pieza(s) pendiente(s).
         <br>
-        ¿Desea mantener el resto del pedido para una entrega posterior?
+        ¿Desea conservar el resto del pedido para una entrega posterior?
     </p>
 </mat-dialog-content>
 

@@ -55,28 +55,14 @@ export class OrdersComponent implements OnInit {
         Validators.max(order.amount)
       ]);
       isInStoreFormControl.setValue(order.isInStore);
-      return {
-        id: order.id,
-        resellerID: order.reseller.id,
-        resellerDisplayName: order.reseller.displayName,
-        productID: order.product.id,
-        productBrandCode: order.product.brandCode,
-        productName: order.product.name,
-        productBrand: order.product.brand,
-        isDelivered: order.status.isDelivered,
-        registerDate: order.status.registerDate,
-        deliveryDate: order.status.deliveryDate,
-        amount: order.amount,
-        isInStore: order.isInStore,
-        comments: order.comments,
-        isInStoreFormControl: isInStoreFormControl
-      };
+      const mappedOrder = {...this.createMappedOrderObject(order), form: {isInStoreFormControl: isInStoreFormControl}};
+      return mappedOrder;
     }
     
     this.crudService.getActiveOrders().subscribe(
       documents => {
-        const orders = documents.map(ordersMapping);
-        this.dataSource = new MatTableDataSource(orders);
+        const mappedOrders = documents.map(ordersMapping);
+        this.dataSource = new MatTableDataSource(mappedOrders);
         this.dataSource.sort = this.sort;
         this.isLoadingData = false;
       }
@@ -87,40 +73,29 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  openOrderDeliveryDialog(order: any) {
-    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: order});
+  openOrderDeliveryDialog(mappedOrder: any) {
+    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: mappedOrder});
     dialogRef.afterClosed().subscribe(
       result => {
-        if (!undefined) {
-          if (result === 'COMPLETE_ORDER') {
-            this.updateStatusProperty(order);
-          }
-          else {
-            
-          }
+        if (result) {
+          this.updateStatusProperty(mappedOrder).then(
+            () => {
+              this.snackBar.open(
+                `🟢 Se registró la entrega de ${mappedOrder.isInStore} ${mappedOrder.productName} a ${mappedOrder.resellerDisplayName}`,
+                'CERRAR'
+              );
+              if (result === 'KEEP_ORDER') {
+                this.crudService.addOrder(this.createOrderObject(mappedOrder));
+              }
+            }
+          );
         }
       }
     );
   }
 
   updateIsInStoreProperty(order: any, isInStore: number) {
-    this.crudService.orderUpdate(order, {isInStore: isInStore})
-    .then(
-      () => {
-        this.snackBar.open(
-          `🟢 Se actualizó ${order.productName}`,
-          'CERRAR'
-        );
-      }
-    )
-    .catch(
-      error => {
-        this.snackBar.open(
-          `🔴 No fue posible actualizar ${order.productName}`,
-          'CERRAR'
-        );
-      }
-    );
+    this.crudService.orderUpdate(order, {isInStore: isInStore});
   }
 
 
@@ -131,23 +106,45 @@ export class OrdersComponent implements OnInit {
       isDelivered: true,
       registerDate: +order.registerDate
     };
-    this.crudService.orderUpdate(order, {status: status})
-    .then(
-      () => {
-        this.snackBar.open(
-          `🟢 Se actualizó ${order.productName}`,
-          'CERRAR'
-        );
-      }
-    )
-    .catch(
-      error => {
-        this.snackBar.open(
-          `🔴 No fue posible actualizar ${order.productName}`,
-          'CERRAR'
-        );
-      }
-    );
+    return this.crudService.orderUpdate(order, {status: status});
+  }
+
+
+  private createOrderObject(mappedOrder: any) {
+    return {
+      reseller: {
+        id: mappedOrder.resellerID,
+        displayName: mappedOrder.resellerDisplayName
+      },
+      product: {
+        id: mappedOrder.productID,
+        brandCode: mappedOrder.productBrandCode,
+        name: mappedOrder.productName,
+        brand: mappedOrder.productBrand
+      },
+      status: {isDelivered: false, registerDate: mappedOrder.registerDate}, 
+      amount: mappedOrder.amount - mappedOrder.isInStore,
+      isInStore: 0
+    };
+  }
+
+
+  private createMappedOrderObject (order: any) {
+    return {
+      id: order.id,
+      resellerID: order.reseller.id,
+      resellerDisplayName: order.reseller.displayName,
+      productID: order.product.id,
+      productBrandCode: order.product.brandCode,
+      productName: order.product.name,
+      productBrand: order.product.brand,
+      isDelivered: order.status.isDelivered,
+      registerDate: order.status.registerDate,
+      deliveryDate: order.status.deliveryDate,
+      amount: order.amount,
+      isInStore: order.isInStore,
+      comments: order.comments
+    };
   }
 
 }
