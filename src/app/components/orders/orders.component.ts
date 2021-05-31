@@ -121,6 +121,11 @@ export class OrdersComponent implements OnInit {
   }
 
 
+  updateCommentsProperty(order: any, comments: string) {
+    this.crudService.orderUpdate(order, {comments: comments});
+  }
+
+
   updateIsInStoreProperty(order: any, isInStore: number) {
     this.crudService.orderUpdate(order, {isInStore: isInStore});
   }
