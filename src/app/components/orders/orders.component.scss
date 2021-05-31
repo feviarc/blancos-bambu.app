@@ -27,6 +27,14 @@ tr.mat-row, tr.mat-header-row {
     height: 65px;
 }
 
+mat-form-field#filter {
+  width: 100%;
+  font-size: 1.5rem;
+  padding: 0.5rem 3.2rem 0;
+  background-color: whitesmoke;
+  font-weight: 500;
+}
+
 mat-form-field#is-in-store {
     width: 60px;
 }
@@ -54,7 +62,7 @@ tr.element-row:not(.expanded-row):active {
 
 .element-description {
   padding: 16px;
-  height: 200px;
+  height: 210px;
 }
 
 .element-detail {
@@ -64,4 +72,30 @@ tr.element-row:not(.expanded-row):active {
 
 .element-row td {
   border-bottom-width: 0;
+}
+
+/* Comments TextArea  */
+mat-form-field#comments {
+  width: 400px;
+}
+
+mat-form-field#comments textarea {
+  height: 130px;
+  line-height: 1.5rem;
+  padding-top: 0.5rem;
+  resize: none;
+}
+
+mat-form-field#comments mat-icon {
+  margin: 0 5px;
+}
+
+mat-form-field#comments mat-toolbar {
+  background-color: #ffffff;
+  height: 30px;
+  padding: 0;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

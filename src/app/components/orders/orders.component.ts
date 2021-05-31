@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger} from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
+import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
 
 
 @Component({
@@ -22,6 +24,7 @@ import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service
 
 export class OrdersComponent implements OnInit {
 
+  COMMENTS_MAXLENGTH = 500;
   dataSource: any;
   tableColumns: string[];
   expandedElement: any;
@@ -30,6 +33,7 @@ export class OrdersComponent implements OnInit {
 
 
   constructor(
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private crudService: FirebaseCRUDService
   ) {
@@ -52,28 +56,27 @@ export class OrdersComponent implements OnInit {
         Validators.max(order.amount)
       ]);
       isInStoreFormControl.setValue(order.isInStore);
-      return {
-        id: order.id,
-        resellerID: order.reseller.id,
-        resellerDisplayName: order.reseller.displayName,
-        productID: order.product.id,
-        productBrandCode: order.product.brandCode,
-        productName: order.product.name,
-        productBrand: order.product.brand,
-        isDelivered: order.status.isDelivered,
-        registerDate: order.status.registerDate,
-        deliveryDate: order.status.deliveryDate,
-        amount: order.amount,
-        isInStore: order.isInStore,
-        comments: order.comments,
-        isInStoreFormControl: isInStoreFormControl
+      
+      const commentsFormControl = new FormControl('', [
+        Validators.maxLength(this.COMMENTS_MAXLENGTH)
+      ]);
+      commentsFormControl.setValue(order.comments);
+
+      const mappedOrder = {
+        ...this.createMappedOrderObject(order),
+        form: {
+          isInStoreFormControl: isInStoreFormControl,
+          commentsFormControl: commentsFormControl
+        }
       };
+
+      return mappedOrder;
     }
     
     this.crudService.getActiveOrders().subscribe(
       documents => {
-        const orders = documents.map(ordersMapping);
-        this.dataSource = new MatTableDataSource(orders);
+        const mappedOrders = documents.map(ordersMapping);
+        this.dataSource = new MatTableDataSource(mappedOrders);
         this.dataSource.sort = this.sort;
         this.isLoadingData = false;
       }
@@ -84,24 +87,96 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  updateIsInStoreProperty(order: any, isInStore: number) {
-    this.crudService.orderUpdate(order, {isInStore: isInStore})
-    .then(
-      () => {
-        this.snackBar.open(
-          `🟢 Se actualizó ${order.productName}`,
-          'CERRAR'
-        );
-      }
-    )
-    .catch(
-      error => {
-        this.snackBar.open(
-          `🔴 No fue posible actualizar ${order.productName}`,
-          'CERRAR'
-        );
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+  openOrderDeliveryDialog(mappedOrder: any) {
+    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: mappedOrder});
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.updateStatusProperty(mappedOrder).then(
+            () => {
+              this.snackBar.open(
+                `🟢 Se registró la entrega de ${mappedOrder.isInStore} ${mappedOrder.productName} a ${mappedOrder.resellerDisplayName}`,
+                'CERRAR'
+              );
+              if (result === 'KEEP_ORDER') {
+                this.crudService.addOrder(this.createOrderObject(mappedOrder));
+              }
+            }
+          );
+        }
       }
     );
+  }
+
+
+  setCommentsValue(comments: any, element: any, value: string) {
+    comments.value = value;
+    element.form.commentsFormControl.value = value;
+  }
+
+
+  updateCommentsProperty(order: any, comments: string) {
+    this.crudService.orderUpdate(order, {comments: comments});
+  }
+
+
+  updateIsInStoreProperty(order: any, isInStore: number) {
+    this.crudService.orderUpdate(order, {isInStore: isInStore});
+  }
+
+
+  updateStatusProperty(order: any) {
+    const status = {
+      deliveryAmount: order.isInStore,
+      deliveryDate: Date.now(),
+      isDelivered: true,
+      registerDate: +order.registerDate
+    };
+    return this.crudService.orderUpdate(order, {status: status});
+  }
+
+
+  private createOrderObject(mappedOrder: any) {
+    return {
+      reseller: {
+        id: mappedOrder.resellerID,
+        displayName: mappedOrder.resellerDisplayName
+      },
+      product: {
+        id: mappedOrder.productID,
+        brandCode: mappedOrder.productBrandCode,
+        name: mappedOrder.productName,
+        brand: mappedOrder.productBrand
+      },
+      status: {isDelivered: false, registerDate: mappedOrder.registerDate}, 
+      amount: mappedOrder.amount - mappedOrder.isInStore,
+      isInStore: 0
+    };
+  }
+
+
+  private createMappedOrderObject (order: any) {
+    return {
+      id: order.id,
+      resellerID: order.reseller.id,
+      resellerDisplayName: order.reseller.displayName,
+      productID: order.product.id,
+      productBrandCode: order.product.brandCode,
+      productName: order.product.name,
+      productBrand: order.product.brand,
+      isDelivered: order.status.isDelivered,
+      registerDate: order.status.registerDate,
+      deliveryDate: order.status.deliveryDate,
+      amount: order.amount,
+      isInStore: order.isInStore,
+      comments: order.comments
+    };
   }
 
 }

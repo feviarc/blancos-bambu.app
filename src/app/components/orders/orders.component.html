@@ -1,6 +1,19 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
 
 <div id="orders">
+
+    <mat-form-field id="filter">
+        <mat-label>
+            <mat-icon>search</mat-icon>
+        </mat-label>
+        <input
+         matInput
+         #search
+         id="search"
+         placeholder="Filtrar por mayorista, artículo o marca"
+         (keyup)="applyFilter($event)"
+        >
+    </mat-form-field>
     
     <table 
      mat-table
@@ -57,13 +70,13 @@
                      type="number"
                      min="0" 
                      max="{{element.amount}}"
-                     [formControl]="element.isInStoreFormControl"
+                     [formControl]="element.form.isInStoreFormControl"
                      #isInStore
                     >
                 </mat-form-field>
                 &nbsp;
                 <mat-icon
-                 *ngIf="isInStore.value!=element.isInStore && element.isInStoreFormControl.valid"
+                 *ngIf="element.isInStore != isInStore.value && element.form.isInStoreFormControl.valid"
                  color="primary"
                  (click)="updateIsInStoreProperty(element, +isInStore.value)"
                 >
@@ -78,12 +91,14 @@
                 <button 
                  mat-mini-fab
                  color="primary" 
-                 [disabled]='
-                    !element.isInStoreFormControl.valid
-                    || element.isInStoreFormControl.value != element.isInStore
-                    || element.isInStoreFormControl.value == 0
+                 [disabled]="
+                    !element.form.isInStoreFormControl.valid
+                    || element.form.isInStoreFormControl.value == 0
+                    || element.form.isInStoreFormControl.value != element.isInStore
+                    || element.form.commentsFormControl.value != element.comments
                     ? true
-                    : false'
+                    : false"
+                 (click)="openOrderDeliveryDialog(element)"
                 >
                     <mat-icon>local_shipping</mat-icon>
                 </button>
@@ -97,9 +112,48 @@
                  [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
                 >
                     <div class="element-description">
-                        ...
-
-                        
+                        <mat-form-field id="comments" appearance="outline">
+                            <mat-label>Observaciones</mat-label>
+                            <textarea 
+                             matInput
+                             [formControl]="element.form.commentsFormControl"
+                             #comments
+                            >    
+                            </textarea>
+                            <ng-container
+                             *ngIf="
+                             element.comments != comments.value
+                             && element.form.commentsFormControl.valid"
+                            >
+                                <mat-toolbar>
+                                    <mat-icon 
+                                    color="primary"
+                                    (click)="updateCommentsProperty(element, comments.value)"
+                                    >
+                                        save
+                                    </mat-icon>
+                                    <span class="spacer"></span>
+                                    <mat-icon
+                                    *ngIf="element.comments != ''"
+                                    color="primary"
+                                    (click)="setCommentsValue(comments, element, element.comments)"
+                                    >
+                                        undo
+                                    </mat-icon>
+                                    <mat-icon
+                                    color="primary"
+                                    (click)="setCommentsValue(comments, element, '')"
+                                    >
+                                        clear
+                                    </mat-icon>
+                                </mat-toolbar>
+                            </ng-container>
+                            <ng-container>
+                                <mat-error *ngIf="!element.form.commentsFormControl.valid">
+                                   <small>El contenido de este campo supera los {{ COMMENTS_MAXLENGTH }} caracteres.</small> 
+                                </mat-error>
+                            </ng-container>
+                        </mat-form-field>
                     </div>
                 </div>
             </td>

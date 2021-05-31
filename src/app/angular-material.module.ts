@@ -5,6 +5,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -27,6 +28,7 @@ import { A11yModule } from '@angular/cdk/a11y';
         MatButtonModule,
         MatCardModule,
         MatChipsModule,
+        MatDialogModule,
         MatIconModule,
         MatInputModule,
         MatListModule,
@@ -43,7 +45,7 @@ import { A11yModule } from '@angular/cdk/a11y';
     providers: [
         {
             provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-            useValue: {duration: 10000, horizontalPosition: 'start'}
+            useValue: { duration: 10000, horizontalPosition: 'start' }
         }
     ]
 })
