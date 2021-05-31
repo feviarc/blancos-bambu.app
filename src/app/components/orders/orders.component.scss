@@ -62,7 +62,7 @@ tr.element-row:not(.expanded-row):active {
 
 .element-description {
   padding: 16px;
-  height: 200px;
+  height: 210px;
 }
 
 .element-detail {
@@ -84,4 +84,18 @@ mat-form-field#comments textarea {
   line-height: 1.5rem;
   padding-top: 0.5rem;
   resize: none;
+}
+
+mat-form-field#comments mat-icon {
+  margin: 0 5px;
+}
+
+mat-form-field#comments mat-toolbar {
+  background-color: #ffffff;
+  height: 30px;
+  padding: 0;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

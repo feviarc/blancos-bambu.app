@@ -114,6 +114,13 @@ export class OrdersComponent implements OnInit {
     );
   }
 
+
+  setCommentsValue(comments: any, element: any, value: string) {
+    comments.value = value;
+    element.form.commentsFormControl.value = value;
+  }
+
+
   updateIsInStoreProperty(order: any, isInStore: number) {
     this.crudService.orderUpdate(order, {isInStore: isInStore});
   }

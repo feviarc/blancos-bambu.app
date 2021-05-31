@@ -125,25 +125,28 @@
                              element.comments != comments.value
                              && element.form.commentsFormControl.valid"
                             >
-                                <mat-icon 
-                                 color="primary"
-                                 
-                                >
-                                    save
-                                </mat-icon>
-                                <mat-icon
-                                *ngIf="element.comments != ''"
-                                color="primary"
-                                 (click)="comments.value = element.comments;"
-                                >
-                                    undo
-                                </mat-icon>
-                                <mat-icon
-                                 color="primary"
-                                 (click)="comments.value = ''"
-                                >
-                                    clear
-                                </mat-icon>
+                                <mat-toolbar>
+                                    <mat-icon 
+                                    color="primary"
+                                    
+                                    >
+                                        save
+                                    </mat-icon>
+                                    <span class="spacer"></span>
+                                    <mat-icon
+                                    *ngIf="element.comments != ''"
+                                    color="primary"
+                                    (click)="setCommentsValue(comments, element, element.comments)"
+                                    >
+                                        undo
+                                    </mat-icon>
+                                    <mat-icon
+                                    color="primary"
+                                    (click)="setCommentsValue(comments, element, '')"
+                                    >
+                                        clear
+                                    </mat-icon>
+                                </mat-toolbar>
                             </ng-container>
                             <ng-container>
                                 <mat-error *ngIf="!element.form.commentsFormControl.valid">
