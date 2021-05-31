@@ -78,7 +78,8 @@ export class AddResellerSheetComponent implements OnInit {
       },
       status: {isDelivered: false, registerDate: Date.now()}, 
       amount: +amount,
-      isInStore: 0
+      isInStore: 0,
+      comments: ``
     };
     
     this.firebaseCRUD.addOrder(order)

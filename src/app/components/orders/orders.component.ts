@@ -24,6 +24,7 @@ import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-deli
 
 export class OrdersComponent implements OnInit {
 
+  COMMENTS_MAXLENGTH = 500;
   dataSource: any;
   tableColumns: string[];
   expandedElement: any;
@@ -55,7 +56,20 @@ export class OrdersComponent implements OnInit {
         Validators.max(order.amount)
       ]);
       isInStoreFormControl.setValue(order.isInStore);
-      const mappedOrder = {...this.createMappedOrderObject(order), form: {isInStoreFormControl: isInStoreFormControl}};
+      
+      const commentsFormControl = new FormControl('', [
+        Validators.maxLength(this.COMMENTS_MAXLENGTH)
+      ]);
+      commentsFormControl.setValue(order.comments);
+
+      const mappedOrder = {
+        ...this.createMappedOrderObject(order),
+        form: {
+          isInStoreFormControl: isInStoreFormControl,
+          commentsFormControl: commentsFormControl
+        }
+      };
+
       return mappedOrder;
     }
     

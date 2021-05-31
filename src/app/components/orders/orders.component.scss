@@ -73,3 +73,15 @@ tr.element-row:not(.expanded-row):active {
 .element-row td {
   border-bottom-width: 0;
 }
+
+/* Comments TextArea  */
+mat-form-field#comments {
+  width: 400px;
+}
+
+mat-form-field#comments textarea {
+  height: 130px;
+  line-height: 1.5rem;
+  padding-top: 0.5rem;
+  resize: none;
+}
