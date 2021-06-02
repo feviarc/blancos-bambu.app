@@ -12,6 +12,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 // Components
 import { AddResellerSheetComponent } from './components/dashboard/add-reseller-sheet/add-reseller-sheet.component';
+import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -32,6 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [
     AppComponent,
     AddResellerSheetComponent,
+    CancelOrderDialogComponent,
     DashboardComponent,
     OrderDeliveryDialogComponent,
     ForgotPasswordComponent,
@@ -39,7 +41,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     OrdersComponent,
     SignInComponent,
     SignUpComponent,
-    VerifyEmailComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
