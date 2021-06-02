@@ -115,7 +115,7 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  setCommentsValue(comments: any, element: any, value: string) {
+ commentsTextAreaValue(comments: any, element: any, value: string) {
     comments.value = value;
     element.form.commentsFormControl.value = value;
   }
@@ -156,7 +156,8 @@ export class OrdersComponent implements OnInit {
       },
       status: {isDelivered: false, registerDate: mappedOrder.registerDate}, 
       amount: mappedOrder.amount - mappedOrder.isInStore,
-      isInStore: 0
+      isInStore: 0,
+      comments: ''
     };
   }
 
