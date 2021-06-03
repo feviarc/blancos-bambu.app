@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
+import { CancelOrderDialogComponent } from './cancel-order-dialog/cancel-order-dialog.component';
 
 
 @Component({
@@ -93,6 +94,25 @@ export class OrdersComponent implements OnInit {
   }
 
 
+  openCancelOrderDialog(mappedOrder: any) {
+    const dialogRef = this.dialog.open(CancelOrderDialogComponent, {data: mappedOrder});
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.crudService.deleteOrder(mappedOrder.id, mappedOrder.resellerID).then(
+            () => {
+              this.snackBar.open(
+                `🟢 Se eliminó el pedido ${mappedOrder.productName} de ${mappedOrder.resellerDisplayName}`,
+                'CERRAR'
+              );
+            }
+          );
+        }
+      }
+    );
+  }
+
+
   openOrderDeliveryDialog(mappedOrder: any) {
     const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: mappedOrder});
     dialogRef.afterClosed().subscribe(
@@ -115,19 +135,19 @@ export class OrdersComponent implements OnInit {
   }
 
 
- commentsTextAreaValue(comments: any, element: any, value: string) {
+  changeTextAreaValue(comments: any, element: any, value: string) {
     comments.value = value;
     element.form.commentsFormControl.value = value;
   }
 
 
   updateCommentsProperty(order: any, comments: string) {
-    this.crudService.orderUpdate(order, {comments: comments});
+    this.crudService.updateOrder(order.id, order.resellerID, {comments: comments});
   }
 
 
   updateIsInStoreProperty(order: any, isInStore: number) {
-    this.crudService.orderUpdate(order, {isInStore: isInStore});
+    this.crudService.updateOrder(order.id, order.resellerID, {isInStore: isInStore});
   }
 
 
@@ -138,7 +158,7 @@ export class OrdersComponent implements OnInit {
       isDelivered: true,
       registerDate: +order.registerDate
     };
-    return this.crudService.orderUpdate(order, {status: status});
+    return this.crudService.updateOrder(order.id, order.resellerID, {status: status});
   }
 
 

@@ -151,14 +151,14 @@
                                      *ngIf="element.comments != ''"
                                      class="pointer-cursor"
                                      color="primary"
-                                     (click)="commentsTextAreaValue(comments, element, element.comments)"
+                                     (click)="changeTextAreaValue(comments, element, element.comments)"
                                     >
                                         undo
                                     </mat-icon>
                                     <mat-icon
                                      class="pointer-cursor"
                                      color="primary"
-                                     (click)="commentsTextAreaValue(comments, element, '')"
+                                     (click)="changeTextAreaValue(comments, element, '')"
                                     >
                                         clear
                                     </mat-icon>
@@ -170,7 +170,13 @@
                                 </mat-error>
                             </ng-container>
                         </mat-form-field>
-                        <button mat-raised-button color="warn">Cancelar pedido</button>
+                        <button 
+                         mat-raised-button
+                         color="warn"
+                         (click)="openCancelOrderDialog(element)"
+                        >
+                            Cancelar pedido
+                        </button>
                     </div>
                 </div>
             </td>

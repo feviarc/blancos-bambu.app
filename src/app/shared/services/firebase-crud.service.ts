@@ -17,7 +17,8 @@ export class FirebaseCRUDService {
   private brandsRef: AngularFirestoreCollection;
   private productsRef: AngularFirestoreCollection;
   private resellersRef: AngularFirestoreCollection;
-  private ordersRef: AngularFirestoreCollectionGroup;
+  private activeOrdersRef: AngularFirestoreCollectionGroup;
+  private deliveredOrdersRef: AngularFirestoreCollectionGroup;
   
 
   constructor(private db: AngularFirestore) {
@@ -37,9 +38,15 @@ export class FirebaseCRUDService {
       }
     );
 
-    this.ordersRef = db.collectionGroup(this.dbPath.orders, 
+    this.activeOrdersRef = db.collectionGroup(this.dbPath.orders, 
       query => {
-        return query.where('status.isDelivered', '==', false).orderBy('status.registerDate','desc')
+        return query.where('status.isDelivered', '==', false).orderBy('status.registerDate','desc');
+      }
+    );
+
+    this.deliveredOrdersRef = db.collectionGroup(this.dbPath.orders,
+      query => {
+        return query.where('status.isDelivery', '==', true).orderBy('status.registerDate', 'desc');
       }
     );
   }
@@ -58,12 +65,36 @@ export class FirebaseCRUDService {
   }
 
 
+  deleteOrder(id: string, resellerID: string) {
+    const orderRef = this.db
+    .collection(this.dbPath.resellers)
+    .doc(resellerID)
+    .collection(this.dbPath.orders)
+    .doc(id);
+
+    return orderRef.delete();
+  }
+
+
+  updateOrder(id: string, resellerID: string, updatedProperty: any) {
+    const orderRef = this.db
+     .collection(this.dbPath.resellers)
+     .doc(resellerID)
+     .collection(this.dbPath.orders)
+     .doc(id);
+     
+    return orderRef.update(updatedProperty);
+  }
+
+
   getActiveOrders() {
-    return this.ordersRef.valueChanges();
+    return this.activeOrdersRef.valueChanges();
   }
 
   
-  getAllOrders() { }
+  getDeliveredOrders() {
+    return this.deliveredOrdersRef.valueChanges();
+  }
 
 
   getAllProducts() {
@@ -86,22 +117,8 @@ export class FirebaseCRUDService {
   }
 
 
-  getDeliveredOrders() { }
-
-
   getResellers() {
     return this.resellersRef.valueChanges();
   }
 
-
-  orderUpdate(order: any, updatedProperty: any) {
-    const orderRef = this.db
-     .collection(this.dbPath.resellers)
-     .doc(order.resellerID)
-     .collection(this.dbPath.orders)
-     .doc(order.id);
-     
-    return orderRef.update(updatedProperty);
-  }
-  
 }
