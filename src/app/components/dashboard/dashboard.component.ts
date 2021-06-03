@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component';
@@ -10,7 +10,7 @@ import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service
   styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   isLoadingData: boolean;
   orders: any;
@@ -37,9 +37,6 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
-
-  ngOnInit(): void { }
 
 
   openAddResellerSheet() {

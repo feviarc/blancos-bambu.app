@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -9,7 +9,7 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
 
   alertMessage: string;
   emailSent: boolean;
@@ -24,9 +24,6 @@ export class ForgotPasswordComponent implements OnInit {
     this.emailSent = false;
     this.passwordResetEmail='';
   }
-
-
-  ngOnInit(): void { }
 
 
   forgotPassword(passwordResetEmail: string) {

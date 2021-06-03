@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./sign-in.component.scss']
 })
 
-export class SignInComponent implements OnInit {
+export class SignInComponent {
 
   isLoadingData: boolean;
   isPasswordHidden: boolean;
@@ -39,9 +39,6 @@ export class SignInComponent implements OnInit {
       this._snackBar.open(error.message,'CERRAR');
     };
   }
-
-
-  ngOnInit(): void { }
 
 
   signIn(userEmail: string, userPassword: string) {

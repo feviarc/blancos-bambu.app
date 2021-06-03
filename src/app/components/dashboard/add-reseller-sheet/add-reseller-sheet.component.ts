@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,7 +13,7 @@ import { Order } from '../../../shared/models/order.model';
 })
 
 
-export class AddResellerSheetComponent implements OnInit {
+export class AddResellerSheetComponent {
 
   brands: any;
   products: any;
@@ -61,10 +61,7 @@ export class AddResellerSheetComponent implements OnInit {
   }
 
 
-  ngOnInit(): void { }
-
-
-  add(reseller: any, product: any, brand: string, amount: any) {
+  add(reseller: any, product: any, brand: string, amount: any): void {
     const order = {
       reseller: {
         id: reseller.id,

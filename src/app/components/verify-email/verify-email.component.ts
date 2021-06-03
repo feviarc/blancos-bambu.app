@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service'; 
 
@@ -8,7 +8,7 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./verify-email.component.scss']
 })
 
-export class VerifyEmailComponent implements OnInit {
+export class VerifyEmailComponent {
 
   alertMessage: string;
   resendButtonDisabled: boolean;
@@ -21,9 +21,6 @@ export class VerifyEmailComponent implements OnInit {
     this.alertMessage = '';
     this.resendButtonDisabled = false;
   }
-
-
-  ngOnInit(): void { }
 
 
   sendVerificationEmail() {

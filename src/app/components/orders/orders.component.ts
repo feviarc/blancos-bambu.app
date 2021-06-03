@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger} from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ import { CancelOrderDialogComponent } from './cancel-order-dialog/cancel-order-d
   ]
 })
 
-export class OrdersComponent implements OnInit {
+export class OrdersComponent {
 
   COMMENTS_MAXLENGTH = 500;
   dataSource: any;
@@ -83,9 +83,6 @@ export class OrdersComponent implements OnInit {
       }
     );
   }
-
-
-  ngOnInit(): void { }
 
 
   applyFilter(event: Event) {

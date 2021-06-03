@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./logged-in.component.scss']
 })
 
-export class LoggedInComponent implements OnInit {
+export class LoggedInComponent {
 
   profilePicture: string;
   profilePictureURL: string;
@@ -18,8 +18,5 @@ export class LoggedInComponent implements OnInit {
     this.profilePictureURL = 'https://thispersondoesnotexist.com/image';
     this.profilePicture = `url('${this.profilePictureURL}')`;
   }
-
-
-  ngOnInit(): void { }
 
 }
