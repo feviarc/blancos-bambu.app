@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { 
+import {
   AngularFirestore,
   AngularFirestoreCollection,
   AngularFirestoreCollectionGroup
@@ -19,7 +19,7 @@ export class FirebaseCRUDService {
   private resellersRef: AngularFirestoreCollection;
   private activeOrdersRef: AngularFirestoreCollectionGroup;
   private deliveredOrdersRef: AngularFirestoreCollectionGroup;
-  
+
 
   constructor(private db: AngularFirestore) {
     this.dbPath = {
@@ -38,9 +38,9 @@ export class FirebaseCRUDService {
       }
     );
 
-    this.activeOrdersRef = db.collectionGroup(this.dbPath.orders, 
+    this.activeOrdersRef = db.collectionGroup(this.dbPath.orders,
       query => {
-        return query.where('status.isDelivered', '==', false).orderBy('status.registerDate','desc');
+        return query.where('status.isDelivered', '==', false).orderBy('status.registerDate', 'desc');
       }
     );
 
@@ -56,11 +56,11 @@ export class FirebaseCRUDService {
     order.id = this.db.createId();
 
     const orderRef = this.db
-     .collection(this.dbPath.resellers)
-     .doc(order.reseller.id)
-     .collection(this.dbPath.orders)
-     .doc(order.id);
-     
+    .collection(this.dbPath.resellers)
+    .doc(order.reseller.id)
+    .collection(this.dbPath.orders)
+    .doc(order.id);
+
     return orderRef.set(order);
   }
 
@@ -78,11 +78,11 @@ export class FirebaseCRUDService {
 
   updateOrder(id: string, resellerID: string, updatedProperty: any) {
     const orderRef = this.db
-     .collection(this.dbPath.resellers)
-     .doc(resellerID)
-     .collection(this.dbPath.orders)
-     .doc(id);
-     
+    .collection(this.dbPath.resellers)
+    .doc(resellerID)
+    .collection(this.dbPath.orders)
+    .doc(id);
+
     return orderRef.update(updatedProperty);
   }
 
@@ -91,7 +91,7 @@ export class FirebaseCRUDService {
     return this.activeOrdersRef.valueChanges();
   }
 
-  
+
   getDeliveredOrders() {
     return this.deliveredOrdersRef.valueChanges();
   }

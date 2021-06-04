@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service'
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,7 +21,7 @@ export class SignUpComponent {
     this.authService.signUp(userEmail, userPassword).catch(
       error => {
         this.alertMessage = error.message;
-        setTimeout(()=>{this.alertMessage='';}, 5000);
+        setTimeout(() => { this.alertMessage = ''; }, 5000);
       }
     );
   }

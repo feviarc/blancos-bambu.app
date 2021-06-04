@@ -51,13 +51,13 @@ export class OrdersComponent {
       'deliveryButton'
     ];
 
-    const ordersMapping = (order:any) => {
-      const isInStoreFormControl = new FormControl('',[
+    const ordersMapping = (order: any) => {
+      const isInStoreFormControl = new FormControl('', [
         Validators.min(0),
         Validators.max(order.amount)
       ]);
       isInStoreFormControl.setValue(order.isInStore);
-      
+
       const commentsFormControl = new FormControl('', [
         Validators.maxLength(this.COMMENTS_MAXLENGTH)
       ]);
@@ -72,8 +72,8 @@ export class OrdersComponent {
       };
 
       return mappedOrder;
-    }
-    
+    };
+
     this.crudService.getActiveOrders().subscribe(
       documents => {
         const mappedOrders = documents.map(ordersMapping);
@@ -171,7 +171,7 @@ export class OrdersComponent {
         name: mappedOrder.productName,
         brand: mappedOrder.productBrand
       },
-      status: {isDelivered: false, registerDate: mappedOrder.registerDate}, 
+      status: {isDelivered: false, registerDate: mappedOrder.registerDate},
       amount: mappedOrder.amount - mappedOrder.isInStore,
       isInStore: 0,
       comments: ''
@@ -179,7 +179,7 @@ export class OrdersComponent {
   }
 
 
-  private createMappedOrderObject (order: any) {
+  private createMappedOrderObject(order: any) {
     return {
       id: order.id,
       resellerID: order.reseller.id,

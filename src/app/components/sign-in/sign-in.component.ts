@@ -21,22 +21,22 @@ export class SignInComponent {
 
   constructor(
     public authService: AuthService,
-    private _snackBar: MatSnackBar
-  ) { 
+    private snackBar: MatSnackBar
+  ) {
     this.isLoadingData = false;
     this.isPasswordHidden = true;
 
-    this.emailFormControl = new FormControl('',[
+    this.emailFormControl = new FormControl('', [
       Validators.required,
       Validators.email
     ]);
 
-    this.passwordFormControl = new FormControl('',[
+    this.passwordFormControl = new FormControl('', [
       Validators.required
     ]);
 
     this.openSnackBar = (error: any) => {
-      this._snackBar.open(error.message,'CERRAR');
+      this.snackBar.open(error.message, 'CERRAR');
     };
   }
 
@@ -47,7 +47,7 @@ export class SignInComponent {
      .catch(this.openSnackBar)
      .finally(
        () => {
-         this.isLoadingData=false;
+         this.isLoadingData = false;
        }
     );
   }

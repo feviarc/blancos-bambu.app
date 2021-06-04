@@ -29,7 +29,7 @@ export class AddResellerSheetComponent {
     private firebaseCRUD: FirebaseCRUDService,
     private snackBar: MatSnackBar
   ) {
-    this.brandFormControl = new FormControl('',[
+    this.brandFormControl = new FormControl('', [
       Validators.required
     ]);
 
@@ -37,13 +37,13 @@ export class AddResellerSheetComponent {
       Validators.required
     ]);
 
-    this.amountFormControl = new FormControl('',[
+    this.amountFormControl = new FormControl('', [
       Validators.required,
       Validators.min(1)
     ]);
     this.amountFormControl.setValue(1);
 
-    this.resellerFormControl = new FormControl('',[
+    this.resellerFormControl = new FormControl('', [
       Validators.required
     ]);
 
@@ -52,7 +52,7 @@ export class AddResellerSheetComponent {
         this.brands = documents;
       }
     );
-    
+
     firebaseCRUD.getResellers().subscribe(
       documents => {
         this.resellers = documents;
@@ -73,12 +73,12 @@ export class AddResellerSheetComponent {
         name: product.name,
         brand: brand
       },
-      status: {isDelivered: false, registerDate: Date.now()}, 
+      status: {isDelivered: false, registerDate: Date.now()},
       amount: +amount,
       isInStore: 0,
       comments: ``
     };
-    
+
     this.firebaseCRUD.addOrder(order)
     .then(
       () => {
@@ -93,7 +93,7 @@ export class AddResellerSheetComponent {
 
 
   loadProducts(brand: string) {
-    if(brand) {
+    if (brand) {
       this.firebaseCRUD.getProductsByBrand(brand).subscribe(
         documents => {
           this.products = documents;
@@ -103,4 +103,4 @@ export class AddResellerSheetComponent {
     }
   }
 
-}     
+}

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service'; 
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-verify-email',
@@ -17,7 +17,7 @@ export class VerifyEmailComponent {
   constructor(
     public authService: AuthService,
     public router: Router
-  ) { 
+  ) {
     this.alertMessage = '';
     this.resendButtonDisabled = false;
   }
@@ -34,7 +34,7 @@ export class VerifyEmailComponent {
       error => {
         this.alertMessage = error.message;
         this.resendButtonDisabled = true;
-        setTimeout(()=>{this.alertMessage=''},5000);
+        setTimeout(() => { this.alertMessage = ''; }, 5000);
       }
     );
   }

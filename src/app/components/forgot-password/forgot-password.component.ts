@@ -22,7 +22,7 @@ export class ForgotPasswordComponent {
   ) {
     this.alertMessage = '';
     this.emailSent = false;
-    this.passwordResetEmail='';
+    this.passwordResetEmail = '';
   }
 
 
@@ -31,13 +31,13 @@ export class ForgotPasswordComponent {
     .then(
       () => {
         this.passwordResetEmail = passwordResetEmail;
-        this.emailSent = true; 
+        this.emailSent = true;
       }
     )
     .catch(
       error => {
-        this.alertMessage=error.message;
-        setTimeout(()=>{this.alertMessage='';}, 3000);
+        this.alertMessage = error.message;
+        setTimeout(() => { this.alertMessage = ''; }, 3000);
       }
     );
   }
