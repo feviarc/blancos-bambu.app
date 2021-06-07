@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ExitDialogComponent } from './exit-dialog/exit-dialog.component';
+import { AuthService } from '../../shared/services/auth.service';
 
 
 @Component({
@@ -14,9 +16,21 @@ export class LoggedInComponent {
   profilePictureURL: string;
 
 
-  constructor(public authService: AuthService) {
+  constructor(public dialog: MatDialog, public authService: AuthService) {
     this.profilePictureURL = '../../../assets/img/face.jpg';
     this.profilePicture = `url('${this.profilePictureURL}')`;
+  }
+
+
+  openExitDialog() {
+    const dialogRef = this.dialog.open(ExitDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.authService.signOut();
+        }
+      }
+    );
   }
 
 }
