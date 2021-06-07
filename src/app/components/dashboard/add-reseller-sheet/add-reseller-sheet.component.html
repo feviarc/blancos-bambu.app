@@ -63,7 +63,8 @@
        amountFormControl.valid &&
        resellerFormControl.valid
        ? false : true"
-     (click)="add(Reseller.value, Product.value, Brand.value, Amount.value)"
+     #addButton
+     (click)="addButton.disabled = true; add(Reseller.value, Product.value, Brand.value, Amount.value)"
     >
       Agregar
     </button>

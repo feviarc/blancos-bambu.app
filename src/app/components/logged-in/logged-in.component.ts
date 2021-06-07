@@ -15,7 +15,7 @@ export class LoggedInComponent {
 
 
   constructor(public authService: AuthService) {
-    this.profilePictureURL = 'https://thispersondoesnotexist.com/image';
+    this.profilePictureURL = '../../../assets/img/face.jpg';
     this.profilePicture = `url('${this.profilePictureURL}')`;
   }
 
