@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirebaseCRUDService } from '../../../shared/services/firebase-crud.service';
-import { Order } from '../../../shared/models/order.model';
 
 
 @Component({
@@ -13,7 +12,7 @@ import { Order } from '../../../shared/models/order.model';
 })
 
 
-export class AddResellerSheetComponent implements OnInit {
+export class AddResellerSheetComponent {
 
   brands: any;
   products: any;
@@ -29,7 +28,7 @@ export class AddResellerSheetComponent implements OnInit {
     private firebaseCRUD: FirebaseCRUDService,
     private snackBar: MatSnackBar
   ) {
-    this.brandFormControl = new FormControl('',[
+    this.brandFormControl = new FormControl('', [
       Validators.required
     ]);
 
@@ -37,13 +36,13 @@ export class AddResellerSheetComponent implements OnInit {
       Validators.required
     ]);
 
-    this.amountFormControl = new FormControl('',[
+    this.amountFormControl = new FormControl('', [
       Validators.required,
       Validators.min(1)
     ]);
     this.amountFormControl.setValue(1);
 
-    this.resellerFormControl = new FormControl('',[
+    this.resellerFormControl = new FormControl('', [
       Validators.required
     ]);
 
@@ -52,7 +51,7 @@ export class AddResellerSheetComponent implements OnInit {
         this.brands = documents;
       }
     );
-    
+
     firebaseCRUD.getResellers().subscribe(
       documents => {
         this.resellers = documents;
@@ -61,10 +60,7 @@ export class AddResellerSheetComponent implements OnInit {
   }
 
 
-  ngOnInit(): void { }
-
-
-  add(reseller: any, product: any, brand: string, amount: any) {
+  add(reseller: any, product: any, brand: string, amount: any): void {
     const order = {
       reseller: {
         id: reseller.id,
@@ -76,12 +72,12 @@ export class AddResellerSheetComponent implements OnInit {
         name: product.name,
         brand: brand
       },
-      status: {isDelivered: false, registerDate: Date.now()}, 
+      status: {isDelivered: false, registerDate: Date.now()},
       amount: +amount,
       isInStore: 0,
       comments: ``
     };
-    
+
     this.firebaseCRUD.addOrder(order)
     .then(
       () => {
@@ -96,7 +92,7 @@ export class AddResellerSheetComponent implements OnInit {
 
 
   loadProducts(brand: string) {
-    if(brand) {
+    if (brand) {
       this.firebaseCRUD.getProductsByBrand(brand).subscribe(
         documents => {
           this.products = documents;
@@ -106,4 +102,4 @@ export class AddResellerSheetComponent implements OnInit {
     }
   }
 
-}     
+}

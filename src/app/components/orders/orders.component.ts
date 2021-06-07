@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger} from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
+import { CancelOrderDialogComponent } from './cancel-order-dialog/cancel-order-dialog.component';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-deli
   ]
 })
 
-export class OrdersComponent implements OnInit {
+export class OrdersComponent {
 
   COMMENTS_MAXLENGTH = 500;
   dataSource: any;
@@ -50,13 +51,13 @@ export class OrdersComponent implements OnInit {
       'deliveryButton'
     ];
 
-    const ordersMapping = (order:any) => {
-      const isInStoreFormControl = new FormControl('',[
+    const ordersMapping = (order: any) => {
+      const isInStoreFormControl = new FormControl('', [
         Validators.min(0),
         Validators.max(order.amount)
       ]);
       isInStoreFormControl.setValue(order.isInStore);
-      
+
       const commentsFormControl = new FormControl('', [
         Validators.maxLength(this.COMMENTS_MAXLENGTH)
       ]);
@@ -71,8 +72,8 @@ export class OrdersComponent implements OnInit {
       };
 
       return mappedOrder;
-    }
-    
+    };
+
     this.crudService.getActiveOrders().subscribe(
       documents => {
         const mappedOrders = documents.map(ordersMapping);
@@ -84,12 +85,28 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  ngOnInit(): void { }
-
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+  openCancelOrderDialog(mappedOrder: any) {
+    const dialogRef = this.dialog.open(CancelOrderDialogComponent, {data: mappedOrder});
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.crudService.deleteOrder(mappedOrder.id, mappedOrder.resellerID).then(
+            () => {
+              this.snackBar.open(
+                `🟢 Se eliminó el pedido ${mappedOrder.productName} de ${mappedOrder.resellerDisplayName}`,
+                'CERRAR'
+              );
+            }
+          );
+        }
+      }
+    );
   }
 
 
@@ -115,19 +132,19 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  setCommentsValue(comments: any, element: any, value: string) {
+  changeTextAreaValue(comments: any, element: any, value: string) {
     comments.value = value;
     element.form.commentsFormControl.value = value;
   }
 
 
   updateCommentsProperty(order: any, comments: string) {
-    this.crudService.orderUpdate(order, {comments: comments});
+    this.crudService.updateOrder(order.id, order.resellerID, {comments: comments});
   }
 
 
   updateIsInStoreProperty(order: any, isInStore: number) {
-    this.crudService.orderUpdate(order, {isInStore: isInStore});
+    this.crudService.updateOrder(order.id, order.resellerID, {isInStore: isInStore});
   }
 
 
@@ -138,7 +155,7 @@ export class OrdersComponent implements OnInit {
       isDelivered: true,
       registerDate: +order.registerDate
     };
-    return this.crudService.orderUpdate(order, {status: status});
+    return this.crudService.updateOrder(order.id, order.resellerID, {status: status});
   }
 
 
@@ -154,14 +171,15 @@ export class OrdersComponent implements OnInit {
         name: mappedOrder.productName,
         brand: mappedOrder.productBrand
       },
-      status: {isDelivered: false, registerDate: mappedOrder.registerDate}, 
+      status: {isDelivered: false, registerDate: mappedOrder.registerDate},
       amount: mappedOrder.amount - mappedOrder.isInStore,
-      isInStore: 0
+      isInStore: 0,
+      comments: ''
     };
   }
 
 
-  private createMappedOrderObject (order: any) {
+  private createMappedOrderObject(order: any) {
     return {
       id: order.id,
       resellerID: order.reseller.id,

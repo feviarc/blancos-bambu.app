@@ -3,11 +3,11 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'app-delivery-order-dialog',
-  templateUrl: './order-delivery-dialog.component.html'
+  selector: 'app-cancel-order-dialog',
+  templateUrl: './cancel-order-dialog.component.html'
 })
 
-export class OrderDeliveryDialogComponent {
+export class CancelOrderDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 

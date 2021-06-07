@@ -8,11 +8,18 @@
         </mat-label>
         <input
          matInput
-         #search
-         id="search"
+         #filter
          placeholder="Filtrar por mayorista, artículo o marca"
          (keyup)="applyFilter($event)"
         >
+        <button 
+         *ngIf="filter"
+         matSuffix
+         mat-icon-button
+         (click)="filter.value = ''; dataSource.filter = filter.value;"
+        >
+            <mat-icon *ngIf="filter.value">close</mat-icon>
+        </button>
     </mat-form-field>
     
     <table 
@@ -27,9 +34,18 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <mat-icon
+                 class="pointer-cursor"
                  (click)="expandedElement = expandedElement === element ? null : element"
                 >
                     unfold_more
+                </mat-icon>
+                &nbsp;
+                <mat-icon
+                 class="default-cursor"
+                 color="accent"
+                 *ngIf="element.comments"
+                >
+                    comment
                 </mat-icon>
             </td>
         </ng-container>
@@ -48,7 +64,7 @@
 
         <ng-container matColumnDef="productName">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Artículo</th>
-            <td mat-cell *matCellDef="let element"> {{ element.productName }} </td>
+            <td mat-cell *matCellDef="let element">{{ element.productName }}</td>
           </ng-container>
   
         <ng-container matColumnDef="productBrand">
@@ -77,6 +93,7 @@
                 &nbsp;
                 <mat-icon
                  *ngIf="element.isInStore != isInStore.value && element.form.isInStoreFormControl.valid"
+                 class="pointer-cursor"
                  color="primary"
                  (click)="updateIsInStoreProperty(element, +isInStore.value)"
                 >
@@ -120,29 +137,28 @@
                              #comments
                             >    
                             </textarea>
-                            <ng-container
-                             *ngIf="
-                             element.comments != comments.value
-                             && element.form.commentsFormControl.valid"
-                            >
+                            <ng-container *ngIf="element.comments != comments.value && element.form.commentsFormControl.valid">
                                 <mat-toolbar>
-                                    <mat-icon 
-                                    color="primary"
-                                    (click)="updateCommentsProperty(element, comments.value)"
+                                    <mat-icon
+                                     class="pointer-cursor"
+                                     color="primary"
+                                     (click)="updateCommentsProperty(element, comments.value)"
                                     >
                                         save
                                     </mat-icon>
                                     <span class="spacer"></span>
                                     <mat-icon
-                                    *ngIf="element.comments != ''"
-                                    color="primary"
-                                    (click)="setCommentsValue(comments, element, element.comments)"
+                                     *ngIf="element.comments != ''"
+                                     class="pointer-cursor"
+                                     color="primary"
+                                     (click)="changeTextAreaValue(comments, element, element.comments)"
                                     >
                                         undo
                                     </mat-icon>
                                     <mat-icon
-                                    color="primary"
-                                    (click)="setCommentsValue(comments, element, '')"
+                                     class="pointer-cursor"
+                                     color="primary"
+                                     (click)="changeTextAreaValue(comments, element, '')"
                                     >
                                         clear
                                     </mat-icon>
@@ -154,6 +170,13 @@
                                 </mat-error>
                             </ng-container>
                         </mat-form-field>
+                        <button 
+                         mat-raised-button
+                         color="warn"
+                         (click)="openCancelOrderDialog(element)"
+                        >
+                            Cancelar pedido
+                        </button>
                     </div>
                 </div>
             </td>

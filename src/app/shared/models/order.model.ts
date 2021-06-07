@@ -1,8 +1,8 @@
 export interface Order {
     id?: string;
-    reseller: { 
+    reseller: {
         id: string,
-        displayName: string 
+        displayName: string
     };
     product: {
         id: string,
@@ -12,8 +12,8 @@ export interface Order {
     };
     status: {
         deliveryAmount?: number,
-        deliveryDate?: number
-        isDelivered: boolean, 
+        deliveryDate?: number,
+        isDelivered: boolean,
         registerDate: number,
     };
     amount: number;

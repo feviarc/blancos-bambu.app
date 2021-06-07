@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/services/auth.service'; 
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-verify-email',
@@ -8,7 +8,7 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./verify-email.component.scss']
 })
 
-export class VerifyEmailComponent implements OnInit {
+export class VerifyEmailComponent {
 
   alertMessage: string;
   resendButtonDisabled: boolean;
@@ -17,13 +17,10 @@ export class VerifyEmailComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public router: Router
-  ) { 
+  ) {
     this.alertMessage = '';
     this.resendButtonDisabled = false;
   }
-
-
-  ngOnInit(): void { }
 
 
   sendVerificationEmail() {
@@ -37,7 +34,7 @@ export class VerifyEmailComponent implements OnInit {
       error => {
         this.alertMessage = error.message;
         this.resendButtonDisabled = true;
-        setTimeout(()=>{this.alertMessage=''},5000);
+        setTimeout(() => { this.alertMessage = ''; }, 5000);
       }
     );
   }

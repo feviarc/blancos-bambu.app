@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 
@@ -9,7 +9,7 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
 
   alertMessage: string;
   emailSent: boolean;
@@ -22,11 +22,8 @@ export class ForgotPasswordComponent implements OnInit {
   ) {
     this.alertMessage = '';
     this.emailSent = false;
-    this.passwordResetEmail='';
+    this.passwordResetEmail = '';
   }
-
-
-  ngOnInit(): void { }
 
 
   forgotPassword(passwordResetEmail: string) {
@@ -34,13 +31,13 @@ export class ForgotPasswordComponent implements OnInit {
     .then(
       () => {
         this.passwordResetEmail = passwordResetEmail;
-        this.emailSent = true; 
+        this.emailSent = true;
       }
     )
     .catch(
       error => {
-        this.alertMessage=error.message;
-        setTimeout(()=>{this.alertMessage='';}, 3000);
+        this.alertMessage = error.message;
+        setTimeout(() => { this.alertMessage = ''; }, 3000);
       }
     );
   }

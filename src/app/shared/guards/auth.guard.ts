@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { 
+import {
   CanActivate,
   ActivatedRouteSnapshot,
   Router,
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     public router: Router,
     public authService: AuthService
-  ) { 
+  ) {
     this.isGuardValidated = false;
   }
 
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.authService.isLoggedIn) {
+    if (this.authService.isLoggedIn) {
       this.isGuardValidated = true;
     }
     else {
@@ -39,5 +39,5 @@ export class AuthGuard implements CanActivate {
     }
     return this.isGuardValidated;
   }
-  
+
 }

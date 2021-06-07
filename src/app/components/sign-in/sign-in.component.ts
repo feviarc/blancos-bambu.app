@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./sign-in.component.scss']
 })
 
-export class SignInComponent implements OnInit {
+export class SignInComponent {
 
   isLoadingData: boolean;
   isPasswordHidden: boolean;
@@ -21,27 +21,24 @@ export class SignInComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private _snackBar: MatSnackBar
-  ) { 
+    private snackBar: MatSnackBar
+  ) {
     this.isLoadingData = false;
     this.isPasswordHidden = true;
 
-    this.emailFormControl = new FormControl('',[
+    this.emailFormControl = new FormControl('', [
       Validators.required,
       Validators.email
     ]);
 
-    this.passwordFormControl = new FormControl('',[
+    this.passwordFormControl = new FormControl('', [
       Validators.required
     ]);
 
     this.openSnackBar = (error: any) => {
-      this._snackBar.open(error.message,'CERRAR');
+      this.snackBar.open(error.message, 'CERRAR');
     };
   }
-
-
-  ngOnInit(): void { }
 
 
   signIn(userEmail: string, userPassword: string) {
@@ -50,7 +47,7 @@ export class SignInComponent implements OnInit {
      .catch(this.openSnackBar)
      .finally(
        () => {
-         this.isLoadingData=false;
+         this.isLoadingData = false;
        }
     );
   }

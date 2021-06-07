@@ -11,7 +11,11 @@ table.mat-table {
     width: 100%;
 }
 
-td mat-icon {
+td mat-icon.default-cursor {
+  cursor: default;
+}
+
+td mat-icon.pointer-cursor {
     cursor: pointer;
 }
 
@@ -61,13 +65,21 @@ tr.element-row:not(.expanded-row):active {
 }
 
 .element-description {
-  padding: 16px;
+  align-items: center;
+  display: flex;
   height: 210px;
+  justify-content: space-between;
+  padding: 16px;
+  width: 100%;
 }
 
 .element-detail {
   overflow: hidden;
   display: flex;
+}
+
+.element-detail button.mat-raised-button {
+  height: fit-content;
 }
 
 .element-row td {
@@ -76,7 +88,7 @@ tr.element-row:not(.expanded-row):active {
 
 /* Comments TextArea  */
 mat-form-field#comments {
-  width: 400px;
+  width: 50%;
 }
 
 mat-form-field#comments textarea {
