@@ -15,6 +15,7 @@ import { AddResellerSheetComponent } from './components/dashboard/add-reseller-s
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';
+import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dialog.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -36,6 +37,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CancelOrderDialogComponent,
     DashboardComponent,
     OrderDeliveryDialogComponent,
+    ExitDialogComponent,
     ForgotPasswordComponent,
     LoggedInComponent,
     OrdersComponent,
