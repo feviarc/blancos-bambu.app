@@ -8,6 +8,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 // App Components
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { ProductsComponent } from './components/products/products.component';
 // Guards
 import { AuthGuard } from './shared/guards/auth.guard';
 import { EmailVerifiedGuard } from './shared/guards/email-verified.guard';
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'logged-in', component: LoggedInComponent, canActivate: [AuthGuard, EmailVerifiedGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'orders', component: OrdersComponent }
+      { path: 'orders', component: OrdersComponent },
+      { path: 'products', component: ProductsComponent }
     ]
   },
   { path: 'sign-in', component: SignInComponent },

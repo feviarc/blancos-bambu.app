@@ -19,6 +19,7 @@ import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dia
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { ProductsComponent } from './components/products/products.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
@@ -41,6 +42,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ForgotPasswordComponent,
     LoggedInComponent,
     OrdersComponent,
+    ProductsComponent,
     SignInComponent,
     SignUpComponent,
     VerifyEmailComponent
