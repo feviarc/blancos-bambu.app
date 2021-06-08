@@ -29,6 +29,8 @@ import { FirebaseCRUDService } from './shared/services/firebase-crud.service';
 // Angular Material
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+// Service Worker
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -56,7 +58,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     AuthService,
