@@ -1,6 +1,6 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
 <div id="dashboard">
-    
+
     <mat-card class="product-card" *ngFor="let order of orders; let i = index">
 
         <mat-card-header>
@@ -14,8 +14,8 @@
                 <mat-chip>
                     Pedido: {{ order.amount }}
                 </mat-chip>
-                <mat-chip 
-                 selected 
+                <mat-chip
+                 selected
                  *ngIf="order.isInStore"
                  [ngClass]="{
                      'chip-green': order.amount - order.isInStore === 0,
@@ -32,8 +32,4 @@
 
     </mat-card>
 
-    <button mat-fab color="primary" (click)="openAddResellerSheet()">
-        <mat-icon class="pointer-cursor" style="margin:0">add_shopping_cart</mat-icon>
-    </button>
-    
 </div>

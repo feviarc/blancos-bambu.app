@@ -11,7 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 // Environment
 import { environment } from '../environments/environment';
 // Components
-import { AddResellerSheetComponent } from './components/dashboard/add-reseller-sheet/add-reseller-sheet.component';
+import { AddResellerSheetComponent } from './components/orders/add-reseller-sheet/add-reseller-sheet.component';
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';

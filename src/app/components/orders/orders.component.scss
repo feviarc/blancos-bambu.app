@@ -1,3 +1,9 @@
+button.mat-fab.mat-primary {
+  bottom: 1em;
+  position: fixed;
+  right: 1em;
+}
+
 button.mat-mini-fab {
     margin-right: 1rem;
 }
@@ -9,6 +15,10 @@ div#orders {
 /* MatTable */
 table.mat-table {
     width: 100%;
+}
+
+td.mat-column-deliveryButton {
+  padding-right: 60px !important;
 }
 
 td mat-icon.default-cursor {
