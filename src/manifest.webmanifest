@@ -1,9 +1,10 @@
 {
-  "name": "bambu",
+  "name": "Blancos BAMBÚ",
   "short_name": "bambu",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
-  "display": "standalone",
+  "theme_color": "#3b122d",
+  "background_color": "#fcf2f7",
+  "display": "fullscreen",
+  "orientation": "landscape",
   "scope": "./",
   "start_url": "./",
   "icons": [
