@@ -1,1 +1,51 @@
-<p>products works!</p>
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
+<div id="products">
+    <table
+     mat-table
+     [dataSource]="dataSource"
+     class="mat-elevation-z8"
+    >
+        <ng-container matColumnDef='name'>
+            <th mat-header-cell *matHeaderCellDef>Artículo</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef>Marca</th>
+            <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="brandCode">
+            <th mat-header-cell *matHeaderCellDef>Código</th>
+            <td mat-cell *matCellDef="let element">{{ element.brandCode }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Categoría</th>
+            <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="crudIcons">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button
+                 mat-mini-fab
+                 color="primary"
+                >
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                 mat-mini-fab
+                 color="primary"
+                >
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+    </table>
+
+</div>

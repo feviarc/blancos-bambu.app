@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
+import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 
 @Component({
   selector: 'app-products',
@@ -9,6 +9,27 @@ import { Component, OnInit } from '@angular/core';
 
 export class ProductsComponent {
 
-  constructor() { }
+  isLoadingData: boolean;
+  dataSource: any;
+  tableColumns: string[];
+
+  constructor(public crudService: FirebaseCRUDService) {
+    this.isLoadingData = true;
+
+    this.tableColumns = [
+      'name',
+      'brand',
+      'brandCode',
+      'category',
+      'crudIcons'
+    ];
+
+    this.crudService.getAllProducts().subscribe(
+      products => {
+        this.dataSource = products;
+        this.isLoadingData = false;
+      }
+    );
+  }
 
 }

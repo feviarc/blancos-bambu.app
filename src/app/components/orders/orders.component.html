@@ -184,9 +184,10 @@
 
         <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
 
-        <tr mat-row *matRowDef="let element; columns: tableColumns;"
+        <tr
+         mat-row *matRowDef="let row; columns: tableColumns;"
          class="element-row"
-         [class.expanded-row]="expandedElement === element"
+         [class.expanded-row]="expandedElement === row"
         >
         </tr>
 
