@@ -1,12 +1,22 @@
 mat-drawer-container {
-    display:unset;
+    display: unset;
+}
+
+button#install-app {
+    background-color: #ba007c;
+    color: #ffffff;
+    font-weight:bold;
+}
+
+button#install-app mat-icon {
+    color: #ffffff;
 }
 
 div#nav-header {
     background-image: linear-gradient(
-        to top, 
-        rgba(245, 246, 252, 0.52), 
-        rgba(117, 19, 93, 0.73)), 
+        to top,
+        rgba(245, 246, 252, 0.52),
+        rgba(117, 19, 93, 0.73)),
         url('../../../assets/img/sidenav-header.jpg'
     );
     height: 150px;
