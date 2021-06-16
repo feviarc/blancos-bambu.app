@@ -13,12 +13,12 @@
          (keyup)="applyFilter($event)"
         >
         <button
-         *ngIf="filter"
+         *ngIf="filter.value"
          matSuffix
          mat-icon-button
          (click)="filter.value = ''; dataSource.filter = filter.value;"
         >
-            <mat-icon *ngIf="filter.value">close</mat-icon>
+            <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
 

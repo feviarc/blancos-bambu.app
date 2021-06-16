@@ -21,8 +21,8 @@ export class ProductsComponent {
 
     this.tableColumns = [
       'name',
-      'brand',
       'brandCode',
+      'brand',
       'category',
       'crudIcons'
     ];
@@ -34,6 +34,12 @@ export class ProductsComponent {
         this.isLoadingData = false;
       }
     );
+  }
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
