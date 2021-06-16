@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 
 @Component({
@@ -12,6 +14,7 @@ export class ProductsComponent {
   isLoadingData: boolean;
   dataSource: any;
   tableColumns: string[];
+  @ViewChild(MatSort) sort: any;
 
   constructor(public crudService: FirebaseCRUDService) {
     this.isLoadingData = true;
@@ -26,7 +29,8 @@ export class ProductsComponent {
 
     this.crudService.getAllProducts().subscribe(
       products => {
-        this.dataSource = products;
+        this.dataSource = new MatTableDataSource(products);
+        this.dataSource.sort = this.sort;
         this.isLoadingData = false;
       }
     );
