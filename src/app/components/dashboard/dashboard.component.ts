@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 
 @Component({
@@ -17,9 +15,8 @@ export class DashboardComponent {
 
 
   constructor(
-    private bottomSheet: MatBottomSheet,
-    private crudService: FirebaseCRUDService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private crudService: FirebaseCRUDService
   ) {
     this.isLoadingData = true;
     this.crudService.getActiveOrders().subscribe(
@@ -36,11 +33,6 @@ export class DashboardComponent {
         );
       }
     );
-  }
-
-
-  openAddResellerSheet() {
-    this.bottomSheet.open(AddResellerSheetComponent);
   }
 
 }

@@ -1,3 +1,9 @@
+button.mat-fab.mat-primary {
+  bottom: 1em;
+  position: fixed;
+  right: 1em;
+}
+
 button.mat-mini-fab {
     margin-right: 1rem;
 }
@@ -11,6 +17,10 @@ table.mat-table {
     width: 100%;
 }
 
+td.mat-column-deliveryButton {
+  padding-right: 60px !important;
+}
+
 td mat-icon.default-cursor {
   cursor: default;
 }
@@ -19,7 +29,7 @@ td mat-icon.pointer-cursor {
     cursor: pointer;
 }
 
-th.mat-sort-header {
+th.mat-header-cell {
     font-size: 1rem;
 }
 

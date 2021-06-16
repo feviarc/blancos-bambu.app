@@ -12,17 +12,17 @@
          placeholder="Filtrar por mayorista, artículo o marca"
          (keyup)="applyFilter($event)"
         >
-        <button 
-         *ngIf="filter"
+        <button
+         *ngIf="filter.value"
          matSuffix
          mat-icon-button
          (click)="filter.value = ''; dataSource.filter = filter.value;"
         >
-            <mat-icon *ngIf="filter.value">close</mat-icon>
+            <mat-icon>close</mat-icon>
         </button>
     </mat-form-field>
-    
-    <table 
+
+    <table
      mat-table
      matSort
      multiTemplateDataRows
@@ -66,7 +66,7 @@
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Artículo</th>
             <td mat-cell *matCellDef="let element">{{ element.productName }}</td>
           </ng-container>
-  
+
         <ng-container matColumnDef="productBrand">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Marca</th>
             <td mat-cell *matCellDef="let element"> {{ element.productBrand }} </td>
@@ -82,9 +82,9 @@
             <td mat-cell *matCellDef="let element">
                 <mat-form-field id="is-in-store" appearance="outline">
                     <input
-                     matInput 
+                     matInput
                      type="number"
-                     min="0" 
+                     min="0"
                      max="{{element.amount}}"
                      [formControl]="element.form.isInStoreFormControl"
                      #isInStore
@@ -105,9 +105,9 @@
         <ng-container matColumnDef="deliveryButton">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <button 
+                <button
                  mat-mini-fab
-                 color="primary" 
+                 color="primary"
                  [disabled]="
                     !element.form.isInStoreFormControl.valid
                     || element.form.isInStoreFormControl.value == 0
@@ -121,21 +121,21 @@
                 </button>
             </td>
         </ng-container>
-      
+
         <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let element" [attr.colspan]="tableColumns.length">
-                <div 
+                <div
                  class="element-detail"
                  [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
                 >
                     <div class="element-description">
                         <mat-form-field id="comments" appearance="outline">
                             <mat-label>Observaciones</mat-label>
-                            <textarea 
+                            <textarea
                              matInput
                              [formControl]="element.form.commentsFormControl"
                              #comments
-                            >    
+                            >
                             </textarea>
                             <ng-container *ngIf="element.comments != comments.value && element.form.commentsFormControl.valid">
                                 <mat-toolbar>
@@ -170,7 +170,7 @@
                                 </mat-error>
                             </ng-container>
                         </mat-form-field>
-                        <button 
+                        <button
                          mat-raised-button
                          color="warn"
                          (click)="openCancelOrderDialog(element)"
@@ -184,13 +184,18 @@
 
         <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
 
-        <tr mat-row *matRowDef="let element; columns: tableColumns;"
+        <tr
+         mat-row *matRowDef="let row; columns: tableColumns;"
          class="element-row"
-         [class.expanded-row]="expandedElement === element"
+         [class.expanded-row]="expandedElement === row"
         >
         </tr>
 
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
+
+    <button mat-fab color="primary" (click)="openAddResellerSheet()">
+        <mat-icon class="pointer-cursor" style="margin:0">add_shopping_cart</mat-icon>
+    </button>
 
 </div>

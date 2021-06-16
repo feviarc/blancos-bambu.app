@@ -11,7 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 // Environment
 import { environment } from '../environments/environment';
 // Components
-import { AddResellerSheetComponent } from './components/dashboard/add-reseller-sheet/add-reseller-sheet.component';
+import { AddResellerSheetComponent } from './components/orders/add-reseller-sheet/add-reseller-sheet.component';
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';
@@ -19,6 +19,7 @@ import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dia
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { ProductsComponent } from './components/products/products.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
@@ -28,6 +29,8 @@ import { FirebaseCRUDService } from './shared/services/firebase-crud.service';
 // Angular Material
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+// Service Worker
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -41,6 +44,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ForgotPasswordComponent,
     LoggedInComponent,
     OrdersComponent,
+    ProductsComponent,
     SignInComponent,
     SignUpComponent,
     VerifyEmailComponent
@@ -54,7 +58,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     AuthService,
