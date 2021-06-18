@@ -18,6 +18,7 @@ body {
 - Lists
 - Sidenav
 - Toolbar
+- Toolbar (Secondary)
 - Other
 */
 
@@ -64,6 +65,21 @@ mat-toolbar#main {
     z-index: 1;
 }
 
+/* Toolbar (Secondary) */
+div.page mat-toolbar.secondary-toolbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+div.page mat-toolbar.secondary-toolbar button.mat-button-disabled {
+    color: #696969;
+    font-size: 1.2rem;
+}
+
+div.page mat-toolbar.secondary-toolbar button.mat-button-disabled strong {
+    margin-left: 6px;
+}
+
 /* Table */
 table.mat-elevation-z8 {
     box-shadow: none;
@@ -82,15 +98,15 @@ table thead {
 }
 
 /* Other */
-.mat-drawer-content {
-    height: initial !important;
-    overflow: initial !important;
-}
-
 mat-progress-bar {
     position: fixed !important;
     top: 0px;
     z-index: 1;
+}
+
+div.mat-card-avatar {
+    height: 50px;
+    width: 50px;
 }
 
 .input-container {
@@ -98,7 +114,11 @@ mat-progress-bar {
     flex-direction: column;
 }
 
-div.mat-card-avatar {
-    height: 50px;
-    width: 50px;
+.mat-drawer-content {
+    height: initial !important;
+    overflow: initial !important;
+}
+
+.spacer {
+    flex: 1 1 auto;
 }

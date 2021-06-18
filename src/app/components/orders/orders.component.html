@@ -1,6 +1,15 @@
 <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
 
-<div id="orders">
+<div id="orders" class="page">
+
+    <mat-toolbar class="secondary-toolbar">
+        <button mat-button disabled>
+            <mat-icon>shopping_cart</mat-icon>
+            <strong>Administrar Pedidos</strong>
+        </button>
+        <span class="spacer"></span>
+        <button mat-stroked-button color="primary">Ver entregados</button>
+    </mat-toolbar>
 
     <mat-form-field id="filter">
         <mat-label>
