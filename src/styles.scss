@@ -34,6 +34,12 @@ button.mat-mini-fab.mat-primary {
     background-color: #ba007c;
 }
 
+button.mat-fab.mat-primary {
+    bottom: 1em;
+    position: fixed;
+    right: 1em;
+  }
+
 /* Icons */
 mat-icon.pointer-cursor {
     cursor: pointer;
