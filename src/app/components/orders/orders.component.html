@@ -41,10 +41,10 @@
 
         <ng-container matColumnDef="unfoldIcon">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let order">
                 <mat-icon
                  class="pointer-cursor"
-                 (click)="expandedElement = expandedElement === element ? null : element"
+                 (click)="expandedElement = expandedElement === order ? null : order"
                 >
                     unfold_more
                 </mat-icon>
@@ -52,7 +52,7 @@
                 <mat-icon
                  class="default-cursor"
                  color="accent"
-                 *ngIf="element.comments"
+                 *ngIf="order.comments"
                 >
                     comment
                 </mat-icon>
@@ -61,50 +61,50 @@
 
         <ng-container matColumnDef="registerDate">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Fecha</th>
-            <td mat-cell *matCellDef="let element">
-                {{ element.registerDate | date: 'd/M/yyyy, h:mm a' }}
+            <td mat-cell *matCellDef="let order">
+                {{ order.registerDate | date: 'd/M/yyyy, h:mm a' }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="resellerDisplayName">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Mayorista</th>
-            <td mat-cell *matCellDef="let element"> {{ element.resellerDisplayName }} </td>
+            <td mat-cell *matCellDef="let order"> {{ order.resellerDisplayName }} </td>
         </ng-container>
 
         <ng-container matColumnDef="productName">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Artículo</th>
-            <td mat-cell *matCellDef="let element">{{ element.productName }}</td>
+            <td mat-cell *matCellDef="let order">{{ order.productName }}</td>
           </ng-container>
 
         <ng-container matColumnDef="productBrand">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Marca</th>
-            <td mat-cell *matCellDef="let element"> {{ element.productBrand }} </td>
+            <td mat-cell *matCellDef="let order"> {{ order.productBrand }} </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>Cantidad</th>
-            <td mat-cell *matCellDef="let element"> {{ element.amount }} </td>
+            <td mat-cell *matCellDef="let order"> {{ order.amount }} </td>
         </ng-container>
 
         <ng-container matColumnDef="isInStore">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>En tienda</th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let order">
                 <mat-form-field id="is-in-store" appearance="outline">
                     <input
                      matInput
                      type="number"
                      min="0"
-                     max="{{element.amount}}"
-                     [formControl]="element.form.isInStoreFormControl"
+                     max="{{ order.amount }}"
+                     [formControl]="order.form.isInStoreFormControl"
                      #isInStore
                     >
                 </mat-form-field>
                 &nbsp;
                 <mat-icon
-                 *ngIf="element.isInStore != isInStore.value && element.form.isInStoreFormControl.valid"
+                 *ngIf="order.isInStore != isInStore.value && order.form.isInStoreFormControl.valid"
                  class="pointer-cursor"
                  color="primary"
-                 (click)="updateIsInStoreProperty(element, +isInStore.value)"
+                 (click)="updateIsInStoreProperty(order, +isInStore.value)"
                 >
                     save
                 </mat-icon>
@@ -113,18 +113,18 @@
 
         <ng-container matColumnDef="deliveryButton">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let order">
                 <button
                  mat-mini-fab
                  color="primary"
                  [disabled]="
-                    !element.form.isInStoreFormControl.valid
-                    || element.form.isInStoreFormControl.value == 0
-                    || element.form.isInStoreFormControl.value != element.isInStore
-                    || element.form.commentsFormControl.value != element.comments
+                    !order.form.isInStoreFormControl.valid
+                    || order.form.isInStoreFormControl.value == 0
+                    || order.form.isInStoreFormControl.value != order.isInStore
+                    || order.form.commentsFormControl.value != order.comments
                     ? true
                     : false"
-                 (click)="openOrderDeliveryDialog(element)"
+                 (click)="openOrderDeliveryDialog(order)"
                 >
                     <mat-icon>local_shipping</mat-icon>
                 </button>
@@ -132,57 +132,57 @@
         </ng-container>
 
         <ng-container matColumnDef="expandedDetail">
-            <td mat-cell *matCellDef="let element" [attr.colspan]="tableColumns.length">
+            <td mat-cell *matCellDef="let order" [attr.colspan]="tableColumns.length">
                 <div
                  class="element-detail"
-                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                 [@detailExpand]="order == expandedElement ? 'expanded' : 'collapsed'"
                 >
                     <div class="element-description">
                         <mat-form-field id="comments" appearance="outline">
                             <mat-label>Observaciones</mat-label>
                             <textarea
                              matInput
-                             [formControl]="element.form.commentsFormControl"
+                             [formControl]="order.form.commentsFormControl"
                              #comments
                             >
                             </textarea>
-                            <ng-container *ngIf="element.comments != comments.value && element.form.commentsFormControl.valid">
+                            <ng-container *ngIf="order.comments != comments.value && order.form.commentsFormControl.valid">
                                 <mat-toolbar>
                                     <mat-icon
                                      class="pointer-cursor"
                                      color="primary"
-                                     (click)="updateCommentsProperty(element, comments.value)"
+                                     (click)="updateCommentsProperty(order, comments.value)"
                                     >
                                         save
                                     </mat-icon>
                                     <span class="spacer"></span>
                                     <mat-icon
-                                     *ngIf="element.comments != ''"
+                                     *ngIf="order.comments != ''"
                                      class="pointer-cursor"
                                      color="primary"
-                                     (click)="changeTextAreaValue(comments, element, element.comments)"
+                                     (click)="changeTextAreaValue(comments, order, order.comments)"
                                     >
                                         undo
                                     </mat-icon>
                                     <mat-icon
                                      class="pointer-cursor"
                                      color="primary"
-                                     (click)="changeTextAreaValue(comments, element, '')"
+                                     (click)="changeTextAreaValue(comments, order, '')"
                                     >
                                         clear
                                     </mat-icon>
                                 </mat-toolbar>
                             </ng-container>
                             <ng-container>
-                                <mat-error *ngIf="!element.form.commentsFormControl.valid">
-                                   <small>El contenido de este campo supera los {{ COMMENTS_MAXLENGTH }} caracteres.</small> 
+                                <mat-error *ngIf="!order.form.commentsFormControl.valid">
+                                   <small>El contenido de este campo supera los {{ COMMENTS_MAXLENGTH }} caracteres.</small>
                                 </mat-error>
                             </ng-container>
                         </mat-form-field>
                         <button
                          mat-raised-button
                          color="warn"
-                         (click)="openCancelOrderDialog(element)"
+                         (click)="openCancelOrderDialog(order)"
                         >
                             Cancelar pedido
                         </button>
