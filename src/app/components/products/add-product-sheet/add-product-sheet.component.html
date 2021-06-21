@@ -44,15 +44,30 @@
           </mat-select>
         </mat-form-field>
     </div>
-    <div class="input-container">
+    <div class="input-container" *ngIf="!product">
         <button
          mat-raised-button
          color="primary"
-         [disabled] = "true"
-         #saveButton
-         (click)="saveButton.disabled = true; save()"
+         [disabled] = "!nameFormControl.valid"
+         #addButton
+         (click)="addButton.disabled = true; save()"
         >
-          {{ product ? 'Editar' : 'Agregar' }}
+          Agregar
         </button>
-      </div>
+    </div>
+    <div class="input-container" *ngIf="product">
+        <button
+         mat-raised-button
+         color="primary"
+         [disabled] = "
+          Name.value == product.name &&
+          BrandCode.value == product.brandCode &&
+          Brand.value == product.brand &&
+          Category.value == product.category"
+         #updateButton
+         (click)="updateButton.disabled = true; save()"
+        >
+          Actualizar
+        </button>
+    </div>
 </div>

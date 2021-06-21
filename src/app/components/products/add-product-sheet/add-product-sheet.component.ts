@@ -12,8 +12,9 @@ import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.servi
 
 export class AddProductSheetComponent {
 
+  private DEFAULT_CATEGORY = 'General';
   brands: any;
-  categories = [];
+  categories = [{name: 'General'}, {name: 'Cortinas'}, {name: 'Colchas'}];
   nameFormControl: FormControl;
   brandFormControl: FormControl;
   brandCodeFormControl: FormControl;
@@ -26,21 +27,23 @@ export class AddProductSheetComponent {
   ) {
     this.nameFormControl = new FormControl('', [Validators.required]);
     this.brandCodeFormControl = new FormControl();
-    this.brandFormControl = new FormControl('', [Validators.required]);
-    this.categoryFormControl = new FormControl('', [Validators.required]);
+    this.brandFormControl = new FormControl();
+    this.categoryFormControl = new FormControl();
 
     firebaseCRUD.getBrands().subscribe(
       documents => {
         this.brands = documents;
+        if (product) {
+          this.nameFormControl.setValue(product.name);
+          this.brandCodeFormControl.setValue(product.brandCode);
+          this.brandFormControl.setValue(product.brand);
+          this.categoryFormControl.setValue(product.category);
+        } else {
+          this.brandFormControl.setValue(this.brands[0].name);
+          this.categoryFormControl.setValue(this.DEFAULT_CATEGORY);
+        }
       }
     );
-
-    if (product) {
-      this.nameFormControl.setValue(product.name);
-      this.brandCodeFormControl.setValue(product.brandCode);
-      this.brandFormControl.setValue(product.brand);
-      this.categoryFormControl.setValue(product.category);
-    }
   }
 
 
