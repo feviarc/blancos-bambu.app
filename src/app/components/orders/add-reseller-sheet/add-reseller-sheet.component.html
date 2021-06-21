@@ -1,5 +1,5 @@
 <div cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
-  <h3>Nuevo pedido</h3>
+  <h2>Nuevo pedido</h2>
 
   <div class="input-container">
     <mat-form-field appearance="fill">
@@ -26,22 +26,22 @@
       </mat-select>
     </mat-form-field>
   </div>
-  
+
   <p>
     <mat-form-field id="amount" appearance="outline">
       <mat-label>Cantidad</mat-label>
-      <input 
-       matInput 
-       type="number" 
+      <input
+       matInput
+       type="number"
        [formControl]="amountFormControl"
        #Amount
-       min="1" 
+       min="1"
        max="100"
       >
       <span matSuffix>&nbsp;&nbsp;pzas.</span>
     </mat-form-field>
   </p>
-    
+
   <div class="input-container">
     <mat-form-field appearance="fill">
       <mat-label>Mayorista</mat-label>
@@ -52,7 +52,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-   
+
   <div class="input-container">
     <button
      mat-raised-button
@@ -69,5 +69,5 @@
       Agregar
     </button>
   </div>
-  
+
 </div>

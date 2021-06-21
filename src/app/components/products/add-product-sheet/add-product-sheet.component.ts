@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
+
 
 @Component({
   selector: 'app-add-product-sheet',
@@ -9,8 +12,38 @@ import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 export class AddProductSheetComponent {
 
-  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {
-    console.log(data);
+  brands: any;
+  categories = [];
+  nameFormControl: FormControl;
+  brandFormControl: FormControl;
+  brandCodeFormControl: FormControl;
+  categoryFormControl: FormControl;
+
+
+  constructor(
+    @Inject(MAT_BOTTOM_SHEET_DATA) public product: any,
+    private firebaseCRUD: FirebaseCRUDService
+  ) {
+    this.nameFormControl = new FormControl('', [Validators.required]);
+    this.brandCodeFormControl = new FormControl();
+    this.brandFormControl = new FormControl('', [Validators.required]);
+    this.categoryFormControl = new FormControl('', [Validators.required]);
+
+    firebaseCRUD.getBrands().subscribe(
+      documents => {
+        this.brands = documents;
+      }
+    );
+
+    if (product) {
+      this.nameFormControl.setValue(product.name);
+      this.brandCodeFormControl.setValue(product.brandCode);
+      this.brandFormControl.setValue(product.brand);
+      this.categoryFormControl.setValue(product.category);
+    }
   }
+
+
+  save() { }
 
 }
