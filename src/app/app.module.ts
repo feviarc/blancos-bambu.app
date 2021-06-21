@@ -11,6 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 // Environment
 import { environment } from '../environments/environment';
 // Components
+import { AddProductSheetComponent } from './components/products/add-product-sheet/add-product-sheet.component';
 import { AddResellerSheetComponent } from './components/orders/add-reseller-sheet/add-reseller-sheet.component';
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -36,6 +37,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 @NgModule({
   declarations: [
     AppComponent,
+    AddProductSheetComponent,
     AddResellerSheetComponent,
     CancelOrderDialogComponent,
     DashboardComponent,

@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
+import { AddProductSheetComponent } from './add-product-sheet/add-product-sheet.component';
 
 @Component({
   selector: 'app-products',
@@ -16,7 +18,10 @@ export class ProductsComponent {
   tableColumns: string[];
   @ViewChild(MatSort) sort: any;
 
-  constructor(public crudService: FirebaseCRUDService) {
+  constructor(
+    private matBottomSheet: MatBottomSheet,
+    public crudService: FirebaseCRUDService
+  ) {
     this.isLoadingData = true;
 
     this.tableColumns = [
@@ -40,6 +45,11 @@ export class ProductsComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+  openAddProductSheet(product: any) {
+    this.matBottomSheet.open(AddProductSheetComponent, {data: product});
   }
 
 }
