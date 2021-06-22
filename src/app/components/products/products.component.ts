@@ -32,7 +32,7 @@ export class ProductsComponent {
       'crudIcons'
     ];
 
-    this.crudService.getAllProducts().subscribe(
+    this.crudService.getProducts().subscribe(
       products => {
         this.dataSource = new MatTableDataSource(products);
         this.dataSource.sort = this.sort;
@@ -51,5 +51,8 @@ export class ProductsComponent {
   openAddProductSheet(product: any) {
     this.matBottomSheet.open(AddProductSheetComponent, {data: product});
   }
+
+
+  deleteProduct(id: string) { }
 
 }
