@@ -15,10 +15,11 @@ import { AddProductSheetComponent } from './components/products/add-product-shee
 import { AddResellerSheetComponent } from './components/orders/add-reseller-sheet/add-reseller-sheet.component';
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';
+import { DeleteProductDialogComponent } from './components/products/delete-product-dialog/delete-product-dialog.component';
 import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dialog.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
+import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProductsComponent } from './components/products/products.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -41,10 +42,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AddResellerSheetComponent,
     CancelOrderDialogComponent,
     DashboardComponent,
-    OrderDeliveryDialogComponent,
+    DeleteProductDialogComponent,
     ExitDialogComponent,
     ForgotPasswordComponent,
     LoggedInComponent,
+    OrderDeliveryDialogComponent,
     OrdersComponent,
     ProductsComponent,
     SignInComponent,
@@ -52,15 +54,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     VerifyEmailComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularMaterialModule,
+    BrowserModule,
+    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularMaterialModule,
-    FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
