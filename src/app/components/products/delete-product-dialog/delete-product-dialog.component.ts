@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -8,6 +9,6 @@ import { Component, OnInit } from '@angular/core';
 
 export class DeleteProductDialogComponent {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public product: any) { }
 
 }

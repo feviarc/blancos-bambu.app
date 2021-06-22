@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
 
@@ -23,6 +23,7 @@ export class AddProductSheetComponent {
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public product: any,
+    private bottomSheetRef: MatBottomSheetRef,
     private firebaseCRUD: FirebaseCRUDService
   ) {
     this.nameFormControl = new FormControl('', [Validators.required]);
@@ -47,6 +48,8 @@ export class AddProductSheetComponent {
   }
 
 
-  save() { }
+  save() {
+    this.bottomSheetRef.dismiss();
+  }
 
 }
