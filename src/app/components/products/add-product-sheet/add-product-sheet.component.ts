@@ -12,9 +12,9 @@ import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.servi
 
 export class AddProductSheetComponent {
 
-  private DEFAULT_CATEGORY = 'General';
+  private DEFAULT_CATEGORY = 'GENERAL';
   brands: any;
-  categories = [{name: 'General'}, {name: 'Cortinas'}, {name: 'Colchas'}];
+  categories = [{name: 'GENERAL'}, {name: 'CORTINAS'}, {name: 'COLCHAS'}];
   nameFormControl: FormControl;
   brandFormControl: FormControl;
   brandCodeFormControl: FormControl;

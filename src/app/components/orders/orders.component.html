@@ -42,12 +42,11 @@
         <ng-container matColumnDef="unfoldIcon">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let order">
-                <mat-icon
-                 class="pointer-cursor"
+                <button mat-icon-button
                  (click)="expandedElement = expandedElement === order ? null : order"
                 >
-                    unfold_more
-                </mat-icon>
+                    <mat-icon>unfold_more</mat-icon>
+                </button>
                 &nbsp;
                 <mat-icon
                  class="default-cursor"
@@ -100,14 +99,13 @@
                     >
                 </mat-form-field>
                 &nbsp;
-                <mat-icon
+                <button mat-icon-button
                  *ngIf="order.isInStore != isInStore.value && order.form.isInStoreFormControl.valid"
-                 class="pointer-cursor"
                  color="primary"
                  (click)="updateIsInStoreProperty(order, +isInStore.value)"
                 >
-                    save
-                </mat-icon>
+                    <mat-icon>save</mat-icon>
+                </button>
             </td>
         </ng-container>
 
@@ -148,29 +146,26 @@
                             </textarea>
                             <ng-container *ngIf="order.comments != comments.value && order.form.commentsFormControl.valid">
                                 <mat-toolbar>
-                                    <mat-icon
-                                     class="pointer-cursor"
+                                    <button mat-icon-button
                                      color="primary"
                                      (click)="updateCommentsProperty(order, comments.value)"
                                     >
-                                        save
-                                    </mat-icon>
+                                        <mat-icon>save</mat-icon>
+                                    </button>
                                     <span class="spacer"></span>
-                                    <mat-icon
+                                    <button mat-icon-button
                                      *ngIf="order.comments != ''"
-                                     class="pointer-cursor"
                                      color="primary"
                                      (click)="changeTextAreaValue(comments, order, order.comments)"
                                     >
-                                        undo
-                                    </mat-icon>
-                                    <mat-icon
-                                     class="pointer-cursor"
+                                        <mat-icon>undo</mat-icon>
+                                    </button>
+                                    <button mat-icon-button
                                      color="primary"
                                      (click)="changeTextAreaValue(comments, order, '')"
                                     >
-                                        clear
-                                    </mat-icon>
+                                        <mat-icon>clear</mat-icon>
+                                    </button>
                                 </mat-toolbar>
                             </ng-container>
                             <ng-container>
@@ -204,7 +199,7 @@
     </table>
 
     <button mat-fab color="primary" (click)="openAddResellerSheet()">
-        <mat-icon class="pointer-cursor" style="margin:0">add_shopping_cart</mat-icon>
+        <mat-icon>add_shopping_cart</mat-icon>
     </button>
 
 </div>
