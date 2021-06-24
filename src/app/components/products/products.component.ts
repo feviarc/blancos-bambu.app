@@ -66,7 +66,7 @@ export class ProductsComponent {
           this.crudService.deleteProduct(product.id)
           .then(
             () => {
-              this.snackBar.open(`🟢 El artículo ${product.name} ha sido eliminado`, 'CERRAR');
+              this.snackBar.open(`😀 Se eliminó ${product.name}`, 'CERRAR');
             }
           );
         }

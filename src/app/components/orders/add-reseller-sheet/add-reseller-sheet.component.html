@@ -64,7 +64,7 @@
        resellerFormControl.valid
        ? false : true"
      #addButton
-     (click)="addButton.disabled = true; add(Reseller.value, Product.value, Brand.value, Amount.value)"
+     (click)="addButton.disabled = true; saveOrder(Reseller.value, Product.value, Brand.value, Amount.value)"
     >
       Agregar
     </button>

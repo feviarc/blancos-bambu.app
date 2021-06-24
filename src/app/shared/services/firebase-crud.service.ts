@@ -65,7 +65,17 @@ export class FirebaseCRUDService {
   }
 
 
-  addProduct() { }
+  addProduct(product: any) {
+    if(!product.id) {
+      product.id = this.db.createId();
+    }
+
+    const productRef = this.db
+    .collection(this.dbPath.products)
+    .doc(product.id);
+
+    return productRef.set(product);
+  }
 
 
   addReseller() { }

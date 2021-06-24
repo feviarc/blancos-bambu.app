@@ -60,7 +60,7 @@ export class AddResellerSheetComponent {
   }
 
 
-  add(reseller: any, product: any, brand: string, amount: any): void {
+  saveOrder(reseller: any, product: any, brand: string, amount: any) {
     const order = {
       reseller: {
         id: reseller.id,
@@ -82,7 +82,7 @@ export class AddResellerSheetComponent {
     .then(
       () => {
         this.snackBar.open(
-          `🟢 Se agregó ${product.name} a la lista de pedidos.`,
+          `😀 Se agregó ${product.name} a la lista de pedidos.`,
           'CERRAR'
         );
         this.bottomSheetRef.dismiss();

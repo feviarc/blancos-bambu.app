@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
 
@@ -23,6 +24,7 @@ export class AddProductSheetComponent {
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public product: any,
+    private snackBar: MatSnackBar,
     private bottomSheetRef: MatBottomSheetRef,
     private firebaseCRUD: FirebaseCRUDService
   ) {
@@ -48,8 +50,26 @@ export class AddProductSheetComponent {
   }
 
 
-  save() {
-    this.bottomSheetRef.dismiss();
+  saveProduct(id: any, name: string, brandCode: string, brand:string, category: string, pictureURL: string) {
+    const now = Date.now();
+    let product = {
+      id,
+      name,
+      brandCode,
+      brand,
+      category,
+      pictureURL,
+      registered: (id ? this.product.registered : now),
+      lastUpdated: now
+    };
+
+    this.firebaseCRUD.addProduct(product)
+    .then(
+      () => {
+        this.bottomSheetRef.dismiss();
+        this.snackBar.open(`😀 Se ${id ? 'actualizó' : 'guardó'} ${product.name}`, 'CERRAR');
+      }
+    );
   }
 
 }

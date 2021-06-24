@@ -50,7 +50,7 @@
          color="primary"
          [disabled] = "!nameFormControl.valid"
          #addButton
-         (click)="addButton.disabled = true; save()"
+         (click)="addButton.disabled = true; saveProduct(null, Name.value, BrandCode.value || 'N/A', Brand.value, Category.value, '')"
         >
           Agregar
         </button>
@@ -60,12 +60,13 @@
          mat-raised-button
          color="primary"
          [disabled] = "
-          Name.value == product.name &&
+          !nameFormControl.valid ||
+          (Name.value == product.name &&
           BrandCode.value == product.brandCode &&
           Brand.value == product.brand &&
-          Category.value == product.category"
+          Category.value == product.category)"
          #updateButton
-         (click)="updateButton.disabled = true; save()"
+         (click)="updateButton.disabled = true; saveProduct(product.id, Name.value, BrandCode.value || 'N/A', Brand.value, Category.value, '')"
         >
           Actualizar
         </button>
