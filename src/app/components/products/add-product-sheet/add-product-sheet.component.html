@@ -1,5 +1,5 @@
-<div>
-    <h2>{{ product ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
+<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+    <h2>{{ product ? 'Editar Artículo' : 'Nuevo Artículo' }}</h2>
     <div class="input-container">
         <mat-form-field appearance="outline">
             <mat-label>Nombre</mat-label>
