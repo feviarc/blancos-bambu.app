@@ -128,3 +128,10 @@ div.mat-card-avatar {
 .spacer {
     flex: 1 1 auto;
 }
+
+
+@media (max-width: 640px) {
+    table td.mat-cell {
+        font-size: 0.7rem;
+    }
+}

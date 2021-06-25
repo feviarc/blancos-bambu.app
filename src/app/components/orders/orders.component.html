@@ -17,15 +17,15 @@
         </mat-label>
         <input
          matInput
-         #filter
+         #Filter
          placeholder="Filtrar por mayorista, artículo o marca"
          (keyup)="applyFilter($event)"
         >
         <button
-         *ngIf="filter.value"
+         *ngIf="Filter.value"
          matSuffix
          mat-icon-button
-         (click)="filter.value = ''; dataSource.filter = filter.value;"
+         (click)="Filter.value = ''; dataSource.filter = Filter.value;"
         >
             <mat-icon>close</mat-icon>
         </button>
@@ -95,14 +95,14 @@
                      min="0"
                      max="{{ order.amount }}"
                      [formControl]="order.form.isInStoreFormControl"
-                     #isInStore
+                     #IsInStore
                     >
                 </mat-form-field>
                 &nbsp;
                 <button mat-icon-button
-                 *ngIf="order.isInStore != isInStore.value && order.form.isInStoreFormControl.valid"
+                 *ngIf="order.isInStore != IsInStore.value && order.form.isInStoreFormControl.valid"
                  color="primary"
-                 (click)="updateIsInStoreProperty(order, +isInStore.value)"
+                 (click)="updateIsInStoreProperty(order, +IsInStore.value)"
                 >
                     <mat-icon>save</mat-icon>
                 </button>
@@ -141,14 +141,14 @@
                             <textarea
                              matInput
                              [formControl]="order.form.commentsFormControl"
-                             #comments
+                             #Comments
                             >
                             </textarea>
-                            <ng-container *ngIf="order.comments != comments.value && order.form.commentsFormControl.valid">
+                            <ng-container *ngIf="order.comments != Comments.value && order.form.commentsFormControl.valid">
                                 <mat-toolbar>
                                     <button mat-icon-button
                                      color="primary"
-                                     (click)="updateCommentsProperty(order, comments.value)"
+                                     (click)="updateCommentsProperty(order, Comments.value)"
                                     >
                                         <mat-icon>save</mat-icon>
                                     </button>
@@ -156,13 +156,13 @@
                                     <button mat-icon-button
                                      *ngIf="order.comments != ''"
                                      color="primary"
-                                     (click)="changeTextAreaValue(comments, order, order.comments)"
+                                     (click)="changeTextAreaValue(Comments, order, order.comments)"
                                     >
                                         <mat-icon>undo</mat-icon>
                                     </button>
                                     <button mat-icon-button
                                      color="primary"
-                                     (click)="changeTextAreaValue(comments, order, '')"
+                                     (click)="changeTextAreaValue(Comments, order, '')"
                                     >
                                         <mat-icon>clear</mat-icon>
                                     </button>
