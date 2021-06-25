@@ -25,7 +25,7 @@ export class DashboardComponent {
         this.isLoadingData = false;
       },
       error => {
-        const snackBarRef = this.snackBar.open(`🔴 Estamos tratando de conectarnos a la base de datos. [ ${error.code} ]`);
+        const snackBarRef = this.snackBar.open(`🥵 Estamos tratando de conectarnos a la base de datos. [ ${error.code} ]`);
         snackBarRef.afterDismissed().subscribe(
           () => {
             window.location.href = '/';

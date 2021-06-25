@@ -29,6 +29,7 @@
     "firebase": "^8.6.5",
     "firebase-tools": "^9.12.1",
     "http-server": "^0.12.3",
+    "material-icons": "^0.7.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

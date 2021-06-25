@@ -65,6 +65,22 @@ export class FirebaseCRUDService {
   }
 
 
+  addProduct(product: any) {
+    if(!product.id) {
+      product.id = this.db.createId();
+    }
+
+    const productRef = this.db
+    .collection(this.dbPath.products)
+    .doc(product.id);
+
+    return productRef.set(product);
+  }
+
+
+  addReseller() { }
+
+
   deleteOrder(id: string, resellerID: string) {
     const orderRef = this.db
     .collection(this.dbPath.resellers)
@@ -76,15 +92,16 @@ export class FirebaseCRUDService {
   }
 
 
-  updateOrder(id: string, resellerID: string, updatedProperty: any) {
-    const orderRef = this.db
-    .collection(this.dbPath.resellers)
-    .doc(resellerID)
-    .collection(this.dbPath.orders)
+  deleteProduct(id: string) {
+    const productRef = this.db
+    .collection(this.dbPath.products)
     .doc(id);
 
-    return orderRef.update(updatedProperty);
+    return productRef.delete();
   }
+
+
+  deleteReseller() { }
 
 
   getActiveOrders() {
@@ -97,7 +114,7 @@ export class FirebaseCRUDService {
   }
 
 
-  getAllProducts() {
+  getProducts() {
     return this.productsRef.valueChanges();
   }
 
@@ -119,6 +136,17 @@ export class FirebaseCRUDService {
 
   getResellers() {
     return this.resellersRef.valueChanges();
+  }
+
+
+  updateOrder(id: string, resellerID: string, updatedProperty: any) {
+    const orderRef = this.db
+    .collection(this.dbPath.resellers)
+    .doc(resellerID)
+    .collection(this.dbPath.orders)
+    .doc(id);
+
+    return orderRef.update(updatedProperty);
   }
 
 }

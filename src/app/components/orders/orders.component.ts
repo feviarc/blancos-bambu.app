@@ -107,7 +107,7 @@ export class OrdersComponent {
           this.crudService.deleteOrder(mappedOrder.id, mappedOrder.resellerID).then(
             () => {
               this.snackBar.open(
-                `🟢 Se eliminó el pedido ${mappedOrder.productName} de ${mappedOrder.resellerDisplayName}`,
+                `😀 Se eliminó el pedido ${mappedOrder.productName} de ${mappedOrder.resellerDisplayName}`,
                 'CERRAR'
               );
             }
@@ -126,7 +126,7 @@ export class OrdersComponent {
           this.updateStatusProperty(mappedOrder).then(
             () => {
               this.snackBar.open(
-                `🟢 Se registró la entrega de ${mappedOrder.isInStore} ${mappedOrder.productName} a ${mappedOrder.resellerDisplayName}`,
+                `😀 Se registró la entrega de ${mappedOrder.isInStore} ${mappedOrder.productName} a ${mappedOrder.resellerDisplayName}`,
                 'CERRAR'
               );
               if (result === 'KEEP_ORDER') {

@@ -1,14 +1,12 @@
-<h2 mat-dialog-title>{{ order.productName }}</h2>
-
+<h2 mat-dialog-title>{{ product.name }}</h2>
 <mat-dialog-content class="mat-tipography">
     <p>
-        Se realizará la cancelación de este pedido a <strong>{{ order.resellerDisplayName }}</strong>.
+        La opción seleccionada eliminará este producto del sistema.
     </p>
     <p>
         Si desea continuar presione el botón Aceptar.
     </p>
 </mat-dialog-content>
-
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true">Aceptar</button>
     <button mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>

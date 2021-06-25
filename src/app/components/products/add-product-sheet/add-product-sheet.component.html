@@ -1,5 +1,5 @@
-<div>
-    <h2>{{ product ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
+<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+    <h2>{{ product ? 'Editar Artículo' : 'Nuevo Artículo' }}</h2>
     <div class="input-container">
         <mat-form-field appearance="outline">
             <mat-label>Nombre</mat-label>
@@ -44,15 +44,31 @@
           </mat-select>
         </mat-form-field>
     </div>
-    <div class="input-container">
+    <div class="input-container" *ngIf="!product">
         <button
          mat-raised-button
          color="primary"
-         [disabled] = "true"
-         #saveButton
-         (click)="saveButton.disabled = true; save()"
+         [disabled] = "!nameFormControl.valid"
+         #addButton
+         (click)="addButton.disabled = true; saveProduct(null, Name.value, BrandCode.value || 'N/A', Brand.value, Category.value, '')"
         >
-          {{ product ? 'Editar' : 'Agregar' }}
+          Agregar
         </button>
-      </div>
+    </div>
+    <div class="input-container" *ngIf="product">
+        <button
+         mat-raised-button
+         color="primary"
+         [disabled] = "
+          !nameFormControl.valid ||
+          (Name.value == product.name &&
+          BrandCode.value == product.brandCode &&
+          Brand.value == product.brand &&
+          Category.value == product.category)"
+         #updateButton
+         (click)="updateButton.disabled = true; saveProduct(product.id, Name.value, BrandCode.value || 'N/A', Brand.value, Category.value, '')"
+        >
+          Actualizar
+        </button>
+    </div>
 </div>

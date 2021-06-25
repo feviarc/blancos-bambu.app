@@ -1,9 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { AddProductSheetComponent } from './add-product-sheet/add-product-sheet.component';
+import { DeleteProductDialogComponent } from './delete-product-dialog/delete-product-dialog.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
-import { AddProductSheetComponent } from './add-product-sheet/add-product-sheet.component';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +22,9 @@ export class ProductsComponent {
   @ViewChild(MatSort) sort: any;
 
   constructor(
-    private matBottomSheet: MatBottomSheet,
+    private bottomSheet: MatBottomSheet,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     public crudService: FirebaseCRUDService
   ) {
     this.isLoadingData = true;
@@ -32,7 +37,7 @@ export class ProductsComponent {
       'crudIcons'
     ];
 
-    this.crudService.getAllProducts().subscribe(
+    this.crudService.getProducts().subscribe(
       products => {
         this.dataSource = new MatTableDataSource(products);
         this.dataSource.sort = this.sort;
@@ -49,7 +54,24 @@ export class ProductsComponent {
 
 
   openAddProductSheet(product: any) {
-    this.matBottomSheet.open(AddProductSheetComponent, {data: product});
+    this.bottomSheet.open(AddProductSheetComponent, {data: product});
+  }
+
+
+  openDeleteProductDialog(product: any) {
+    const dialogRef =  this.dialog.open(DeleteProductDialogComponent, {data: product});
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result) {
+          this.crudService.deleteProduct(product.id)
+          .then(
+            () => {
+              this.snackBar.open(`😀 Se eliminó ${product.name}`, 'CERRAR');
+            }
+          );
+        }
+      }
+    );
   }
 
 }

@@ -36,7 +36,7 @@ export class SignInComponent {
     ]);
 
     this.openSnackBar = (error: any) => {
-      this.snackBar.open(error.message, 'CERRAR');
+      this.snackBar.open('🥵' + error.message, 'CERRAR');
     };
   }
 

@@ -1,4 +1,5 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "material-icons/iconfont/material-icons.css";
 
 /* You can add global styles to this file, and also import other style files */
 html, body {
@@ -127,4 +128,11 @@ div.mat-card-avatar {
 
 .spacer {
     flex: 1 1 auto;
+}
+
+
+@media (max-width: 640px) {
+    table td.mat-cell {
+        font-size: 0.7rem;
+    }
 }

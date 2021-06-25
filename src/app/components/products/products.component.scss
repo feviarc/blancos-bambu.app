@@ -8,6 +8,10 @@ table.mat-table {
     width: 100%;
 }
 
+td.mat-column-crudIcons {
+    padding-right: 60px !important;
+}
+
 th.mat-header-cell {
     font-size: 1rem;
 }
