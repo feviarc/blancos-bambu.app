@@ -6,13 +6,13 @@ import { FirebaseCRUDService } from '../../../shared/services/firebase-crud.serv
 
 
 @Component({
-  selector: 'app-add-reseller-sheet',
-  templateUrl: './add-reseller-sheet.component.html',
-  styleUrls: ['./add-reseller-sheet.component.scss']
+  selector: 'app-add-order-sheet',
+  templateUrl: './add-order-sheet.component.html',
+  styleUrls: ['./add-order-sheet.component.scss']
 })
 
 
-export class AddResellerSheetComponent {
+export class AddOrderSheetComponent {
 
   brands: any;
   products: any;

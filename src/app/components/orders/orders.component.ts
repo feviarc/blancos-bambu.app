@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
-import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component';
+import { AddOrderSheetComponent } from './add-order-sheet/add-order-sheet.component';
 import { CancelOrderDialogComponent } from './cancel-order-dialog/cancel-order-dialog.component';
 import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
 
@@ -95,7 +95,7 @@ export class OrdersComponent {
 
 
   openAddResellerSheet() {
-    this.bottomSheet.open(AddResellerSheetComponent);
+    this.bottomSheet.open(AddOrderSheetComponent);
   }
 
 
