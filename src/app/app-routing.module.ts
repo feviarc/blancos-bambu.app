@@ -26,7 +26,8 @@ const routes: Routes = [
   },
   { path: 'sign-in', component: SignInComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'verify-email-address', component: VerifyEmailComponent }
+  { path: 'verify-email-address', component: VerifyEmailComponent },
+  { path: '**', redirectTo: 'logged-in/dashboard'}
 ];
 
 @NgModule({
