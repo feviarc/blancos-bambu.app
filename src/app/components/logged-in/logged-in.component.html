@@ -13,17 +13,20 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item id="install-app">
+            <button
+             mat-menu-item
+             id="install-app"
+             *ngIf="installService.eventStatus"
+             (click)="installService.showInstallAppDialog()"
+            >
               <mat-icon>get_app</mat-icon>
               <span>Instalar Blancos BAMBÚ...</span>
             </button>
-            <mat-divider></mat-divider>
             <button mat-menu-item>
               <mat-icon>ondemand_video</mat-icon>
               <span>Manual de Usuario</span>
             </button>
         </mat-menu>
-
     </mat-toolbar>
 
     <!-- Sidebar -->

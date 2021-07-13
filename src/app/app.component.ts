@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { InstallAppService } from './shared/services/install-app.service';
 
 
 @Component({
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent { }
+export class AppComponent {
+
+  constructor(public installService: InstallAppService) { }
+
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onBeforeInstallPrompt(event: Event) {
+    event.preventDefault();
+    this.installService.eventStatus = event;
+  }
+
+}

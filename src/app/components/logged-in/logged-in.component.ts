@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExitDialogComponent } from './exit-dialog/exit-dialog.component';
 import { AuthService } from '../../shared/services/auth.service';
+import { InstallAppService } from '../../shared/services/install-app.service';
 
 
 @Component({
@@ -14,9 +15,14 @@ export class LoggedInComponent {
 
   profilePicture: string;
   profilePictureURL: string;
+  installAppEvent: any;
 
 
-  constructor(public dialog: MatDialog, public authService: AuthService) {
+  constructor(
+    private dialog: MatDialog,
+    public authService: AuthService,
+    public installService: InstallAppService
+  ) {
     this.profilePictureURL = '../../../assets/img/face.jpg';
     this.profilePicture = `url('${this.profilePictureURL}')`;
   }

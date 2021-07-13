@@ -4,6 +4,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreCollectionGroup
 } from '@angular/fire/firestore';
+import { app } from 'src/environments/environment.app';
 import { Order } from '../models/order.model';
 
 
@@ -22,12 +23,7 @@ export class FirebaseCRUDService {
 
 
   constructor(private db: AngularFirestore) {
-    this.dbPath = {
-      brands: 'brands',
-      products: 'products',
-      resellers: 'resellers',
-      orders: 'orders'
-    };
+    this.dbPath = app.db.path;
 
     this.productsRef = db.collection(this.dbPath.products);
     this.resellersRef = db.collection(this.dbPath.resellers);
@@ -109,6 +105,11 @@ export class FirebaseCRUDService {
   }
 
 
+  getBrands() {
+    return this.brandsRef.valueChanges();
+  }
+
+
   getDeliveredOrders() {
     return this.deliveredOrdersRef.valueChanges();
   }
@@ -126,11 +127,6 @@ export class FirebaseCRUDService {
       }
     );
     return productsRef.valueChanges();
-  }
-
-
-  getBrands() {
-    return this.brandsRef.valueChanges();
   }
 
 
