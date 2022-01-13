@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExitDialogComponent } from './exit-dialog/exit-dialog.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { InstallAppService } from '../../shared/services/install-app.service';
+import { MessagingService } from '../../shared/services/messaging.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { InstallAppService } from '../../shared/services/install-app.service';
   styleUrls: ['./logged-in.component.scss']
 })
 
-export class LoggedInComponent {
+export class LoggedInComponent implements OnInit{
 
   profilePicture: string;
   profilePictureURL: string;
@@ -21,10 +22,16 @@ export class LoggedInComponent {
   constructor(
     private dialog: MatDialog,
     public authService: AuthService,
-    public installService: InstallAppService
+    public installService: InstallAppService,
+    private messaging: MessagingService
   ) {
     this.profilePictureURL = '../../../assets/img/face.jpg';
     this.profilePicture = `url('${this.profilePictureURL}')`;
+  }
+
+
+  ngOnInit() {
+    this.messaging.requestMessagingPermission();
   }
 
 

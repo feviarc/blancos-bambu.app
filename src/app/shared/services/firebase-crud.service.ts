@@ -14,7 +14,6 @@ import { Order } from '../models/order.model';
 
 export class FirebaseCRUDService {
 
-  private dbPath: any;
   private brandsRef: AngularFirestoreCollection;
   private productsRef: AngularFirestoreCollection;
   private resellersRef: AngularFirestoreCollection;
@@ -23,24 +22,22 @@ export class FirebaseCRUDService {
 
 
   constructor(private db: AngularFirestore) {
-    this.dbPath = app.db.path;
+    this.productsRef = db.collection(app.db.path.products);
+    this.resellersRef = db.collection(app.db.path.resellers);
 
-    this.productsRef = db.collection(this.dbPath.products);
-    this.resellersRef = db.collection(this.dbPath.resellers);
-
-    this.brandsRef = db.collection(this.dbPath.brands,
+    this.brandsRef = db.collection(app.db.path.brands,
       query => {
         return query.orderBy('name', 'asc');
       }
     );
 
-    this.activeOrdersRef = db.collectionGroup(this.dbPath.orders,
+    this.activeOrdersRef = db.collectionGroup(app.db.path.orders,
       query => {
         return query.where('status.isDelivered', '==', false).orderBy('status.registerDate', 'desc');
       }
     );
 
-    this.deliveredOrdersRef = db.collectionGroup(this.dbPath.orders,
+    this.deliveredOrdersRef = db.collectionGroup(app.db.path.orders,
       query => {
         return query.where('status.isDelivery', '==', true).orderBy('status.registerDate', 'desc');
       }
@@ -52,9 +49,9 @@ export class FirebaseCRUDService {
     order.id = this.db.createId();
 
     const orderRef = this.db
-    .collection(this.dbPath.resellers)
+    .collection(app.db.path.resellers)
     .doc(order.reseller.id)
-    .collection(this.dbPath.orders)
+    .collection(app.db.path.orders)
     .doc(order.id);
 
     return orderRef.set(order);
@@ -67,7 +64,7 @@ export class FirebaseCRUDService {
     }
 
     const productRef = this.db
-    .collection(this.dbPath.products)
+    .collection(app.db.path.products)
     .doc(product.id);
 
     return productRef.set(product);
@@ -79,9 +76,9 @@ export class FirebaseCRUDService {
 
   deleteOrder(id: string, resellerID: string) {
     const orderRef = this.db
-    .collection(this.dbPath.resellers)
+    .collection(app.db.path.resellers)
     .doc(resellerID)
-    .collection(this.dbPath.orders)
+    .collection(app.db.path.orders)
     .doc(id);
 
     return orderRef.delete();
@@ -90,7 +87,7 @@ export class FirebaseCRUDService {
 
   deleteProduct(id: string) {
     const productRef = this.db
-    .collection(this.dbPath.products)
+    .collection(app.db.path.products)
     .doc(id);
 
     return productRef.delete();
@@ -121,7 +118,7 @@ export class FirebaseCRUDService {
 
 
   getProductsByBrand(brand: string) {
-    const productsRef = this.db.collection(this.dbPath.products,
+    const productsRef = this.db.collection(app.db.path.products,
       query => {
         return query.where('brand', '==', brand);
       }
@@ -137,9 +134,9 @@ export class FirebaseCRUDService {
 
   updateOrder(id: string, resellerID: string, updatedProperty: any) {
     const orderRef = this.db
-    .collection(this.dbPath.resellers)
+    .collection(app.db.path.resellers)
     .doc(resellerID)
-    .collection(this.dbPath.orders)
+    .collection(app.db.path.orders)
     .doc(id);
 
     return orderRef.update(updatedProperty);

@@ -5,8 +5,9 @@ import { AppComponent } from './app.component';
 // Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Firebase services
-import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 // Environment
 import { environment } from '../environments/environment';
@@ -28,6 +29,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 // Services
 import { AuthService } from './shared/services/auth.service';
 import { FirebaseCRUDService } from './shared/services/firebase-crud.service';
+import { MessagingService } from './shared/services/messaging.service';
 // Angular Material
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -56,6 +58,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   imports: [
     AppRoutingModule,
     AngularFireAuthModule,
+    AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularMaterialModule,
@@ -72,7 +75,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   ],
   providers: [
     AuthService,
-    FirebaseCRUDService
+    FirebaseCRUDService,
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })

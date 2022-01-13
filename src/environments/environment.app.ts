@@ -4,7 +4,8 @@ export const app = {
             brands: 'brands',
             products: 'products',
             resellers: 'resellers',
-            orders: 'orders'
+            orders: 'orders',
+            tokens: 'tokens'
         }
     }
 };
