@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
 import { app } from '../../../environments/environment.app';
 
 interface Token {
   token: string | null;
 }
-
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,14 @@ interface Token {
 
 export class MessagingService {
 
-  private tokensRef: AngularFirestoreCollection<Token>;
-
+  private uid: string;
 
   constructor(
     private db: AngularFirestore,
-    private messaging: AngularFireMessaging
+    private messaging: AngularFireMessaging,
+    private authService: AuthService
   ) {
-    this.tokensRef = this.db.collection<Token>(app.db.path.tokens);
+    this.uid = this.authService.userData.uid;
   }
 
 
@@ -29,8 +29,8 @@ export class MessagingService {
     this.messaging.requestToken.subscribe(
       token => {
         if (token) {
-          console.log(token);
-          this.tokensRef.add({token});
+          const tokenRef = this.db.collection<Token>(app.db.path.tokens).doc(this.uid);
+          tokenRef.set({token});
         }
       }
     );
@@ -38,11 +38,7 @@ export class MessagingService {
 
 
   listeningNotifications() {
-    this.messaging.messages.subscribe(
-      message => {
-        console.log('message: ', message);
-      }
-    );
+    this.messaging.messages.subscribe(console.log);
   }
 
 }
