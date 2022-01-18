@@ -8,7 +8,13 @@
             <strong>Administrar Pedidos</strong>
         </button>
         <span class="spacer"></span>
-        <button mat-stroked-button color="primary">Ver entregados</button>
+        <button
+         mat-stroked-button
+         color="primary"
+         (click)="openDeliveredOrdersDialog()"
+        >
+            Ver entregados
+        </button>
     </mat-toolbar>
 
     <mat-form-field id="filter">

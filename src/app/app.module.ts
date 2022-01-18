@@ -17,6 +17,7 @@ import { AddProductSheetComponent } from './components/products/add-product-shee
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DeleteProductDialogComponent } from './components/products/delete-product-dialog/delete-product-dialog.component';
+import { DeliveredOrdersListComponent } from './components/orders/delivered-orders-list-dialog/delivered-orders-list.component';
 import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dialog.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
@@ -45,6 +46,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     CancelOrderDialogComponent,
     DashboardComponent,
     DeleteProductDialogComponent,
+    DeliveredOrdersListComponent,
     ExitDialogComponent,
     ForgotPasswordComponent,
     LoggedInComponent,

@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 import { AddOrderSheetComponent } from './add-order-sheet/add-order-sheet.component';
 import { CancelOrderDialogComponent } from './cancel-order-dialog/cancel-order-dialog.component';
+import { DeliveredOrdersListComponent } from './delivered-orders-list-dialog/delivered-orders-list.component';
 import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
 
 
@@ -115,6 +116,12 @@ export class OrdersComponent {
         }
       }
     );
+  }
+
+
+  openDeliveredOrdersDialog() {
+    const dialogRef = this.dialog.open(DeliveredOrdersListComponent, {disableClose: true});
+    dialogRef.afterClosed().subscribe(console.log);
   }
 
 
