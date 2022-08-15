@@ -121,7 +121,11 @@ export class OrdersComponent {
 
   openDeliveredOrdersDialog() {
     const dialogRef = this.dialog.open(DeliveredOrdersListComponent, {disableClose: true});
-    dialogRef.afterClosed().subscribe(console.log);
+    dialogRef.afterClosed().subscribe(
+      () => {
+        console.log('The dialog was closed');
+      }
+    );
   }
 
 
