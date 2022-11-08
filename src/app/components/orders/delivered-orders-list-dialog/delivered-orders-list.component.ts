@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FirebaseCRUDService } from '../../../shared/services/firebase-crud.service';
+
 
 export interface DeliveredOrder {
   amount: number;
@@ -68,9 +70,17 @@ const ELEMENT_DATA: DeliveredOrder[] = [
 
 export class DeliveredOrdersListComponent {
 
-  displayedColumns: string[] = ['amount', 'name', 'reseller', 'deliveryDate'];
   dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['amount', 'name', 'reseller', 'deliveryDate'];
+  orders: any;
 
-  constructor() { }
+  constructor(private crudService: FirebaseCRUDService) {
+    this.crudService.getDeliveredOrders().subscribe(
+      documents => {
+        this.orders = documents;
+        console.log(this.orders);
+      }
+    );
+  }
 
 }
