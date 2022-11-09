@@ -39,7 +39,7 @@ export class FirebaseCRUDService {
 
     this.deliveredOrdersRef = db.collectionGroup(app.db.path.orders,
       query => {
-        return query.where('status.isDelivery', '==', true).orderBy('status.registerDate', 'desc');
+        return query.where('status.isDelivered', '==', true).orderBy('status.deliveryDate', 'desc');
       }
     );
   }
