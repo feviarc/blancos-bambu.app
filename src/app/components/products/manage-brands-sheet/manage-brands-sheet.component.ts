@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './manage-brands-sheet.component.html',
   styleUrls: ['./manage-brands-sheet.component.scss']
 })
+
 export class ManageBrandsSheetComponent {
 
   constructor() { }
