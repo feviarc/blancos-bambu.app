@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { AddProductSheetComponent } from './add-product-sheet/add-product-sheet.component';
 import { DeleteProductDialogComponent } from './delete-product-dialog/delete-product-dialog.component';
+import { ManageBrandsSheetComponent } from './manage-brands-sheet/manage-brands-sheet.component';
+import { ManageCategoriesSheetComponent } from './manage-categories-sheet/manage-categories-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -54,7 +56,7 @@ export class ProductsComponent {
 
 
   openAddProductSheet(product: any) {
-    this.bottomSheet.open(AddProductSheetComponent, {data: product});
+    const sheetRef = this.bottomSheet.open(AddProductSheetComponent, {data: product});
   }
 
 
@@ -72,6 +74,16 @@ export class ProductsComponent {
         }
       }
     );
+  }
+
+
+  openManageBrands() {
+    const sheetRef = this.bottomSheet.open(ManageBrandsSheetComponent);
+  }
+
+
+  openManageCategories() {
+    const sheetRef = this.bottomSheet.open(ManageCategoriesSheetComponent);
   }
 
 }
