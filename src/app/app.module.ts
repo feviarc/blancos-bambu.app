@@ -36,6 +36,7 @@ import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 // Service Worker
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ManageBrandsSheetComponent } from './components/products/manage-brands-sheet/manage-brands-sheet.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ProductsComponent,
     SignInComponent,
     SignUpComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ManageBrandsSheetComponent
   ],
   imports: [
     AppRoutingModule,
