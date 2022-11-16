@@ -1,3 +1,4 @@
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { Component } from '@angular/core';
 
 
@@ -8,6 +9,47 @@ import { Component } from '@angular/core';
 })
 
 export class ManageBrandsSheetComponent {
+
+  displayedColumns: string[] = ['name', 'removeButton'];
+
+  brands = [
+    {name: 'Beach ball', removeButton: 'REMOVE'},
+    {name: 'Towel', removeButton: 'REMOVE'},
+    {name: 'Frisbee', removeButton: 'REMOVE'},
+    {name: 'Sunscreen', removeButton: 'REMOVE'},
+    {name: 'Cooler', removeButton: 'REMOVE'},
+    {name: 'Swim suit', removeButton: 'REMOVE'},
+    {name: 'Beach ball', removeButton: 'REMOVE'},
+    {name: 'Towel', removeButton: 'REMOVE'},
+    {name: 'Frisbee', removeButton: 'REMOVE'},
+    {name: 'Sunscreen', removeButton: 'REMOVE'},
+    {name: 'Cooler', removeButton: 'REMOVE'},
+    {name: 'Swim suit', removeButton: 'REMOVE'},
+    {name: 'Beach ball', removeButton: 'REMOVE'},
+    {name: 'Towel', removeButton: 'REMOVE'},
+    {name: 'Frisbee', removeButton: 'REMOVE'},
+    {name: 'Sunscreen', removeButton: 'REMOVE'},
+    {name: 'Cooler', removeButton: 'REMOVE'},
+    {name: 'Swim suit', removeButton: 'REMOVE'},
+    {name: 'Beach ball', removeButton: 'REMOVE'},
+    {name: 'Towel', removeButton: 'REMOVE'},
+    {name: 'Frisbee', removeButton: 'REMOVE'},
+    {name: 'Sunscreen', removeButton: 'REMOVE'},
+    {name: 'Cooler', removeButton: 'REMOVE'},
+    {name: 'Swim suit', removeButton: 'REMOVE'},
+    {name: 'Beach ball', removeButton: 'REMOVE'},
+    {name: 'Towel', removeButton: 'REMOVE'},
+    {name: 'Frisbee', removeButton: 'REMOVE'},
+    {name: 'Sunscreen', removeButton: 'REMOVE'},
+    {name: 'Cooler', removeButton: 'REMOVE'},
+    {name: 'Swim suit', removeButton: 'REMOVE'},
+    {name: 'Beach ball', removeButton: 'REMOVE'},
+    {name: 'Towel', removeButton: 'REMOVE'},
+    {name: 'Frisbee', removeButton: 'REMOVE'},
+    {name: 'Sunscreen', removeButton: 'REMOVE'},
+    {name: 'Cooler', removeButton: 'REMOVE'},
+    {name: 'Swim suit', removeButton: 'REMOVE'},
+  ];
 
   constructor() { }
 
