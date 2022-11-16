@@ -1,0 +1,12 @@
+.add-input-container {
+   display: flex;
+   justify-content: space-around;
+}
+
+.add-input-container button {
+   margin-top: 10px;
+}
+
+.add-input-container mat-form-field {
+   width: 80%;
+}
