@@ -1,0 +1,25 @@
+table {
+   width: 100%;
+}
+
+table td:first-child {
+   width: 100%;
+}
+
+.sheet-container--add-item {
+   background-color: #fff;
+   display: flex;
+   justify-content: space-around;
+   padding-top: 1rem;
+   position: sticky;
+   top: -10px;
+   z-index: 1;
+}
+
+.sheet-container--add-item button {
+   margin-top: 10px;
+}
+
+.sheet-container--add-item mat-form-field {
+   width: 80%;
+}
