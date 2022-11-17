@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
 
 @Component({
@@ -9,47 +10,17 @@ import { Component } from '@angular/core';
 
 export class ManageBrandsSheetComponent {
 
-  displayedColumns: string[] = ['name', 'removeButton'];
+  brands: any;
+  displayedColumns: string[] = ['name'];
 
-  brands = [
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-  ];
 
-  constructor() { }
+  constructor(private firebaseCRUD: FirebaseCRUDService) {
+    firebaseCRUD.getBrands().subscribe(
+      documents => {
+        this.brands = documents;
+        console.log(this.brands);
+      }
+    );
+  }
 
 }
