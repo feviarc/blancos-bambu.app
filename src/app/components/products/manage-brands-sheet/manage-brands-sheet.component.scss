@@ -6,15 +6,20 @@ table td:first-child {
    width: 100%;
 }
 
-.add-input-container {
+.sheet-container--add-item {
+   background-color: #fff;
    display: flex;
    justify-content: space-around;
+   padding-top: 1rem;
+   position: sticky;
+   top: -10px;
+   z-index: 1;
 }
 
-.add-input-container button {
+.sheet-container--add-item button {
    margin-top: 10px;
 }
 
-.add-input-container mat-form-field {
+.sheet-container--add-item mat-form-field {
    width: 80%;
 }
