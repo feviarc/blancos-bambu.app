@@ -3,13 +3,13 @@ export interface Reseller {
     firstName: string;
     lastNameF: string;
     lastNameM: string;
-    address?: { 
+    address?: {
         state: string,
-        city: string, 
-        suburb?: string, 
-        zipCode?: string, 
-        street: string, 
-        extNumber: string, 
+        city: string,
+        suburb?: string,
+        zipCode?: string,
+        street: string,
+        extNumber: string,
         intNumber?: string
     };
     email?: string;

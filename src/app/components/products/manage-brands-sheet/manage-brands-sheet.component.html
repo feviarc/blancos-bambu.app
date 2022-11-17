@@ -1,0 +1,36 @@
+<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+
+   <h2>Marcas</h2>
+
+   <div class="sheet-container--add-item">
+      <mat-form-field appearance="outline">
+         <mat-label>Nueva marca</mat-label>
+         <input matInput type="text">
+      </mat-form-field>
+      <button mat-mini-fab color="primary">
+         <mat-icon>add</mat-icon>
+      </button>
+   </div>
+
+   <table mat-table [dataSource]="brands" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let brand"> {{brand.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="removeButton">
+        <td mat-cell *matCellDef="let brand">
+            <button
+             mat-icon-button
+             color="primary"
+            >
+               <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+</div>

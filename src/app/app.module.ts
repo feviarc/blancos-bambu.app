@@ -21,6 +21,8 @@ import { DeliveredOrdersListComponent } from './components/orders/delivered-orde
 import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dialog.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
+import { ManageBrandsSheetComponent } from './components/products/manage-brands-sheet/manage-brands-sheet.component';
+import { ManageCategoriesSheetComponent } from './components/products/manage-categories-sheet/manage-categories-sheet.component';
 import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -50,12 +52,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ExitDialogComponent,
     ForgotPasswordComponent,
     LoggedInComponent,
+    ManageBrandsSheetComponent,
+    ManageCategoriesSheetComponent,
     OrderDeliveryDialogComponent,
     OrdersComponent,
     ProductsComponent,
     SignInComponent,
     SignUpComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
   ],
   imports: [
     AppRoutingModule,
