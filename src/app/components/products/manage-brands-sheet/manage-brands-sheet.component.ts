@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
 
@@ -10,15 +11,28 @@ import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.servi
 
 export class ManageBrandsSheetComponent {
 
+  @ViewChild('Name') nameHtmlInput!: ElementRef<HTMLInputElement>;
   brands: any;
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['name', 'crudIcons'];
+  nameFormControl: FormControl;
 
 
   constructor(private firebaseCRUD: FirebaseCRUDService) {
+    this.nameFormControl = new FormControl('', [Validators.required]);
     firebaseCRUD.getBrands().subscribe(
       documents => {
         this.brands = documents;
         console.log(this.brands);
+      }
+    );
+  }
+
+
+  addBrand(brandName: string) {
+    this.firebaseCRUD.addBrand(brandName).then(
+      () => {
+        this.nameFormControl.reset();
+        this.nameHtmlInput.nativeElement.focus();
       }
     );
   }
