@@ -45,6 +45,14 @@ export class FirebaseCRUDService {
   }
 
 
+  addBrand(name: string) {
+    const id = this.db.createId();
+    const brandRef = this.db.collection(app.db.path.brands).doc(id);
+
+    return brandRef.set({name, id});
+  }
+
+
   addOrder(order: Order) {
     order.id = this.db.createId();
 
