@@ -61,12 +61,11 @@ export class ProductsComponent {
 
 
   openDeleteProductDialog(product: any) {
-    const dialogRef =  this.dialog.open(DeleteProductDialogComponent, {data: product});
+    const dialogRef = this.dialog.open(DeleteProductDialogComponent, {data: product});
     dialogRef.afterClosed().subscribe(
       result => {
         if(result) {
-          this.crudService.deleteProduct(product.id)
-          .then(
+          this.crudService.deleteProduct(product.id).then(
             () => {
               this.snackBar.open(`😀 Se eliminó ${product.name}`, 'CERRAR');
             }

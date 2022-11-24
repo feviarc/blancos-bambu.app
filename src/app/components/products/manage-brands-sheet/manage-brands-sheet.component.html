@@ -9,6 +9,7 @@
           matInput
           type="text"
           [formControl]="nameFormControl"
+          (keyup.enter)="addBrand(Name.value)"
           #Name
          >
       </mat-form-field>
