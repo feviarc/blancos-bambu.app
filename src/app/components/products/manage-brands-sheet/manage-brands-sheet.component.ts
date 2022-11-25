@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeleteBrandDialogComponent } from './delete-brand-dialog/delete-brand-dialog.component';
+import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
 @Component({
   selector: 'app-manage-brands-sheet',
@@ -9,47 +13,50 @@ import { Component } from '@angular/core';
 
 export class ManageBrandsSheetComponent {
 
-  displayedColumns: string[] = ['name', 'removeButton'];
+  @ViewChild('nameHtmlInput') nameHtmlInput!: ElementRef<HTMLInputElement>;
+  brands: any;
+  displayedColumns: string[] = ['name', 'crudIcons'];
+  nameFormControl: FormControl;
 
-  brands = [
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-  ];
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private firebaseCRUD: FirebaseCRUDService
+  ) {
+    this.nameFormControl = new FormControl('', [Validators.required]);
+    firebaseCRUD.getBrands().subscribe(
+      documents => {
+        this.brands = documents;
+        console.log(this.brands);
+      }
+    );
+  }
+
+
+  addBrand(brandName: string) {
+    this.firebaseCRUD.addBrand(brandName).then(
+      () => {
+        this.nameFormControl.reset();
+        this.nameHtmlInput.nativeElement.focus();
+      }
+    );
+  }
+
+
+  openDeleteBrandDialog(brand: any) {
+    const dialogRef = this.dialog.open(DeleteBrandDialogComponent, {data: brand});
+    dialogRef.afterClosed().subscribe(
+      deletionConfirmed => {
+        if (deletionConfirmed) {
+          this.firebaseCRUD.deleteBrand(brand.id).then(
+            () => {
+              this.snackBar.open(`😀 Se eliminó la marca ${brand.name}`, 'CERRAR');
+            }
+          );
+        }
+      }
+    );
+  }
 
 }

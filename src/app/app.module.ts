@@ -16,6 +16,7 @@ import { AddOrderSheetComponent } from './components/orders/add-order-sheet/add-
 import { AddProductSheetComponent } from './components/products/add-product-sheet/add-product-sheet.component';
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DeleteBrandDialogComponent } from './components/products/manage-brands-sheet/delete-brand-dialog/delete-brand-dialog.component';
 import { DeleteProductDialogComponent } from './components/products/delete-product-dialog/delete-product-dialog.component';
 import { DeliveredOrdersListComponent } from './components/orders/delivered-orders-list-dialog/delivered-orders-list.component';
 import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dialog.component';
@@ -40,52 +41,54 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    AddOrderSheetComponent,
-    AddProductSheetComponent,
-    CancelOrderDialogComponent,
-    DashboardComponent,
-    DeleteProductDialogComponent,
-    DeliveredOrdersListComponent,
-    ExitDialogComponent,
-    ForgotPasswordComponent,
-    LoggedInComponent,
-    ManageBrandsSheetComponent,
-    ManageCategoriesSheetComponent,
-    OrderDeliveryDialogComponent,
-    OrdersComponent,
-    ProductsComponent,
-    SignInComponent,
-    SignUpComponent,
-    VerifyEmailComponent,
-  ],
-  imports: [
-    AppRoutingModule,
-    AngularFireAuthModule,
-    AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularMaterialModule,
-    BrowserModule,
-    FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ],
-  providers: [
-    AuthService,
-    FirebaseCRUDService,
-    MessagingService
-  ],
-  bootstrap: [AppComponent]
-})
-
+@NgModule(
+  {
+    declarations: [
+      AppComponent,
+      AddOrderSheetComponent,
+      AddProductSheetComponent,
+      CancelOrderDialogComponent,
+      DashboardComponent,
+      DeleteBrandDialogComponent,
+      DeleteProductDialogComponent,
+      DeliveredOrdersListComponent,
+      ExitDialogComponent,
+      ForgotPasswordComponent,
+      LoggedInComponent,
+      ManageBrandsSheetComponent,
+      ManageCategoriesSheetComponent,
+      OrderDeliveryDialogComponent,
+      OrdersComponent,
+      ProductsComponent,
+      SignInComponent,
+      SignUpComponent,
+      VerifyEmailComponent,
+    ],
+    imports: [
+      AppRoutingModule,
+      AngularFireAuthModule,
+      AngularFireMessagingModule,
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFirestoreModule,
+      AngularMaterialModule,
+      BrowserModule,
+      FlexLayoutModule,
+      FormsModule,
+      ReactiveFormsModule,
+      ServiceWorkerModule.register('ngsw-worker.js', {
+        enabled: environment.production,
+        // Register the ServiceWorker as soon as the app is stable
+        // or after 30 seconds (whichever comes first).
+        registrationStrategy: 'registerWhenStable:30000'
+      })
+    ],
+    providers: [
+      AuthService,
+      FirebaseCRUDService,
+      MessagingService
+    ],
+    bootstrap: [AppComponent]
+  }
+)
 
 export class AppModule { }
