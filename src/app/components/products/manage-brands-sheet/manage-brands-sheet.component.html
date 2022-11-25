@@ -9,15 +9,15 @@
           matInput
           type="text"
           [formControl]="nameFormControl"
-          (keyup.enter)="addBrand(Name.value)"
-          #Name
+          (keyup.enter)="addBrand(nameHtmlInput.value)"
+          #nameHtmlInput
          >
       </mat-form-field>
       <button
        mat-mini-fab
        color="primary"
        [disabled]="!nameFormControl.valid"
-       (click)="addBrand(Name.value)"
+       (click)="addBrand(nameHtmlInput.value)"
       >
          <mat-icon>add</mat-icon>
       </button>
@@ -34,6 +34,7 @@
             <button
              mat-icon-button
              color="primary"
+             (click)="openDeleteBrandDialog(brand)"
             >
                <mat-icon>delete</mat-icon>
             </button>

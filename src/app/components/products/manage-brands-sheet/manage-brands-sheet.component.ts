@@ -1,7 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBrandDialogComponent } from './delete-brand-dialog/delete-brand-dialog.component';
 import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
-
 
 @Component({
   selector: 'app-manage-brands-sheet',
@@ -11,13 +12,16 @@ import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.servi
 
 export class ManageBrandsSheetComponent {
 
-  @ViewChild('Name') nameHtmlInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('nameHtmlInput') nameHtmlInput!: ElementRef<HTMLInputElement>;
   brands: any;
   displayedColumns: string[] = ['name', 'crudIcons'];
   nameFormControl: FormControl;
 
 
-  constructor(private firebaseCRUD: FirebaseCRUDService) {
+  constructor(
+    private dialog: MatDialog,
+    private firebaseCRUD: FirebaseCRUDService
+  ) {
     this.nameFormControl = new FormControl('', [Validators.required]);
     firebaseCRUD.getBrands().subscribe(
       documents => {
@@ -35,6 +39,11 @@ export class ManageBrandsSheetComponent {
         this.nameHtmlInput.nativeElement.focus();
       }
     );
+  }
+
+
+  openDeleteBrandDialog(brand: any) {
+    const dialogRef = this.dialog.open(DeleteBrandDialogComponent, {data: brand});
   }
 
 }

@@ -1,1 +1,13 @@
-<p>delete-brand-dialog works!</p>
+<h2 mat-dialog-title>{{ brand.name }}</h2>
+<mat-dialog-content class="mat-tipography">
+   <p>
+      La opción seleccionada eliminará esta marca del sistema.
+   </p>
+   <p>
+      Si desea continuar presione el botón Aceptar.
+   </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+   <button mat-button [mat-dialog-close]="true">Aceptar</button>
+   <button mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+</mat-dialog-actions>
