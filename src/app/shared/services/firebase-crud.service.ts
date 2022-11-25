@@ -82,6 +82,15 @@ export class FirebaseCRUDService {
   addReseller() { }
 
 
+  deleteBrand(id: string) {
+    const brandRef = this.db
+    .collection(app.db.path.brands)
+    .doc(id);
+
+    return brandRef.delete();
+  }
+
+
   deleteOrder(id: string, resellerID: string) {
     const orderRef = this.db
     .collection(app.db.path.resellers)

@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteBrandDialogComponent } from './delete-brand-dialog/delete-brand-dialog.component';
 import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
@@ -20,6 +21,7 @@ export class ManageBrandsSheetComponent {
 
   constructor(
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private firebaseCRUD: FirebaseCRUDService
   ) {
     this.nameFormControl = new FormControl('', [Validators.required]);
@@ -44,6 +46,17 @@ export class ManageBrandsSheetComponent {
 
   openDeleteBrandDialog(brand: any) {
     const dialogRef = this.dialog.open(DeleteBrandDialogComponent, {data: brand});
+    dialogRef.afterClosed().subscribe(
+      deletionConfirmed => {
+        if (deletionConfirmed) {
+          this.firebaseCRUD.deleteBrand(brand.id).then(
+            () => {
+              this.snackBar.open(`😀 Se eliminó la marca ${brand.name}`, 'CERRAR');
+            }
+          );
+        }
+      }
+    );
   }
 
 }
