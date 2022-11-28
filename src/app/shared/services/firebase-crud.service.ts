@@ -15,6 +15,7 @@ import { Order } from '../models/order.model';
 export class FirebaseCRUDService {
 
   private brandsRef: AngularFirestoreCollection;
+  private categoriesRef: AngularFirestoreCollection;
   private productsRef: AngularFirestoreCollection;
   private resellersRef: AngularFirestoreCollection;
   private activeOrdersRef: AngularFirestoreCollectionGroup;
@@ -30,6 +31,12 @@ export class FirebaseCRUDService {
         return query.orderBy('name', 'asc');
       }
     );
+
+    this.categoriesRef = db.collection(app.db.path.categories,
+      query => {
+        return query.orderBy('name', 'asc')
+      }
+    )
 
     this.activeOrdersRef = db.collectionGroup(app.db.path.orders,
       query => {
@@ -50,6 +57,14 @@ export class FirebaseCRUDService {
     const brandRef = this.db.collection(app.db.path.brands).doc(id);
 
     return brandRef.set({name, id});
+  }
+
+
+  addCategory(name: string) {
+    const id = this.db.createId();
+    const categoryRef = this.db.collection(app.db.path.categories).doc(id);
+
+    return categoryRef.set({name, id});
   }
 
 
@@ -83,11 +98,14 @@ export class FirebaseCRUDService {
 
 
   deleteBrand(id: string) {
-    const brandRef = this.db
-    .collection(app.db.path.brands)
-    .doc(id);
-
+    const brandRef = this.db.collection(app.db.path.brands).doc(id);
     return brandRef.delete();
+  }
+
+
+  deleteCategory(id: string) {
+    const categoryRef = this.db.collection(app.db.path.categories).doc(id);
+    return categoryRef.delete();
   }
 
 
@@ -121,6 +139,11 @@ export class FirebaseCRUDService {
 
   getBrands() {
     return this.brandsRef.valueChanges();
+  }
+
+
+  getCategories() {
+    return this.categoriesRef.valueChanges();
   }
 
 
