@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
 
 @Component({
@@ -9,48 +13,33 @@ import { Component } from '@angular/core';
 
 export class ManageCategoriesSheetComponent {
 
-  displayedColumns: string[] = ['name', 'removeButton'];
-
-  categories = [
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-    {name: 'Beach ball', removeButton: 'REMOVE'},
-    {name: 'Towel', removeButton: 'REMOVE'},
-    {name: 'Frisbee', removeButton: 'REMOVE'},
-    {name: 'Sunscreen', removeButton: 'REMOVE'},
-    {name: 'Cooler', removeButton: 'REMOVE'},
-    {name: 'Swim suit', removeButton: 'REMOVE'},
-  ];
+  @ViewChild('nameHtmlInput') nameHtmlInput!: ElementRef<HTMLInputElement>;
+  categories: any;
+  displayedColumns: string[] = ['name', 'crudIcons'];
+  nameFormControl: FormControl;
 
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private firebaseCRUD: FirebaseCRUDService
+  ) {
+    this.nameFormControl = new FormControl('',[Validators.required]);
+    firebaseCRUD.getCategories().subscribe(
+      documents => {
+        this.categories = documents;
+        console.log(this.categories)
+      }
+    );
+  }
+
+  addCategory(categoryName: string) {
+    this.firebaseCRUD.addCategory(categoryName).then(
+      () => {
+        this.nameFormControl.reset();
+        this.nameHtmlInput.nativeElement.focus();
+      }
+    );
+  }
 
 }

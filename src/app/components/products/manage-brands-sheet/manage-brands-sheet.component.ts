@@ -28,7 +28,6 @@ export class ManageBrandsSheetComponent {
     firebaseCRUD.getBrands().subscribe(
       documents => {
         this.brands = documents;
-        console.log(this.brands);
       }
     );
   }
