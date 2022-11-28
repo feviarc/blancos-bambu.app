@@ -17,6 +17,7 @@ import { AddProductSheetComponent } from './components/products/add-product-shee
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DeleteBrandDialogComponent } from './components/products/manage-brands-sheet/delete-brand-dialog/delete-brand-dialog.component';
+import { DeleteCategoryDialogComponent } from './components/products/manage-categories-sheet/delete-category-dialog/delete-category-dialog.component';
 import { DeleteProductDialogComponent } from './components/products/delete-product-dialog/delete-product-dialog.component';
 import { DeliveredOrdersListComponent } from './components/orders/delivered-orders-list-dialog/delivered-orders-list.component';
 import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dialog.component';
@@ -50,6 +51,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       CancelOrderDialogComponent,
       DashboardComponent,
       DeleteBrandDialogComponent,
+      DeleteCategoryDialogComponent,
       DeleteProductDialogComponent,
       DeliveredOrdersListComponent,
       ExitDialogComponent,
