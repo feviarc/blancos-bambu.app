@@ -28,6 +28,7 @@ import { ManageCategoriesSheetComponent } from './components/products/manage-cat
 import { OrderDeliveryDialogComponent } from './components/orders/delivery-order-dialog/order-delivery-dialog.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProductsComponent } from './components/products/products.component';
+import { ResellersComponent } from './components/resellers/resellers.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
@@ -62,6 +63,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       OrderDeliveryDialogComponent,
       OrdersComponent,
       ProductsComponent,
+      ResellersComponent,
       SignInComponent,
       SignUpComponent,
       VerifyEmailComponent,

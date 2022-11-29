@@ -9,6 +9,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProductsComponent } from './components/products/products.component';
+import { ResellersComponent } from './components/resellers/resellers.component';
 // Guards
 import { AuthGuard } from './shared/guards/auth.guard';
 import { EmailVerifiedGuard } from './shared/guards/email-verified.guard';
@@ -21,7 +22,8 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'orders', component: OrdersComponent },
-      { path: 'products', component: ProductsComponent }
+      { path: 'products', component: ProductsComponent },
+      { path: 'resellers', component: ResellersComponent}
     ]
   },
   { path: 'sign-in', component: SignInComponent },
