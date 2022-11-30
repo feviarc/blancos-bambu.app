@@ -1,0 +1,31 @@
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
+<div id="resellers" class="page">
+
+   <mat-toolbar class="secondary-toolbar">
+      <button mat-button disabled>
+         <mat-icon>people</mat-icon>
+         <strong>Mayorístas</strong>
+      </button>
+   </mat-toolbar>
+
+   <mat-form-field id="filter">
+      <mat-label>
+         <mat-icon>search</mat-icon>
+      </mat-label>
+      <input
+       matInput
+       #filter
+       placeholder="Filtrar por nombre, apellidos o teléfono"
+       (keyup)="applyFilter($event)"
+      >
+      <button
+      *ngIf="filter.value"
+       matSuffix
+       mat-icon-button
+       (click)="filter.value=''; dataSource.filter=''"
+      >
+         <mat-icon>close</mat-icon>
+      </button>
+   </mat-form-field>
+
+</div>

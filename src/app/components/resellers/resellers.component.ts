@@ -11,4 +11,9 @@ export class ResellersComponent {
 
   constructor() { }
 
+
+  applyFilter(event: Event) {
+    console.log(event);
+  }
+
 }
