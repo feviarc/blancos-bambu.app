@@ -64,7 +64,7 @@ export class AddOrderSheetComponent {
     const order = {
       reseller: {
         id: reseller.id,
-        displayName: `${reseller.firstName} ${reseller.lastNameF} ${reseller.lastNameM}`
+        displayName: `${reseller.firstName} ${reseller.lastName}`
       },
       product: {
         id: product.id,

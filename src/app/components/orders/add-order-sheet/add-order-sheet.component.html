@@ -47,7 +47,7 @@
       <mat-label>Mayorista</mat-label>
       <mat-select [formControl]="resellerFormControl" #Reseller>
         <mat-option *ngFor="let reseller of resellers" [value]="reseller">
-          {{ reseller.firstName }} {{ reseller.lastNameF }} {{ reseller.lastNameM }}
+          {{ reseller.firstName }} {{ reseller.lastName }}
         </mat-option>
       </mat-select>
     </mat-form-field>
