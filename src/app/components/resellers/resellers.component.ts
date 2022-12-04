@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-
+import { Component, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 
 @Component({
   selector: 'app-resellers',
@@ -12,8 +14,9 @@ export class ResellersComponent {
   isLoadingData: boolean;
   dataSource: any;
   tableColumns: string[];
+  @ViewChild(MatSort) sort: any;
 
-  constructor() {
+  constructor(private crudService: FirebaseCRUDService) {
     this.isLoadingData = true;
     this.tableColumns = [
       'firstName',
@@ -21,19 +24,29 @@ export class ResellersComponent {
       'mobilePhone',
       'crudIcons'
     ];
-    this.dataSource = [
-      {firstName: 'Felipe de Jesús', lastNameF: 'Víctor', lastNameM: 'Arceo', mobilePhone: '3531003631'},
-      {firstName: 'Ivett', lastNameF: 'López', lastNameM: 'Gutiérrez', mobilePhone: '3531008331'},
-    ]
+    this.crudService.getResellers().subscribe(
+      resellers => {
+        this.dataSource = new MatTableDataSource(resellers);
+        this.dataSource.sort = this.sort;
+        this.isLoadingData = false;
+      }
+    );
   }
 
 
   applyFilter(event: Event) {
-    console.log(event);
+    //const filterValue = (<HTMLInputElement>event.target).value;
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 
   openAddResellerSheet(reseller: any) {
+    console.log(reseller);
+  }
+
+
+  openDeleteResellerDialog(reseller: any) {
     console.log(reseller);
   }
 
