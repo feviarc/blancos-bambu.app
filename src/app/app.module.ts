@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 // Components
 import { AddOrderSheetComponent } from './components/orders/add-order-sheet/add-order-sheet.component';
 import { AddProductSheetComponent } from './components/products/add-product-sheet/add-product-sheet.component';
+import { AddResellerSheetComponent } from './components/resellers/add-reseller-sheet/add-reseller-sheet.component';
 import { CancelOrderDialogComponent } from './components/orders/cancel-order-dialog/cancel-order-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DeleteBrandDialogComponent } from './components/products/manage-brands-sheet/delete-brand-dialog/delete-brand-dialog.component';
@@ -49,6 +50,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       AppComponent,
       AddOrderSheetComponent,
       AddProductSheetComponent,
+      AddResellerSheetComponent,
       CancelOrderDialogComponent,
       DashboardComponent,
       DeleteBrandDialogComponent,
