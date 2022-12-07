@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component'
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
 
 @Component({
@@ -16,7 +18,10 @@ export class ResellersComponent {
   tableColumns: string[];
   @ViewChild(MatSort) sort: any;
 
-  constructor(private crudService: FirebaseCRUDService) {
+  constructor(
+    private bottomSheet: MatBottomSheet,
+    private crudService: FirebaseCRUDService
+  ) {
     this.isLoadingData = true;
     this.tableColumns = [
       'firstName',
@@ -42,7 +47,7 @@ export class ResellersComponent {
 
 
   openAddResellerSheet(reseller: any) {
-    console.log(reseller);
+    const sheetRef = this.bottomSheet.open(AddResellerSheetComponent, {data: reseller});
   }
 
 
