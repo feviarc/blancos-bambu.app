@@ -82,7 +82,7 @@
             <input
              matInput
              type="text"
-             [formControl]="suburbFormControl"
+             [formControl]="extNumberFormControl"
              #ExtNumber
             >
          </mat-form-field>
@@ -93,7 +93,7 @@
             <input
              matInput
              type="text"
-             [formControl]="streetFormControl"
+             [formControl]="intNumberFormControl"
              #IntNumber
             >
          </mat-form-field>
@@ -108,10 +108,10 @@
               matInput
               type="text"
               [formControl]="cellphoneSegment1FormControl"
-              #cellphonePart1
+              #CellphoneSegment1
               maxlength="3"
             >
-            <mat-hint align="end">{{ cellphonePart1.value.length }} / 3</mat-hint>
+            <mat-hint align="end">{{ CellphoneSegment1.value.length }} / 3</mat-hint>
          </mat-form-field>
       </div>
       <div class="input-container cellphone">
@@ -120,10 +120,10 @@
              matInput
              type="text"
              [formControl]="cellphoneSegment2FormControl"
-             #cellphonePart2
+             #CellphoneSegment2
              maxlength="3"
             >
-            <mat-hint align="end">{{ cellphonePart2.value.length }} / 3</mat-hint>
+            <mat-hint align="end">{{ CellphoneSegment2.value.length }} / 3</mat-hint>
          </mat-form-field>
       </div>
       <div class="input-container cellphone">
@@ -132,10 +132,10 @@
              matInput
              type="text"
              [formControl]="cellphoneSegment3FormControl"
-             #cellphonePart3
+             #CellphoneSegment3
              maxlength="4"
             >
-            <mat-hint align="end">{{ cellphonePart3.value.length }} / 4</mat-hint>
+            <mat-hint align="end">{{ CellphoneSegment3.value.length }} / 4</mat-hint>
          </mat-form-field>
       </div>
    </div>
@@ -156,6 +156,7 @@
       <button
        mat-raised-button
        color="primary"
+       [disabled]="isAddFormInvalid"
        #addButton
       >
          Agregar
@@ -165,6 +166,7 @@
       <button
        mat-raised-button
        color="primary"
+       [disabled]="isUpdateFormInvalid || isAddFormInvalid"
        #updateButton
       >
          Actualizar
