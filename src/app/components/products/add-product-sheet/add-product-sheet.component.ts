@@ -13,9 +13,10 @@ import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.servi
 
 export class AddProductSheetComponent {
 
+  private DEFAULT_BRAND = 'SIN MARCA';
   private DEFAULT_CATEGORY = 'GENERAL';
   brands: any;
-  categories = [{name: 'GENERAL'}, {name: 'CORTINAS'}, {name: 'COLCHAS'}];
+  categories: any;
   nameFormControl: FormControl;
   brandFormControl: FormControl;
   brandCodeFormControl: FormControl;
@@ -36,23 +37,31 @@ export class AddProductSheetComponent {
     firebaseCRUD.getBrands().subscribe(
       documents => {
         this.brands = documents;
-        if (product) {
-          this.nameFormControl.setValue(product.name);
-          this.brandCodeFormControl.setValue(product.brandCode);
-          this.brandFormControl.setValue(product.brand);
-          this.categoryFormControl.setValue(product.category);
-        } else {
-          this.brandFormControl.setValue(this.brands[0].name);
-          this.categoryFormControl.setValue(this.DEFAULT_CATEGORY);
-        }
       }
     );
+
+    firebaseCRUD.getCategories().subscribe(
+      documents => {
+        this.categories = documents;
+      }
+    );
+
+    if (product) {
+      this.nameFormControl.setValue(product.name);
+      this.brandCodeFormControl.setValue(product.brandCode);
+      this.brandFormControl.setValue(product.brand);
+      this.categoryFormControl.setValue(product.category);
+    } else {
+      this.brandFormControl.setValue(this.DEFAULT_BRAND);
+      this.categoryFormControl.setValue(this.DEFAULT_CATEGORY);
+    }
+
   }
 
 
   saveProduct(id: any, name: string, brandCode: string, brand:string, category: string, pictureURL: string) {
     const now = Date.now();
-    let product = {
+    const product = {
       id,
       name,
       brandCode,

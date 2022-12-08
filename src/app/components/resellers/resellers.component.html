@@ -1,0 +1,82 @@
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoadingData"></mat-progress-bar>
+<div id="resellers" class="page">
+
+   <mat-toolbar class="secondary-toolbar">
+      <button mat-button disabled>
+         <mat-icon>people</mat-icon>
+         <strong>Mayoristas</strong>
+      </button>
+   </mat-toolbar>
+
+   <mat-form-field id="filter">
+      <mat-label>
+         <mat-icon>search</mat-icon>
+      </mat-label>
+      <input
+       matInput
+       #filter
+       placeholder="Filtrar por nombre, apellidos o teléfono"
+       (keyup)="applyFilter($event)"
+      >
+      <button
+      *ngIf="filter.value"
+       matSuffix
+       mat-icon-button
+       (click)="filter.value=''; dataSource.filter=''"
+      >
+         <mat-icon>close</mat-icon>
+      </button>
+   </mat-form-field>
+
+   <!-- MatTable Begins -->
+   <table
+    mat-table
+    matSort
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+   >
+      <ng-container matColumnDef="firstName">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+         <td mat-cell *matCellDef="let reseller">{{ reseller.firstName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+         <td mat-cell *matCellDef="let reseller">{{ reseller.lastName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mobilePhone">
+         <th mat-header-cell *matHeaderCellDef mat-sort-header>Celular</th>
+         <td mat-cell *matCellDef="let reseller">{{ reseller.mobilePhone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="crudIcons">
+         <th mat-header-cell *matHeaderCellDef></th>
+         <td mat-cell *matCellDef="let reseller">
+            <button
+             mat-mini-fab
+             color="primary"
+             (click)="openAddResellerSheet(reseller)"
+            >
+               <mat-icon>edit</mat-icon>
+            </button>
+            <button
+             mat-mini-fab
+             color="primary"
+             (click)="openDeleteResellerDialog(reseller)"
+            >
+               <mat-icon>delete</mat-icon>
+            </button>
+         </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+   </table>
+   <!-- MatTable Ends -->
+
+   <button mat-fab color="primary" (click)="openAddResellerSheet(null)">
+      <mat-icon>add</mat-icon>
+   </button>
+
+</div>

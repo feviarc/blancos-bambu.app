@@ -1,0 +1,176 @@
+<div cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+   <h2>{{ reseller ? 'Actualizar datos del Mayorista' : 'Nuevo Mayorista' }}</h2>
+
+   <div class="input-container">
+      <mat-form-field appearance="outline">
+         <mat-label>Nombre</mat-label>
+         <input
+         matInput
+         type="text"
+         [formControl]="firstNameFormControl"
+         #FirstName
+         >
+      </mat-form-field>
+   </div>
+
+   <div class="input-container">
+      <mat-form-field appearance="outline">
+         <mat-label>Apellidos</mat-label>
+         <input
+          matInput
+          type="text"
+          [formControl]="lastNameFormControl"
+          #LastName
+         >
+      </mat-form-field>
+   </div>
+
+   <div class="address-container">
+      <div class="input-container">
+         <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <input
+             matInput
+             type="text"
+             [formControl]="stateFormControl"
+             #State
+            >
+         </mat-form-field>
+      </div>
+      <div class="input-container">
+         <mat-form-field appearance="outline">
+            <mat-label>Ciudad</mat-label>
+            <input
+             matInput
+             type="text"
+             [formControl]="cityFormControl"
+             #City
+            >
+         </mat-form-field>
+      </div>
+   </div>
+
+   <div class="address-container">
+      <div class="input-container">
+         <mat-form-field appearance="outline">
+            <mat-label>Colonia</mat-label>
+            <input
+             matInput
+             type="text"
+             [formControl]="suburbFormControl"
+             #Suburb
+            >
+         </mat-form-field>
+      </div>
+      <div class="input-container">
+         <mat-form-field appearance="outline">
+            <mat-label>Calle</mat-label>
+            <input
+             matInput
+             type="text"
+             [formControl]="streetFormControl"
+             #Street
+            >
+         </mat-form-field>
+      </div>
+   </div>
+
+   <div class="address-container">
+      <div class="input-container">
+         <mat-form-field appearance="outline">
+            <mat-label>Número Exterior</mat-label>
+            <input
+             matInput
+             type="text"
+             [formControl]="extNumberFormControl"
+             #ExtNumber
+            >
+         </mat-form-field>
+      </div>
+      <div class="input-container">
+         <mat-form-field appearance="outline">
+            <mat-label>Número Interior</mat-label>
+            <input
+             matInput
+             type="text"
+             [formControl]="intNumberFormControl"
+             #IntNumber
+            >
+         </mat-form-field>
+      </div>
+   </div>
+
+   <div id="cellphone-container">
+      <div class="input-container cellphone">
+         <mat-form-field appearance="outline">
+            <mat-label>Celular</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControl]="cellphoneSegment1FormControl"
+              #CellphoneSegment1
+              maxlength="3"
+            >
+            <mat-hint align="end">{{ CellphoneSegment1.value.length }} / 3</mat-hint>
+         </mat-form-field>
+      </div>
+      <div class="input-container cellphone">
+         <mat-form-field appearance="outline">
+            <input
+             matInput
+             type="text"
+             [formControl]="cellphoneSegment2FormControl"
+             #CellphoneSegment2
+             maxlength="3"
+            >
+            <mat-hint align="end">{{ CellphoneSegment2.value.length }} / 3</mat-hint>
+         </mat-form-field>
+      </div>
+      <div class="input-container cellphone">
+         <mat-form-field appearance="outline">
+            <input
+             matInput
+             type="text"
+             [formControl]="cellphoneSegment3FormControl"
+             #CellphoneSegment3
+             maxlength="4"
+            >
+            <mat-hint align="end">{{ CellphoneSegment3.value.length }} / 4</mat-hint>
+         </mat-form-field>
+      </div>
+   </div>
+
+   <div class="input-container">
+      <mat-form-field appearance="outline">
+         <mat-label>Correo Electrónico</mat-label>
+         <input
+         matInput
+         type="email"
+         [formControl]="emailFormControl"
+         #Email
+         >
+      </mat-form-field>
+   </div>
+
+   <div class="input-container" *ngIf="!reseller">
+      <button
+       mat-raised-button
+       color="primary"
+       [disabled]="isAddFormInvalid"
+       #addButton
+      >
+         Agregar
+      </button>
+   </div>
+   <div class="input-container" *ngIf="reseller">
+      <button
+       mat-raised-button
+       color="primary"
+       [disabled]="isUpdateFormInvalid || isAddFormInvalid"
+       #updateButton
+      >
+         Actualizar
+      </button>
+   </div>
+
+</div>

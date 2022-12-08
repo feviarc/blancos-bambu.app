@@ -1,8 +1,7 @@
 export interface Reseller {
     id: string;
     firstName: string;
-    lastNameF: string;
-    lastNameM: string;
+    lastName: string;
     address?: {
         state: string,
         city: string,

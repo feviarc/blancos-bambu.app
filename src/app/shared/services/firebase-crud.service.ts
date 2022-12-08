@@ -23,9 +23,6 @@ export class FirebaseCRUDService {
 
 
   constructor(private db: AngularFirestore) {
-    this.productsRef = db.collection(app.db.path.products);
-    this.resellersRef = db.collection(app.db.path.resellers);
-
     this.brandsRef = db.collection(app.db.path.brands,
       query => {
         return query.orderBy('name', 'asc');
@@ -36,7 +33,19 @@ export class FirebaseCRUDService {
       query => {
         return query.orderBy('name', 'asc')
       }
-    )
+    );
+
+    this.productsRef = db.collection(app.db.path.products,
+      query => {
+        return query.orderBy('name', 'asc');
+      }
+    );
+
+    this.resellersRef = db.collection(app.db.path.resellers,
+      query => {
+        return query.orderBy('lastName', 'asc');
+      }
+    );
 
     this.activeOrdersRef = db.collectionGroup(app.db.path.orders,
       query => {
