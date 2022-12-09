@@ -55,4 +55,6 @@ export class ResellersComponent {
     console.log(reseller);
   }
 
+  openDeliveredOrdersDialog(reseller: any) { }
+
 }

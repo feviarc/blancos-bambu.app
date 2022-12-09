@@ -103,7 +103,17 @@ export class FirebaseCRUDService {
   }
 
 
-  addReseller() { }
+  addReseller(reseller: any) {
+    if(!reseller.id) {
+      reseller.id = this.db.createId();
+    }
+
+    const resellerRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(reseller.id);
+
+    return resellerRef.set(reseller);
+  }
 
 
   deleteBrand(id: string) {
