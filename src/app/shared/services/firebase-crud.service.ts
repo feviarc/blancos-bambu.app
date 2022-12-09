@@ -148,7 +148,13 @@ export class FirebaseCRUDService {
   }
 
 
-  deleteReseller() { }
+  deleteReseller(id: string) {
+    const resellerRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(id);
+
+    return resellerRef.delete();
+  }
 
 
   getActiveOrders() {
