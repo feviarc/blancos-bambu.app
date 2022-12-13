@@ -1,9 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
+import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component'
+import { DeleteResellerDialogComponent } from './delete-reseller-dialog/delete-reseller-dialog.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet'
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component'
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
+
 
 @Component({
   selector: 'app-resellers',
@@ -20,6 +24,8 @@ export class ResellersComponent {
 
   constructor(
     private bottomSheet: MatBottomSheet,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar,
     private crudService: FirebaseCRUDService
   ) {
     this.isLoadingData = true;
@@ -52,7 +58,19 @@ export class ResellersComponent {
 
 
   openDeleteResellerDialog(reseller: any) {
-    console.log(reseller);
+    const dialogRef = this.dialog.open(DeleteResellerDialogComponent, {data: reseller});
+    dialogRef.afterClosed().subscribe(
+      result => {
+        console.log(result)
+        if (result) {
+          this.crudService.deleteReseller(reseller.id).then(
+            () => {
+              this.snackbar.open(`😀 Se eliminó del sistema a ${reseller.firstNAme} ${reseller.lastName} y todos sus pedidos.`);
+            }
+          );
+        }
+      }
+    );
   }
 
   openDeliveredOrdersDialog(reseller: any) { }
