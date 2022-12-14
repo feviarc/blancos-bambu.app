@@ -39,7 +39,7 @@ export class AddResellerSheetComponent {
     this.cityFormControl = new FormControl();
     this.suburbFormControl = new FormControl();
     this.streetFormControl = new FormControl();
-    this.extNumberFormControl = new FormControl();
+    this.extNumberFormControl = new FormControl('', [Validators.min(1), Validators.max(9999)]);
     this.intNumberFormControl = new FormControl();
     this.cellphoneSegment1FormControl = new FormControl('', this.cellphoneValidators(3));
     this.cellphoneSegment2FormControl = new FormControl('', this.cellphoneValidators(3));
