@@ -102,6 +102,7 @@
               [formControl]="cellphoneSegment1FormControl"
               maxlength="3"
               #phoneSegment1HtmlInput
+              (keyup)="phoneSegment1HtmlInput.value.length==3 ? focusNextHtmlInput(phoneSegment2HtmlInput) : null"
             >
             <mat-hint align="end">{{ phoneSegment1HtmlInput.value.length }} / 3</mat-hint>
          </mat-form-field>
@@ -114,6 +115,7 @@
              [formControl]="cellphoneSegment2FormControl"
              maxlength="3"
              #phoneSegment2HtmlInput
+             (keyup)="phoneSegment2HtmlInput.value.length==3 ? focusNextHtmlInput(phoneSegment3HtmlInput) : null"
             >
             <mat-hint align="end">{{ phoneSegment2HtmlInput.value.length }} / 3</mat-hint>
          </mat-form-field>

@@ -161,4 +161,8 @@ export class AddResellerSheetComponent {
     );
   }
 
+  focusNextHtmlInput(htmlInput: HTMLElement) {
+    htmlInput.focus();
+  }
+
 }
