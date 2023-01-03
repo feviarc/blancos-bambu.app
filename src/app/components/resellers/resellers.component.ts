@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component'
-import { DeleteResellerDialogComponent } from './delete-reseller-dialog/delete-reseller-dialog.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service';
+import { AddResellerSheetComponent } from './add-reseller-sheet/add-reseller-sheet.component'
+import { DeleteResellerDialogComponent } from './delete-reseller-dialog/delete-reseller-dialog.component';
+import { ResellerInfoDialogComponent } from './reseller-info-dialog/reseller-info-dialog.component';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ResellersComponent {
   dataSource: any;
   tableColumns: string[];
   @ViewChild(MatSort) sort: any;
+
 
   constructor(
     private bottomSheet: MatBottomSheet,
@@ -53,15 +55,16 @@ export class ResellersComponent {
 
 
   openAddResellerSheet(reseller: any) {
-    const sheetRef = this.bottomSheet.open(AddResellerSheetComponent, {data: reseller});
+    const ADD_RESELLER_SHEET = {data: reseller};
+    const sheetRef = this.bottomSheet.open(AddResellerSheetComponent, ADD_RESELLER_SHEET);
   }
 
 
   openDeleteResellerDialog(reseller: any) {
-    const dialogRef = this.dialog.open(DeleteResellerDialogComponent, {data: reseller});
+    const DELETE_RESELLER_DIALOG = {data: reseller};
+    const dialogRef = this.dialog.open(DeleteResellerDialogComponent, DELETE_RESELLER_DIALOG);
     dialogRef.afterClosed().subscribe(
       result => {
-        console.log(result)
         if (result) {
           this.crudService.deleteReseller(reseller.id).then(
             () => {
@@ -73,6 +76,14 @@ export class ResellersComponent {
     );
   }
 
-  openDeliveredOrdersDialog(reseller: any) { }
+
+  openResellerInfoDialog(reseller: any) {
+    const RESELLER_INFO_DIALOG = {
+      data: reseller,
+      disableClose: true,
+      width: '800px'
+    }
+    const dialogRef = this.dialog.open(ResellerInfoDialogComponent, RESELLER_INFO_DIALOG);
+  }
 
 }
