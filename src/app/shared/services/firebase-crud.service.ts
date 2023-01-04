@@ -162,6 +162,20 @@ export class FirebaseCRUDService {
   }
 
 
+  getActiveOrdersByReseller(id: string) {
+    const ordersRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(id)
+    .collection(app.db.path.orders,
+      query => {
+        return query.where('status.isDelivered', '!=', true);
+      }
+    );
+
+    return ordersRef.valueChanges();
+  }
+
+
   getBrands() {
     return this.brandsRef.valueChanges();
   }
@@ -174,6 +188,20 @@ export class FirebaseCRUDService {
 
   getDeliveredOrders() {
     return this.deliveredOrdersRef.valueChanges();
+  }
+
+
+  getDeliveredOrdersByReseller(id: string) {
+    const ordersRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(id)
+    .collection(app.db.path.orders,
+      query => {
+        return query.where('status.isDelivered', '==', true);
+      }
+    );
+
+    return ordersRef.valueChanges();
   }
 
 
