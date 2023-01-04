@@ -103,7 +103,17 @@ export class FirebaseCRUDService {
   }
 
 
-  addReseller() { }
+  addReseller(reseller: any) {
+    if(!reseller.id) {
+      reseller.id = this.db.createId();
+    }
+
+    const resellerRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(reseller.id);
+
+    return resellerRef.set(reseller);
+  }
 
 
   deleteBrand(id: string) {
@@ -138,11 +148,31 @@ export class FirebaseCRUDService {
   }
 
 
-  deleteReseller() { }
+  deleteReseller(id: string) {
+    const resellerRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(id);
+
+    return resellerRef.delete();
+  }
 
 
   getActiveOrders() {
     return this.activeOrdersRef.valueChanges();
+  }
+
+
+  getActiveOrdersByReseller(id: string) {
+    const ordersRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(id)
+    .collection(app.db.path.orders,
+      query => {
+        return query.where('status.isDelivered', '!=', true);
+      }
+    );
+
+    return ordersRef.valueChanges();
   }
 
 
@@ -158,6 +188,20 @@ export class FirebaseCRUDService {
 
   getDeliveredOrders() {
     return this.deliveredOrdersRef.valueChanges();
+  }
+
+
+  getDeliveredOrdersByReseller(id: string) {
+    const ordersRef = this.db
+    .collection(app.db.path.resellers)
+    .doc(id)
+    .collection(app.db.path.orders,
+      query => {
+        return query.where('status.isDelivered', '==', true);
+      }
+    );
+
+    return ordersRef.valueChanges();
   }
 
 

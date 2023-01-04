@@ -8,7 +8,6 @@
          matInput
          type="text"
          [formControl]="firstNameFormControl"
-         #FirstName
          >
       </mat-form-field>
    </div>
@@ -20,7 +19,6 @@
           matInput
           type="text"
           [formControl]="lastNameFormControl"
-          #LastName
          >
       </mat-form-field>
    </div>
@@ -33,7 +31,6 @@
              matInput
              type="text"
              [formControl]="stateFormControl"
-             #State
             >
          </mat-form-field>
       </div>
@@ -44,7 +41,6 @@
              matInput
              type="text"
              [formControl]="cityFormControl"
-             #City
             >
          </mat-form-field>
       </div>
@@ -58,7 +54,6 @@
              matInput
              type="text"
              [formControl]="suburbFormControl"
-             #Suburb
             >
          </mat-form-field>
       </div>
@@ -69,7 +64,6 @@
              matInput
              type="text"
              [formControl]="streetFormControl"
-             #Street
             >
          </mat-form-field>
       </div>
@@ -81,9 +75,8 @@
             <mat-label>Número Exterior</mat-label>
             <input
              matInput
-             type="text"
+             type="number"
              [formControl]="extNumberFormControl"
-             #ExtNumber
             >
          </mat-form-field>
       </div>
@@ -94,7 +87,6 @@
              matInput
              type="text"
              [formControl]="intNumberFormControl"
-             #IntNumber
             >
          </mat-form-field>
       </div>
@@ -108,10 +100,11 @@
               matInput
               type="text"
               [formControl]="cellphoneSegment1FormControl"
-              #CellphoneSegment1
               maxlength="3"
+              #phoneSegment1HtmlInput
+              (keyup)="phoneSegment1HtmlInput.value.length==3 ? focusNextHtmlInput(phoneSegment2HtmlInput) : null"
             >
-            <mat-hint align="end">{{ CellphoneSegment1.value.length }} / 3</mat-hint>
+            <mat-hint align="end">{{ phoneSegment1HtmlInput.value.length }} / 3</mat-hint>
          </mat-form-field>
       </div>
       <div class="input-container cellphone">
@@ -120,10 +113,11 @@
              matInput
              type="text"
              [formControl]="cellphoneSegment2FormControl"
-             #CellphoneSegment2
              maxlength="3"
+             #phoneSegment2HtmlInput
+             (keyup)="phoneSegment2HtmlInput.value.length==3 ? focusNextHtmlInput(phoneSegment3HtmlInput) : null"
             >
-            <mat-hint align="end">{{ CellphoneSegment2.value.length }} / 3</mat-hint>
+            <mat-hint align="end">{{ phoneSegment2HtmlInput.value.length }} / 3</mat-hint>
          </mat-form-field>
       </div>
       <div class="input-container cellphone">
@@ -132,10 +126,10 @@
              matInput
              type="text"
              [formControl]="cellphoneSegment3FormControl"
-             #CellphoneSegment3
              maxlength="4"
+             #phoneSegment3HtmlInput
             >
-            <mat-hint align="end">{{ CellphoneSegment3.value.length }} / 4</mat-hint>
+            <mat-hint align="end">{{ phoneSegment3HtmlInput.value.length }} / 4</mat-hint>
          </mat-form-field>
       </div>
    </div>
@@ -147,7 +141,6 @@
          matInput
          type="email"
          [formControl]="emailFormControl"
-         #Email
          >
       </mat-form-field>
    </div>
@@ -157,7 +150,8 @@
        mat-raised-button
        color="primary"
        [disabled]="isAddFormInvalid"
-       #addButton
+       #addHtmlButton
+       (click)="addHtmlButton.disabled=true; saveReseller(null)"
       >
          Agregar
       </button>
@@ -167,7 +161,8 @@
        mat-raised-button
        color="primary"
        [disabled]="isUpdateFormInvalid || isAddFormInvalid"
-       #updateButton
+       #updateHtmlButton
+       (click)="updateHtmlButton.disabled=true; saveReseller(reseller.id)"
       >
          Actualizar
       </button>

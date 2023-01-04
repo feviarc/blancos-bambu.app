@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{ reseller.firstName }} {{ reseller.lastName }}</h2>
+<mat-dialog-content class="mat-tipography">
+   <p>La opción seleccionada borrará permanentemente todos los datos del mayorista incluyendo sus pedidos.</p>
+   <p>Si desea continuar escriba el siguiente código de eliminación y presione el botón Aceptar.</p>
+   <br>
+   <p>Código de eliminación:</p>
+   <p><strong>{{ deleteCode }}</strong></p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+   <div class="input-container">
+      <mat-form-field appearance="outline">
+         <mat-label>Código</mat-label>
+         <input
+         matInput
+         type="text"
+         maxlength="5"
+         [placeholder]="deleteCode"
+         #deleteCodeHtmlInput
+         >
+      </mat-form-field>
+   </div>
+   <button mat-button [mat-dialog-close]="true" [disabled]="deleteCodeHtmlInput.value!=deleteCode">Aceptar</button>
+   <button mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+</mat-dialog-actions>

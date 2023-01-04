@@ -1,7 +1,8 @@
-import { state } from '@angular/animations';
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FirebaseCRUDService } from 'src/app/shared/services/firebase-crud.service';
 
 
 @Component({
@@ -27,7 +28,10 @@ export class AddResellerSheetComponent {
 
 
   constructor(
-    @Inject(MAT_BOTTOM_SHEET_DATA) public reseller: any
+    @Inject(MAT_BOTTOM_SHEET_DATA) public reseller: any,
+    private bottomSheetRef: MatBottomSheetRef,
+    private snackbar: MatSnackBar,
+    private firebaseCRUD: FirebaseCRUDService
   ) {
     this.firstNameFormControl = new FormControl('', [Validators.required]);
     this.lastNameFormControl = new FormControl('', [Validators.required]);
@@ -35,7 +39,7 @@ export class AddResellerSheetComponent {
     this.cityFormControl = new FormControl();
     this.suburbFormControl = new FormControl();
     this.streetFormControl = new FormControl();
-    this.extNumberFormControl = new FormControl();
+    this.extNumberFormControl = new FormControl('', [Validators.min(1), Validators.max(9999)]);
     this.intNumberFormControl = new FormControl();
     this.cellphoneSegment1FormControl = new FormControl('', this.cellphoneValidators(3));
     this.cellphoneSegment2FormControl = new FormControl('', this.cellphoneValidators(3));
@@ -118,6 +122,47 @@ export class AddResellerSheetComponent {
     ? true : false;
 
     return validation;
+  }
+
+
+  saveReseller(id: any) {
+    const now = Date.now();
+
+    const mobilePhone =
+     this.cellphoneSegment1FormControl.value +
+     this.cellphoneSegment2FormControl.value +
+     this.cellphoneSegment3FormControl.value;
+
+    const address = {
+      state: this.stateFormControl.value || '',
+      city: this.cityFormControl.value || '',
+      suburb: this.suburbFormControl.value || '',
+      street: this.streetFormControl.value || '',
+      extNumber: this.extNumberFormControl.value || '',
+      intNumber: this.intNumberFormControl.value || ''
+    };
+
+    const reseller = {
+      id,
+      address,
+      mobilePhone,
+      firstName: this.firstNameFormControl.value,
+      lastName: this.lastNameFormControl.value,
+      email: this.emailFormControl.value,
+      registered: (id ? this.reseller.registered : now),
+      lastUpdated: now
+    };
+
+    this.firebaseCRUD.addReseller(reseller).then(
+      () => {
+        this.bottomSheetRef.dismiss();
+        this.snackbar.open(`😀 Se ${id ? 'actualizó' : 'registró'} a ${reseller.firstName} ${reseller.lastName}`, 'CERRAR');
+      }
+    );
+  }
+
+  focusNextHtmlInput(htmlInput: HTMLElement) {
+    htmlInput.focus();
   }
 
 }

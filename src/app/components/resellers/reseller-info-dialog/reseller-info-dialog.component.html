@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Pedidos</h1>
+
+<mat-dialog-content>
+   <mat-tab-group>
+      <mat-tab label="Mayorista">
+         <div id="reseller-info-tab">
+            <h2>{{ reseller.firstName }} {{ reseller.lastName }}</h2>
+            <p>
+               {{ reseller.address.street }} {{ reseller.address.extNumber }} {{ reseller.address.intNumber }}
+            </p>
+            <p>
+               {{ reseller.address.suburb }}
+            </p>
+            <p>
+               {{ reseller.address.city }} {{ reseller.address.state }}
+            </p>
+            <p>Teléfono: {{ reseller.mobilePhone }}</p>
+            <p>Email: {{ reseller.email }}</p>
+         </div>
+      </mat-tab>
+      <mat-tab label="Actuales">
+         2
+      </mat-tab>
+      <mat-tab label="Entregados">
+         3
+      </mat-tab>
+   </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+   <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
