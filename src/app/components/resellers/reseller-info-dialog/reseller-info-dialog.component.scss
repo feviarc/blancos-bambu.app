@@ -7,8 +7,11 @@ th.mat-header-cell {
   font-size: 1rem;
 }
 
-mat-tab-group {
-   height: 65vh;
+div.tab-info {
+  align-items: center;
+  display: flex;
+  height: 65vh;
+  justify-content: center;
 }
 
 div#reseller-info-tab {
@@ -17,4 +20,8 @@ div#reseller-info-tab {
 
 div#reseller-info-tab p {
   margin: 0;
+}
+
+mat-tab-group {
+  height: 65vh;
 }
