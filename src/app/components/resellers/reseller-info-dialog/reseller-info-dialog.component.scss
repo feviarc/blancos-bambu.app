@@ -1,5 +1,17 @@
-mat-tab-group {
-   height: 65vh;
+/* MatTable */
+table.mat-table {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  font-size: 1rem;
+}
+
+div.tab-info {
+  align-items: center;
+  display: flex;
+  height: 65vh;
+  justify-content: center;
 }
 
 div#reseller-info-tab {
@@ -8,4 +20,8 @@ div#reseller-info-tab {
 
 div#reseller-info-tab p {
   margin: 0;
+}
+
+mat-tab-group {
+  height: 65vh;
 }
