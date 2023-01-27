@@ -13,45 +13,40 @@ export class ResellerInfoDialogComponent {
 
   activeOrdersDataSource: any;
   deliveredOrdersDataSource: any;
-  displayedColumns: string[] = ['amount', 'name', 'date'];
+  activeOrdersDisplayedColumns: string[] = ['amount', 'name', 'registerDate'];
+  deliveredOrdersDisplayedColumns: string[] = ['amount', 'name', 'registerDate', 'deliveryDate'];
 
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public reseller: any,
     public crudService: FirebaseCRUDService
   ) {
-    crudService.getDeliveredOrdersByReseller(reseller.id).subscribe(
-      documents => {
-        this.deliveredOrdersDataSource = documents.map(
-          order => this.changeOrderFormat(order, 'DELIVERY_DATE')
-        );
-      }
-    );
+    this.activeOrdersDataSource = [];
+    this.deliveredOrdersDataSource = [];
     crudService.getActiveOrdersByReseller(reseller.id).subscribe(
       documents => {
         this.activeOrdersDataSource = documents.map(
-          order => this.changeOrderFormat(order, 'REGISTER_DATE')
+          order => this.changeOrderFormat(order)
+        );
+      }
+    );
+    crudService.getDeliveredOrdersByReseller(reseller.id).subscribe(
+      documents => {
+        this.deliveredOrdersDataSource = documents.map(
+          order => this.changeOrderFormat(order)
         );
       }
     );
   }
 
 
-  private changeOrderFormat(order: any, statusDate: string) {
-    let formatedOrder =
-      {
+  private changeOrderFormat(order: any) {
+    return ({
         amount: order.amount,
         name: order.product.name,
-        date: null
-      };
-
-    if(statusDate === 'DELIVERY_DATE') {
-      formatedOrder.date = order.status.deliveryDate;
-    } else {
-      formatedOrder.date = order.status.registerDate;
-    }
-
-    return formatedOrder;
+        registerDate: order.status.registerDate,
+        deliveryDate: order.status.deliveryDate || null
+    });
   }
 
 }
