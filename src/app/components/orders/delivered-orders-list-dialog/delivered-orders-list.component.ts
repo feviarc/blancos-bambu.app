@@ -5,6 +5,7 @@ export interface DeliveredOrder {
   amount: number;
   name: string;
   reseller: string;
+  registerDate: string;
   deliveryDate: string;
 }
 
@@ -18,7 +19,7 @@ export interface DeliveredOrder {
 export class DeliveredOrdersListComponent {
 
   dataSource: any;
-  displayedColumns: string[] = ['amount', 'name', 'reseller', 'deliveryDate'];
+  displayedColumns: string[] = ['amount', 'name', 'reseller', 'registerDate', 'deliveryDate'];
 
 
   constructor(private crudService: FirebaseCRUDService) {
@@ -32,12 +33,13 @@ export class DeliveredOrdersListComponent {
   }
 
 
-  private changeDeliveredOrderFormat(order: any) {
+  private changeDeliveredOrderFormat(order: any): DeliveredOrder {
     return (
       {
         amount: order.amount,
         name: order.product.name,
         reseller: order.reseller.displayName,
+        registerDate: order.status.registerDate,
         deliveryDate: order.status.deliveryDate
       }
     )

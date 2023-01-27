@@ -17,6 +17,11 @@
         <td mat-cell *matCellDef="let order"> {{ order.reseller }} </td>
       </ng-container>
 
+      <ng-container matColumnDef="registerDate">
+        <th mat-header-cell *matHeaderCellDef>Registrado</th>
+        <td mat-cell *matCellDef="let order">{{ order.registerDate | date: 'd/M/yyyy' }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="deliveryDate">
         <th mat-header-cell *matHeaderCellDef> Entregado </th>
         <td mat-cell *matCellDef="let order"> {{ order.deliveryDate | date: 'd/M/yyyy'}} </td>
