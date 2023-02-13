@@ -11,7 +11,7 @@
         <button
          mat-stroked-button
          color="primary"
-
+         disabled
         >
             <mat-icon>picture_as_pdf</mat-icon>
             Exportar PDF
@@ -140,6 +140,17 @@
                 >
                     <mat-icon>local_shipping</mat-icon>
                 </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pdfCheckbox">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox class="pdf" color="primary">Todos</mat-checkbox>
+            </th>
+            <td>
+                <mat-cell *matCellDef="let order">
+                    <mat-checkbox class="pdf" color="primary"></mat-checkbox>
+                </mat-cell>
             </td>
         </ng-container>
 

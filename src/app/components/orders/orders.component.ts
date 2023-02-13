@@ -52,7 +52,8 @@ export class OrdersComponent {
       'productBrand',
       'amount',
       'isInStore',
-      'deliveryButton'
+      'deliveryButton',
+      'pdfCheckbox'
     ];
 
     const ordersMapping = (order: any) => {
