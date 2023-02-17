@@ -29,9 +29,10 @@ import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-deli
 export class OrdersComponent {
 
   COMMENTS_MAXLENGTH = 500;
+  allOrdersSelected: boolean;
+  expandedElement: any;
   dataSource: any;
   tableColumns: string[];
-  expandedElement: any;
   isLoadingData: boolean;
   @ViewChild(MatSort) sort: any;
 
@@ -42,6 +43,7 @@ export class OrdersComponent {
     private snackBar: MatSnackBar,
     private crudService: FirebaseCRUDService
   ) {
+    this.allOrdersSelected = false;
     this.isLoadingData = true;
 
     this.tableColumns = [
@@ -53,10 +55,10 @@ export class OrdersComponent {
       'amount',
       'isInStore',
       'deliveryButton',
-      'pdfCheckbox'
+      'selectedCheckbox'
     ];
 
-    const ordersMapping = (order: any) => {
+    const orderMapping = (order: any) => {
       const isInStoreFormControl = new FormControl('', [
         Validators.min(0),
         Validators.max(order.amount)
@@ -68,11 +70,15 @@ export class OrdersComponent {
       ]);
       commentsFormControl.setValue(order.comments);
 
+      const selectedOrderFormControl = new FormControl();
+      selectedOrderFormControl.setValue(false);
+
       const mappedOrder = {
         ...this.createMappedOrderObject(order),
         form: {
           isInStoreFormControl: isInStoreFormControl,
-          commentsFormControl: commentsFormControl
+          commentsFormControl: commentsFormControl,
+          selectedOrderFormControl: selectedOrderFormControl
         }
       };
 
@@ -81,7 +87,7 @@ export class OrdersComponent {
 
     this.crudService.getActiveOrders().subscribe(
       documents => {
-        const mappedOrders = documents.map(ordersMapping);
+        const mappedOrders = documents.map(orderMapping);
         this.dataSource = new MatTableDataSource(mappedOrders);
         this.dataSource.sort = this.sort;
         this.isLoadingData = false;
@@ -152,9 +158,37 @@ export class OrdersComponent {
   }
 
 
+  selectAllOrders(selected: boolean) {
+    this.allOrdersSelected = selected;
+    const allOrders = this.dataSource.filteredData;
+    if(allOrders == null) {
+      return;
+    }
+    allOrders.forEach((order:any) => {
+        order.form.selectedOrderFormControl.setValue(selected);
+    });
+  }
+
+
+  someOrdersSelected() {
+    const allOrders = this.dataSource.filteredData;
+    const someOrders = allOrders.filter((order:any) => order.form.selectedOrderFormControl.value);
+    if(allOrders == null) {
+      return;
+    }
+    return someOrders.length > 0 && !this.allOrdersSelected;
+  }
+
+
   changeTextAreaValue(comments: any, element: any, value: string) {
     comments.value = value;
     element.form.commentsFormControl.value = value;
+  }
+
+
+  updateAllSelectedOrders() {
+    const allOrders = this.dataSource.filteredData;
+    this.allOrdersSelected = allOrders != null && allOrders.every((order:any)=>order.form.selectedOrderFormControl.value);
   }
 
 
