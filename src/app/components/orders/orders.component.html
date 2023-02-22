@@ -11,7 +11,7 @@
         <button
          mat-stroked-button
          color="primary"
-         disabled
+         [disabled]="!(someOrdersSelected() || areAllOrdersSelected)"
         >
             <mat-icon>picture_as_pdf</mat-icon>
             Exportar PDF
@@ -148,7 +148,7 @@
                 <mat-checkbox
                  class="order-selected"
                  color="primary"
-                 [checked]="allOrdersSelected"
+                 [checked]="areAllOrdersSelected"
                  [indeterminate]="someOrdersSelected()"
                  (change)="selectAllOrders($event.checked)"
                 >

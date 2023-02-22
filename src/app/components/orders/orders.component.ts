@@ -29,7 +29,8 @@ import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-deli
 export class OrdersComponent {
 
   COMMENTS_MAXLENGTH = 500;
-  allOrdersSelected: boolean;
+  areAllOrdersSelected: boolean;
+  areThereSomeOrdersSelected: boolean;
   expandedElement: any;
   dataSource: any;
   tableColumns: string[];
@@ -43,7 +44,8 @@ export class OrdersComponent {
     private snackBar: MatSnackBar,
     private crudService: FirebaseCRUDService
   ) {
-    this.allOrdersSelected = false;
+    this.areAllOrdersSelected = false;
+    this.areThereSomeOrdersSelected = false;
     this.isLoadingData = true;
 
     this.tableColumns = [
@@ -159,7 +161,7 @@ export class OrdersComponent {
 
 
   selectAllOrders(selected: boolean) {
-    this.allOrdersSelected = selected;
+    this.areAllOrdersSelected = selected;
     const allOrders = this.dataSource.filteredData;
     if(allOrders == null) {
       return;
@@ -176,7 +178,8 @@ export class OrdersComponent {
     if(allOrders == null) {
       return;
     }
-    return someOrders.length > 0 && !this.allOrdersSelected;
+    this.areThereSomeOrdersSelected = someOrders.length > 0 && !this.areAllOrdersSelected;
+    return this.areThereSomeOrdersSelected;
   }
 
 
@@ -188,7 +191,7 @@ export class OrdersComponent {
 
   updateAllSelectedOrders() {
     const allOrders = this.dataSource.filteredData;
-    this.allOrdersSelected = allOrders != null && allOrders.every((order:any)=>order.form.selectedOrderFormControl.value);
+    this.areAllOrdersSelected = allOrders != null && allOrders.every((order:any)=>order.form.selectedOrderFormControl.value);
   }
 
 
