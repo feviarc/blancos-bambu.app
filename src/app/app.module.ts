@@ -23,6 +23,7 @@ import { DeleteProductDialogComponent } from './components/products/delete-produ
 import { DeleteResellerDialogComponent } from './components/resellers/delete-reseller-dialog/delete-reseller-dialog.component';
 import { DeliveredOrdersListComponent } from './components/orders/delivered-orders-list-dialog/delivered-orders-list.component';
 import { ExitDialogComponent } from './components/logged-in/exit-dialog/exit-dialog.component';
+import { ExportToPdfDialogComponent } from './components/orders/export-to-pdf-dialog/export-to-pdf-dialog.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { ResellerInfoDialogComponent } from './components/resellers/reseller-info-dialog/reseller-info-dialog.component';
@@ -61,6 +62,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       DeleteResellerDialogComponent,
       DeliveredOrdersListComponent,
       ExitDialogComponent,
+      ExportToPdfDialogComponent,
       ForgotPasswordComponent,
       LoggedInComponent,
       ResellerInfoDialogComponent,
@@ -72,7 +74,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       ResellersComponent,
       SignInComponent,
       SignUpComponent,
-      VerifyEmailComponent,
+      VerifyEmailComponent
     ],
     imports: [
       AppRoutingModule,
