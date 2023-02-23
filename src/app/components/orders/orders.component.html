@@ -161,8 +161,8 @@
                      class="order-selected"
                      color="primary"
                      [formControl]="order.form.selectedOrderFormControl"
-                     [(ngModel)]="order.form.selectedOrderFormControl.value"
-                     (ngModelChange)="updateAllSelectedOrders()"
+                     [checked]="order.form.selectedOrderFormControl.value"
+                     (change)="updateAllSelectedOrders()"
                     ></mat-checkbox>
                 </mat-cell>
             </td>

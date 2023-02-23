@@ -173,12 +173,15 @@ export class OrdersComponent {
 
 
   someOrdersSelected() {
-    const allOrders = this.dataSource.filteredData;
-    const someOrders = allOrders.filter((order:any) => order.form.selectedOrderFormControl.value);
-    if(allOrders == null) {
-      return;
+    if(this.dataSource === undefined) {
+      return false;
+    } else {
+      const allOrders = this.dataSource.filteredData;
+      const someOrders = allOrders.filter(
+        (order:any) => order.form.selectedOrderFormControl.value
+      );
+      this.areThereSomeOrdersSelected = someOrders.length > 0 && !this.areAllOrdersSelected;
     }
-    this.areThereSomeOrdersSelected = someOrders.length > 0 && !this.areAllOrdersSelected;
     return this.areThereSomeOrdersSelected;
   }
 
