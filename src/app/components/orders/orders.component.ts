@@ -10,6 +10,7 @@ import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service
 import { AddOrderSheetComponent } from './add-order-sheet/add-order-sheet.component';
 import { CancelOrderDialogComponent } from './cancel-order-dialog/cancel-order-dialog.component';
 import { DeliveredOrdersListComponent } from './delivered-orders-list-dialog/delivered-orders-list.component';
+import { ExportToPdfDialogComponent } from './export-to-pdf-dialog/export-to-pdf-dialog.component';
 import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
 
 
@@ -29,9 +30,11 @@ import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-deli
 export class OrdersComponent {
 
   COMMENTS_MAXLENGTH = 500;
+  areAllOrdersSelected: boolean;
+  areThereSomeOrdersSelected: boolean;
+  expandedElement: any;
   dataSource: any;
   tableColumns: string[];
-  expandedElement: any;
   isLoadingData: boolean;
   @ViewChild(MatSort) sort: any;
 
@@ -42,6 +45,8 @@ export class OrdersComponent {
     private snackBar: MatSnackBar,
     private crudService: FirebaseCRUDService
   ) {
+    this.areAllOrdersSelected = false;
+    this.areThereSomeOrdersSelected = false;
     this.isLoadingData = true;
 
     this.tableColumns = [
@@ -52,10 +57,11 @@ export class OrdersComponent {
       'productBrand',
       'amount',
       'isInStore',
-      'deliveryButton'
+      'deliveryButton',
+      'selectedCheckbox'
     ];
 
-    const ordersMapping = (order: any) => {
+    const orderMapping = (order: any) => {
       const isInStoreFormControl = new FormControl('', [
         Validators.min(0),
         Validators.max(order.amount)
@@ -67,11 +73,15 @@ export class OrdersComponent {
       ]);
       commentsFormControl.setValue(order.comments);
 
+      const selectedOrderFormControl = new FormControl();
+      selectedOrderFormControl.setValue(false);
+
       const mappedOrder = {
         ...this.createMappedOrderObject(order),
         form: {
           isInStoreFormControl: isInStoreFormControl,
-          commentsFormControl: commentsFormControl
+          commentsFormControl: commentsFormControl,
+          selectedOrderFormControl: selectedOrderFormControl
         }
       };
 
@@ -80,7 +90,7 @@ export class OrdersComponent {
 
     this.crudService.getActiveOrders().subscribe(
       documents => {
-        const mappedOrders = documents.map(ordersMapping);
+        const mappedOrders = documents.map(orderMapping);
         this.dataSource = new MatTableDataSource(mappedOrders);
         this.dataSource.sort = this.sort;
         this.isLoadingData = false;
@@ -129,6 +139,16 @@ export class OrdersComponent {
   }
 
 
+  openExportToPdfDialog() {
+    const dialogRef = this.dialog.open(ExportToPdfDialogComponent, {disableClose: true, width: '800px'});
+    dialogRef.afterClosed().subscribe(
+      () => {
+        console.log('The dialog was closed')
+      }
+    );
+  }
+
+
   openOrderDeliveryDialog(mappedOrder: any) {
     const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: mappedOrder});
     dialogRef.afterClosed().subscribe(
@@ -151,9 +171,41 @@ export class OrdersComponent {
   }
 
 
+  selectAllOrders(selected: boolean) {
+    this.areAllOrdersSelected = selected;
+    const allOrders = this.dataSource.filteredData;
+    if(allOrders == null) {
+      return;
+    }
+    allOrders.forEach((order:any) => {
+        order.form.selectedOrderFormControl.setValue(selected);
+    });
+  }
+
+
+  someOrdersSelected() {
+    if(this.dataSource === undefined) {
+      return false;
+    } else {
+      const allOrders = this.dataSource.filteredData;
+      const someOrders = allOrders.filter(
+        (order:any) => order.form.selectedOrderFormControl.value
+      );
+      this.areThereSomeOrdersSelected = someOrders.length > 0 && !this.areAllOrdersSelected;
+    }
+    return this.areThereSomeOrdersSelected;
+  }
+
+
   changeTextAreaValue(comments: any, element: any, value: string) {
     comments.value = value;
     element.form.commentsFormControl.value = value;
+  }
+
+
+  updateAllSelectedOrders() {
+    const allOrders = this.dataSource.filteredData;
+    this.areAllOrdersSelected = allOrders != null && allOrders.every((order:any)=>order.form.selectedOrderFormControl.value);
   }
 
 

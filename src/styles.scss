@@ -41,6 +41,15 @@ button.mat-fab.mat-primary {
     right: 1em;
   }
 
+/* Checkbox */
+mat-checkbox.order-selected {
+margin: 20px 0;
+}
+
+mat-checkbox.order-selected label.mat-checkbox-layout {
+margin-bottom: 0 !important;
+}
+
 /* Icons */
 mat-icon.pointer-cursor {
     cursor: pointer;
