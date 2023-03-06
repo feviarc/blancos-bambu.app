@@ -10,6 +10,7 @@ import { FirebaseCRUDService } from '../../shared/services/firebase-crud.service
 import { AddOrderSheetComponent } from './add-order-sheet/add-order-sheet.component';
 import { CancelOrderDialogComponent } from './cancel-order-dialog/cancel-order-dialog.component';
 import { DeliveredOrdersListComponent } from './delivered-orders-list-dialog/delivered-orders-list.component';
+import { ExportToPdfDialogComponent } from './export-to-pdf-dialog/export-to-pdf-dialog.component';
 import { OrderDeliveryDialogComponent } from './delivery-order-dialog/order-delivery-dialog.component';
 
 
@@ -133,6 +134,16 @@ export class OrdersComponent {
     dialogRef.afterClosed().subscribe(
       () => {
         console.log('The dialog was closed');
+      }
+    );
+  }
+
+
+  openExportToPdfDialog() {
+    const dialogRef = this.dialog.open(ExportToPdfDialogComponent, {disableClose: true, width: '800px'});
+    dialogRef.afterClosed().subscribe(
+      () => {
+        console.log('The dialog was closed')
       }
     );
   }
