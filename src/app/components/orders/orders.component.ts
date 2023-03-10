@@ -111,7 +111,8 @@ export class OrdersComponent {
 
 
   openCancelOrderDialog(mappedOrder: any) {
-    const dialogRef = this.dialog.open(CancelOrderDialogComponent, {data: mappedOrder});
+    const dialogConfig = {data: mappedOrder};
+    const dialogRef = this.dialog.open(CancelOrderDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       result => {
         if (result) {
@@ -130,7 +131,8 @@ export class OrdersComponent {
 
 
   openDeliveredOrdersDialog() {
-    const dialogRef = this.dialog.open(DeliveredOrdersListComponent, {disableClose: true, width:'800px'});
+    const dialogConfig = {disableClose: true, width:'800px'};
+    const dialogRef = this.dialog.open(DeliveredOrdersListComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       () => {
         console.log('The dialog was closed');
@@ -139,8 +141,9 @@ export class OrdersComponent {
   }
 
 
-  openExportToPdfDialog() {
-    const dialogRef = this.dialog.open(ExportToPdfDialogComponent, {disableClose: true, width: '800px'});
+  openExportToPdfDialog(dataSource: any) {
+    const dialogConfig = {disableClose: true, width: '800px', data: dataSource};
+    const dialogRef = this.dialog.open(ExportToPdfDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       () => {
         console.log('The dialog was closed')
@@ -150,7 +153,8 @@ export class OrdersComponent {
 
 
   openOrderDeliveryDialog(mappedOrder: any) {
-    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, {data: mappedOrder});
+    const dialogConfig = {data: mappedOrder};
+    const dialogRef = this.dialog.open(OrderDeliveryDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       result => {
         if (result) {

@@ -1,1 +1,13 @@
-<p>export-to-pdf-dialog works!</p>
+<h2 mat-dialog-title>Exportar a PDF</h2>
+<mat-dialog-content>
+
+   <ul>
+      <li *ngFor="let order of selectedOrders">
+         <span>{{ order.amount }}, {{ order.productName }}, {{ order.productBrandCode }}</span>
+      </li>
+   </ul>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+   <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
