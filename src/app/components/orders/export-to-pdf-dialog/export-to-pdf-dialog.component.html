@@ -1,11 +1,13 @@
 <h2 mat-dialog-title>Exportar a PDF</h2>
 <mat-dialog-content>
 
-   <ul>
-      <li *ngFor="let order of selectedOrders">
-         <span>{{ order.amount }}, {{ order.productName }}, {{ order.productBrandCode }}</span>
-      </li>
-   </ul>
+   <div id="pdf-content">
+      <ul>
+         <li *ngFor="let order of selectedOrders">
+            <span>{{ order.amount }}, {{ order.productName }}, {{ order.productBrandCode }}</span>
+         </li>
+      </ul>
+   </div>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">

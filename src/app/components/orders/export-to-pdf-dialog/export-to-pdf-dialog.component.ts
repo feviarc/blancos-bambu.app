@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-export-to-pdf-dialog',
@@ -24,6 +27,13 @@ export class ExportToPdfDialogComponent {
       })
     );
     console.table(this.selectedOrders)
+    this.exportOrdersToPdf();
   }
 
+
+  exportOrdersToPdf() {
+    const pdfDocument = new jsPDF();
+    pdfDocument.text(this.selectedOrders[0].productName, 10, 10);
+    pdfDocument.save('hello_world.pdf');
+  }
 }
