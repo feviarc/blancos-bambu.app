@@ -16,9 +16,11 @@ export class ExportToPdfDialogComponent {
   @ViewChild('PdfHtmlDiv') pdfHtmlDiv!: ElementRef<HTMLElement>;
   isGeneratingPdf: boolean;
   selectedOrders: any;
+  orders: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any) {
     this.isGeneratingPdf = false;
+    this.orders = [];
     this.selectedOrders = data
     .filter(
       (order:any) => order.form.selectedOrderFormControl.value == true && (order.amount - order.isInStore != 0)
@@ -30,6 +32,9 @@ export class ExportToPdfDialogComponent {
         productBrandCode: order.productBrandCode
       })
     );
+
+    this.orders = this.summarizeOrders(this.selectedOrders)
+
     console.table(this.selectedOrders)
   }
 
@@ -48,7 +53,7 @@ export class ExportToPdfDialogComponent {
             // Add image canvas to PDF
             const bufferX = 100;
             const bufferY = 100;
-            const imgProps = (pdfDocument).getImageProperties(img);
+            const imgProps = pdfDocument.getImageProperties(img);
             const pdfWidth = pdfDocument.internal.pageSize.getWidth() - 2 * bufferX;
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
             pdfDocument.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'MEDIUM');
@@ -74,6 +79,26 @@ export class ExportToPdfDialogComponent {
   async createImageFromCanvas(htmlElement: HTMLElement, pdfConfig:any) {
     const canvas = await html2canvas(htmlElement, pdfConfig);
     return canvas;
+  }
+
+
+  summarizeOrders(selectedOrders: any) {
+    const orders: any = [];
+    selectedOrders.forEach(
+      (selectedOrder:any) => {
+        let orderFound = false;
+        orders.forEach((order:any) => {
+          if(selectedOrder['productBrandCode'] === order['productBrandCode']) {
+            order['amount'] += selectedOrder['amount'];
+            orderFound = true;
+          }
+        });
+        if(!orderFound) {
+          orders.push(selectedOrder);
+        }
+      }
+    );
+    return orders;
   }
 
 }
