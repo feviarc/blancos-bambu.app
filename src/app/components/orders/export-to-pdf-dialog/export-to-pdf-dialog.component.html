@@ -1,1 +1,15 @@
-<p>export-to-pdf-dialog works!</p>
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isGeneratingPdf"></mat-progress-bar>
+<h2 mat-dialog-title>Exportar a PDF</h2>
+<mat-dialog-content>
+   <div #PdfHtmlDiv>
+      <ul>
+         <li *ngFor="let order of orders">
+            <span>{{ order.amount }}, {{ order.productName }}, {{ order.productBrandCode }}</span>
+         </li>
+      </ul>
+   </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+   <button mat-button mat-dialog-close #CloseHtmlButton>Cerrar</button>
+   <button mat-button (click)="saveOrdersToPdf()">Generar PDF</button>
+</mat-dialog-actions>
