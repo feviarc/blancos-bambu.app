@@ -1,7 +1,8 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import jsPDF from 'jspdf';
+import { base64Logo } from '../../../../../src/environments/environment.app'
 import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 
 @Component({
@@ -33,9 +34,7 @@ export class ExportToPdfDialogComponent {
       })
     );
 
-    this.orders = this.summarizeOrders(this.selectedOrders)
-
-    console.table(this.selectedOrders)
+    this.orders = this.summarizeOrders(this.selectedOrders);
   }
 
 
@@ -51,12 +50,13 @@ export class ExportToPdfDialogComponent {
           canvas => {
             const img = canvas.toDataURL('image/PNG');
             // Add image canvas to PDF
-            const bufferX = 100;
-            const bufferY = 100;
+            const bufferX = 20;
+            const bufferY = 20;
             const imgProps = pdfDocument.getImageProperties(img);
             const pdfWidth = pdfDocument.internal.pageSize.getWidth() - 2 * bufferX;
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdfDocument.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'MEDIUM');
+            pdfDocument.addImage(base64Logo, 'PNG', bufferX, bufferY, 128, 83, undefined, 'MEDIUM');
+            pdfDocument.addImage(img, 'PNG', bufferX, bufferY+103, pdfWidth, pdfHeight, undefined, 'MEDIUM');
             return pdfDocument;
           }
         )
