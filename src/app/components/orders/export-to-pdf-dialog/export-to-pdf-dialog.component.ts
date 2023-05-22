@@ -1,7 +1,6 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { base64Logo } from '../../../../../src/environments/environment.app'
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 
@@ -14,14 +13,13 @@ import jsPDF from 'jspdf';
 
 export class ExportToPdfDialogComponent {
 
-  @ViewChild('PdfHtmlDiv') pdfHtmlDiv!: ElementRef<HTMLElement>;
+  dataSource: any[];
+  displayedColumns: string[] = ['amount', 'productName', 'productBrandCode'];
   isGeneratingPdf: boolean;
   selectedOrders: any;
-  orders: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any) {
     this.isGeneratingPdf = false;
-    this.orders = [];
     this.selectedOrders = data
     .filter(
       (order:any) => order.form.selectedOrderFormControl.value == true && (order.amount - order.isInStore != 0)
@@ -33,52 +31,60 @@ export class ExportToPdfDialogComponent {
         productBrandCode: order.productBrandCode
       })
     );
-
-    this.orders = this.summarizeOrders(this.selectedOrders);
+    this.dataSource = this.summarizeOrders(this.selectedOrders);
   }
 
 
   saveOrdersToPdf() {
-    const pdfConfig = {backgroundColor: 'white'};
-    const pdfDocument = new jsPDF('p', 'pt', 'letter' );
     this.isGeneratingPdf = true;
+    const now = new Date();
+    const pdfDocument = new jsPDF('p', 'pt', 'letter' );
+
+    const FONT_SIZE = 10;
+    const LOGO_WIDTH = 512 / 4;
+    const LOGO_HEIGHT = 304 / 4;
+    const PAGE_HEIGHT = 792;
+    const PAGE_WIDTH = 612;
+    const PAGE_MARGIN_LEFT = 21;
+    const PAGE_MARGIN_RIGHT = PAGE_WIDTH - PAGE_MARGIN_LEFT;
+    const PAGE_MARGIN_TOP = PAGE_MARGIN_LEFT;
+    const PAGE_MARGIN_BOTTOM = PAGE_HEIGHT - PAGE_MARGIN_LEFT;
+    const PAGE_HEADER = 121;
+    const PAGE_FOOTER = PAGE_HEIGHT - (PAGE_HEADER / 3);
+    const PAGE_BODY = PAGE_HEADER + 30;
+    const ROW_HEIGHT = 20;
+    const LAST_ROW = 30;
+    const RESET = 0;
 
     setTimeout(
       () => {
-        this.createImageFromCanvas(this.pdfHtmlDiv.nativeElement, pdfConfig)
-        .then(
-          canvas => {
-            const img = canvas.toDataURL('image/PNG');
-            // Add image canvas to PDF
-            const bufferX = 20;
-            const bufferY = 20;
-            const imgProps = pdfDocument.getImageProperties(img);
-            const pdfWidth = pdfDocument.internal.pageSize.getWidth() - 2 * bufferX;
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            pdfDocument.addImage(base64Logo, 'PNG', bufferX, bufferY, 128, 83, undefined, 'MEDIUM');
-            pdfDocument.addImage(img, 'PNG', bufferX, bufferY+103, pdfWidth, pdfHeight, undefined, 'MEDIUM');
-            return pdfDocument;
+        let rowCounter = 0;
+        let pageNumber = 1;
+
+        pdfDocument.setFontSize(FONT_SIZE);
+        addLogoToPage(pageNumber);
+        for(let item of this.dataSource) {
+          pdfDocument.text(`${item.amount},  ${item.productName} (${item.productBrandCode})`, PAGE_MARGIN_LEFT, PAGE_BODY + ROW_HEIGHT * rowCounter);
+          rowCounter++;
+          if(rowCounter == LAST_ROW) {
+            rowCounter = RESET;
+            pageNumber++;
+            pdfDocument.addPage();
+            addLogoToPage(pageNumber);
           }
-        )
-        .then(
-          pdfDocument => {
-            const now = new Date();
-            pdfDocument.save(`BlancosBAMBU--${now.toLocaleDateString()}--${now.toLocaleTimeString()}.pdf`);
-          }
-        )
-        .finally(
-          () => {
-            this.isGeneratingPdf = false;
-          }
-        );
+        }
+        pdfDocument.save(`BlancosBAMBU--${now.toLocaleDateString('es-mx')}--${now.toLocaleTimeString()}.pdf`);
+        this.isGeneratingPdf = false;
       }
     , 0);
-  }
 
-
-  async createImageFromCanvas(htmlElement: HTMLElement, pdfConfig:any) {
-    const canvas = await html2canvas(htmlElement, pdfConfig);
-    return canvas;
+    function addLogoToPage(pageNumber: number) {
+      pdfDocument.addImage(base64Logo, 'PNG', PAGE_MARGIN_LEFT, PAGE_MARGIN_TOP, LOGO_WIDTH, LOGO_HEIGHT, undefined, 'MEDIUM');
+      pdfDocument.line(PAGE_MARGIN_LEFT, PAGE_HEADER, PAGE_MARGIN_RIGHT, PAGE_HEADER);
+      pdfDocument.line(PAGE_MARGIN_LEFT, PAGE_FOOTER, PAGE_MARGIN_RIGHT, PAGE_FOOTER);
+      pdfDocument.text(now.toLocaleDateString('es-mx'), PAGE_MARGIN_LEFT, PAGE_FOOTER + ROW_HEIGHT);
+      pdfDocument.text(pageNumber.toString(), PAGE_MARGIN_RIGHT - 5, PAGE_FOOTER + ROW_HEIGHT);
+    }
   }
 
 
