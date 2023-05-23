@@ -16,10 +16,12 @@ export class ExportToPdfDialogComponent {
   dataSource: any[];
   displayedColumns: string[] = ['amount', 'productName', 'productBrandCode'];
   isGeneratingPdf: boolean;
+  isHiddenSaveButton: boolean;
   selectedOrders: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any) {
     this.isGeneratingPdf = false;
+    this.isHiddenSaveButton = false;
     this.selectedOrders = data
     .filter(
       (order:any) => order.form.selectedOrderFormControl.value == true && (order.amount - order.isInStore != 0)
@@ -37,6 +39,7 @@ export class ExportToPdfDialogComponent {
 
   saveOrdersToPdf() {
     this.isGeneratingPdf = true;
+    this.isHiddenSaveButton = true;
     const now = new Date();
     const pdfDocument = new jsPDF('p', 'pt', 'letter' );
 

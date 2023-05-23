@@ -25,6 +25,6 @@
    </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+   <button mat-button [hidden]="isHiddenSaveButton" (click)="saveOrdersToPdf()">Generar PDF</button>
    <button mat-button mat-dialog-close #CloseHtmlButton>Cerrar</button>
-   <button mat-button (click)="saveOrdersToPdf()">Generar PDF</button>
 </mat-dialog-actions>
