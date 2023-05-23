@@ -40,7 +40,7 @@
          *ngIf="Filter.value"
          matSuffix
          mat-icon-button
-         (click)="Filter.value = ''; dataSource.filter = Filter.value;"
+         (click)="selectAllOrders(false);Filter.value = ''; dataSource.filter = Filter.value;"
         >
             <mat-icon>close</mat-icon>
         </button>

@@ -146,7 +146,7 @@ export class OrdersComponent {
     const dialogRef = this.dialog.open(ExportToPdfDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       () => {
-        console.log('The dialog was closed')
+        this.selectAllOrders(false);
       }
     );
   }
