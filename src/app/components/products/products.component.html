@@ -4,8 +4,14 @@
     <mat-toolbar class="secondary-toolbar">
 
         <button mat-button disabled>
-            <mat-icon>bed</mat-icon>
-            <strong>Productos</strong>
+            <mat-icon
+             matBadge="{{dataSource.filteredData.length}}"
+             matBadgeColor="warn"
+             *ngIf="dataSource"
+            >
+                bed
+            </mat-icon>
+            <strong> Productos</strong>
         </button>
 
         <span class="spacer"></span>

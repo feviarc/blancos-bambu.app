@@ -4,8 +4,14 @@
 
     <mat-toolbar class="secondary-toolbar">
         <button mat-button disabled>
-            <mat-icon>shopping_cart</mat-icon>
-            <strong>Administrar Pedidos</strong>
+            <mat-icon
+             matBadge="{{dataSource.filteredData.length}}"
+             matBadgeColor="warn"
+             *ngIf="dataSource"
+            >
+                shopping_cart
+            </mat-icon>
+            <strong> Administrar Pedidos</strong>
         </button>
         <span class="spacer"></span>
         <button

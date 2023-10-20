@@ -56,6 +56,17 @@ export class ExportToPdfDialogComponent {
     const PAGE_FOOTER = PAGE_HEIGHT - (PAGE_HEADER / 3);
     const PAGE_BODY = PAGE_HEADER + 30;
     const ROW_HEIGHT = 20;
+    const COLUMN_WIDTH =  60;
+    const COLUMN_0 = PAGE_MARGIN_LEFT;
+    const COLUMN_1 = PAGE_MARGIN_LEFT + COLUMN_WIDTH;
+    const COLUMN_2 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 2;
+    const COLUMN_3 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 3;
+    const COLUMN_4 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 4;
+    const COLUMN_5 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 5;
+    const COLUMN_6 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 6;
+    const COLUMN_7 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 7;
+    const COLUMN_8 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 8;
+    const COLUMN_9 = PAGE_MARGIN_LEFT + COLUMN_WIDTH * 9;
     const LAST_ROW = 30;
     const RESET = 0;
 
@@ -66,8 +77,16 @@ export class ExportToPdfDialogComponent {
 
         pdfDocument.setFontSize(FONT_SIZE);
         addLogoToPage(pageNumber);
+        pdfDocument.setFont('helvetica', 'bold');
+        pdfDocument.text('CANTIDAD', COLUMN_0, PAGE_BODY);
+        pdfDocument.text('CÓDIGO', COLUMN_2, PAGE_BODY);
+        pdfDocument.text('ARTÍCULO', COLUMN_4, PAGE_BODY);
+        pdfDocument.setFont('helvetica', 'normal');
+        rowCounter++;
         for(let item of this.dataSource) {
-          pdfDocument.text(`${item.amount},  ${item.productName} (${item.productBrandCode})`, PAGE_MARGIN_LEFT, PAGE_BODY + ROW_HEIGHT * rowCounter);
+          pdfDocument.text(`${item.amount}`, COLUMN_0, PAGE_BODY + ROW_HEIGHT * rowCounter);
+          pdfDocument.text(item.productBrandCode, COLUMN_2, PAGE_BODY + ROW_HEIGHT * rowCounter);
+          pdfDocument.text(item.productName, COLUMN_4, PAGE_BODY + ROW_HEIGHT * rowCounter);
           rowCounter++;
           if(rowCounter == LAST_ROW) {
             rowCounter = RESET;

@@ -3,8 +3,14 @@
 
    <mat-toolbar class="secondary-toolbar">
       <button mat-button disabled>
-         <mat-icon>people</mat-icon>
-         <strong>Mayoristas</strong>
+         <mat-icon
+          matBadge="{{dataSource.filteredData.length}}"
+          matBadgeColor="warn"
+          *ngIf="dataSource"
+         >
+            people
+         </mat-icon>
+         <strong> Mayoristas</strong>
       </button>
    </mat-toolbar>
 
