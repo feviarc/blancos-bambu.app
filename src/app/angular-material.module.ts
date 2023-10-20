@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatBadgeModule } from '@angular/material/badge'
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -27,6 +28,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 @NgModule({
     exports: [
         BrowserAnimationsModule,
+        MatBadgeModule,
         MatBottomSheetModule,
         MatButtonModule,
         MatCardModule,
